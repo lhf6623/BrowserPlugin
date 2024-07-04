@@ -3,60 +3,15 @@ import {
 	CompressionMode,
 	ConfigType,
 	useConfig,
+	useImageList,
 } from "./ImageProcessingContext";
-
-interface RadioGroupProps {
-	label: string;
-	name: string;
-	value: string;
-	onChange: (opt: RadioGroupProps["options"][0]) => void;
-	onClick?: (opt: RadioGroupProps["options"][0]) => void;
-	options: { label: any; value: any }[];
-}
-function RadioGroup({
-	label,
-	name,
-	value,
-	onChange,
-	onClick,
-	options,
-}: RadioGroupProps) {
-	return (
-		<div className='flex'>
-			<p className='flex-shrink-0'>{label}</p>
-			<div className='flex flex-wrap gap-4'>
-				{options.map((item) => {
-					return (
-						<div
-							key={item.value}
-							className='cursor-pointer w-fit flex-shrink-0'
-							onClick={() => onClick?.(item)}
-						>
-							<input
-								className='mr-2px cursor-pointer'
-								type='radio'
-								name={name}
-								id={item.value}
-								value={item.value}
-								checked={value === item.value}
-								onChange={() => onChange(item)}
-							/>
-							<label htmlFor={item.value} className='cursor-pointer'>
-								{item.label}
-							</label>
-						</div>
-					);
-				})}
-			</div>
-		</div>
-	);
-}
+import SelectImage from "@opt/components/SelectImage";
+import RadioGroup from "@opt/components/RadioGroup";
 
 interface ConfigPanelProps {
 	show: boolean;
-	onChangeShow: (show: boolean) => void;
 }
-function CustomConfigPanel({ show, onChangeShow }: ConfigPanelProps) {
+function CustomConfigPanel({ show }: ConfigPanelProps) {
 	const { configDispatch } = useConfig();
 	const [custom, setCustom] = useState<{
 		type: ConfigType["type"];
@@ -81,11 +36,6 @@ function CustomConfigPanel({ show, onChangeShow }: ConfigPanelProps) {
 			label: "WEBP",
 		},
 	];
-
-	function handleChangeShow() {
-		onChangeShow(false);
-	}
-
 	useEffect(() => {
 		if (show) {
 			configDispatch({
@@ -136,13 +86,6 @@ function CustomConfigPanel({ show, onChangeShow }: ConfigPanelProps) {
 						onChange={handleChangeFormat}
 						name='format'
 					/>
-
-					<button
-						onClick={handleChangeShow}
-						className='absolute right-2px top-2px bg-white text-12px'
-					>
-						收起
-					</button>
 				</div>
 			)}
 		</>
@@ -153,6 +96,14 @@ export default function ConfigSelect() {
 	const [type, setType] = useState("reduce");
 	const [showConfig, setShowConfig] = useState(false);
 	const { configDispatch } = useConfig();
+	const { imageListDispatch } = useImageList();
+
+	function handleFileChange(fileList: { file: File; id: string }[]) {
+		imageListDispatch({
+			type: "add",
+			payload: fileList,
+		});
+	}
 
 	function handleSelectType(opt: {
 		value: keyof typeof CompressionMode;
@@ -167,6 +118,8 @@ export default function ConfigSelect() {
 				type: "update",
 				payload,
 			});
+
+			setShowConfig(false);
 		}
 	}
 	const typeOptions = [
@@ -184,27 +137,24 @@ export default function ConfigSelect() {
 		},
 	];
 
-	function handleChangeShowConfig(show: boolean) {
-		setShowConfig(show);
-	}
 	return (
-		<div>
-			<div className='flex-center border py-2 cursor-pointer'>
-				<RadioGroup
-					label='压缩模式：'
-					options={typeOptions}
-					value={type}
-					onChange={handleSelectType}
-					onClick={(opt) => {
-						setShowConfig(opt.value === "custom");
-					}}
-					name='type'
-				/>
+		<>
+			<div>
+				<div className='flex-center border py-2 cursor-pointer'>
+					<RadioGroup
+						label='压缩模式：'
+						options={typeOptions}
+						value={type}
+						onChange={handleSelectType}
+						name='type'
+					/>
+				</div>
+				<CustomConfigPanel show={showConfig} />
 			</div>
-			<CustomConfigPanel
-				show={showConfig}
-				onChangeShow={handleChangeShowConfig}
+			<SelectImage
+				onChange={handleFileChange}
+				multiple={true}
 			/>
-		</div>
+		</>
 	);
 }

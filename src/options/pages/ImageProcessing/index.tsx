@@ -1,19 +1,34 @@
-import { ImageProcessingProvider } from "./ImageProcessingContext";
-import ConfigSelect from "./ConfigSelect";
-import SelectImage from "./SelectImage";
-import ImageList from "./ImageList";
+import { NavLink, Outlet } from "react-router-dom";
+import useCurrRouters from "@/hooks/useCurrRouters";
 
-// 图片压缩 修改尺寸 添加水印 base64 图片剪裁 图片旋转 修改分辨率
 export default function ImageProcessing() {
+	const routers = useCurrRouters();
+	// @unocss-include
 	return (
-		<ImageProcessingProvider>
-			<div className='py-50px px-16px relative max-w-672px wfull hfull overflow-auto select-none'>
-				<div className='p-14px pt-0 relative'>
-					<ConfigSelect />
-					<SelectImage />
-					<ImageList />
-				</div>
+		<div className='w-full h-full flex flex-col overflow-auto max-sm:pt-40px'>
+			<div className='border-b px-16px h-fit flex-shrink-0'>
+				<ul className='py-16px'>
+					{routers.map((item) => {
+						return (
+							<li
+								key={item.path}
+								className='inline-block mr2'
+							>
+								<NavLink
+									to={item.path}
+									className={({ isActive }) => (isActive ? "text-#18a058" : "")}
+									end
+								>
+									{item.name}
+								</NavLink>
+							</li>
+						);
+					})}
+				</ul>
 			</div>
-		</ImageProcessingProvider>
+			<div className='wfull flex-1 px-16px flex justify-center overflow-auto'>
+				<Outlet />
+			</div>
+		</div>
 	);
 }

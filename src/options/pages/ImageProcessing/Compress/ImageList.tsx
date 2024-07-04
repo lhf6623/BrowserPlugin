@@ -13,7 +13,12 @@ export default function ImageList() {
 	return (
 		<ul>
 			{imageList.map((item) => {
-				return <Task file={item.file} key={item.id} />;
+				return (
+					<Task
+						file={item.file}
+						key={item.id}
+					/>
+				);
 			})}
 		</ul>
 	);
@@ -44,6 +49,7 @@ function Task({ file }: { file: File }) {
 		}
 		setLoad(0);
 		setShowImg(false);
+		setImgData(null);
 		compressImage(file, _type, config.quality, (n) => {
 			setLoad(n);
 		}).then((res) => {

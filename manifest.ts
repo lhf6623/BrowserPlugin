@@ -4,11 +4,11 @@ import packageJson from "./package.json";
 export default defineManifest(async (_env) => {
 	return {
 		manifest_version: 3,
-		name: "一个小工具",
-		description: "小工具",
+		name: "工具箱 - 基于浏览器API制作",
+		description: "一个小工具箱，多功能集成，后续遇到新功能会继续集成",
 		version: packageJson.version,
 		action: {
-			default_title: "Default Title",
+			default_title: "工具箱",
 			default_popup: "popup.html",
 			default_icon: {
 				"32": "emo.png",

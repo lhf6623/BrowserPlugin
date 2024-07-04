@@ -39,7 +39,7 @@ export interface CompressImageType {
 	newValue: ImageFileInfo;
 }
 
-function getImgInfo(file: File | Blob): Promise<ImageFileInfo> {
+export function getImgInfo(file: File | Blob): Promise<ImageFileInfo> {
 	return new Promise((resolve) => {
 		const reader = new FileReader();
 
@@ -103,7 +103,6 @@ export const compressImage = (
 };
 
 export function downloadImage(imageUrl: string, fileName: string) {
-	console.log(`🚀 ~ fileName:`, fileName);
 	// 创建隐藏的可下载链接
 	var element = document.createElement("a");
 	element.setAttribute("href", imageUrl);
@@ -115,4 +114,21 @@ export function downloadImage(imageUrl: string, fileName: string) {
 
 	// 然后移除
 	document.body.removeChild(element);
+}
+/**
+ * 获取在指定范围内的值
+ * @param n 要校验的值
+ * @param start 最小值
+ * @param end	最大值
+ * @returns
+ */
+export function getInRange(n: number, start = 0, end?: number) {
+	if (end === undefined) {
+		end = start;
+		start = 0;
+	}
+
+	if (n < start) return start;
+	if (n > end) return end;
+	return n;
 }

@@ -1,26 +1,29 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useImageList } from "./ImageProcessingContext";
 import { v4 as uuidv4 } from "uuid";
 
-/** 选择图片 */
-export default function SelectImage() {
+interface SelectImageProps {
+	multiple?: boolean;
+	onChange: (file: { file: File; id: string }[]) => void;
+}
+
+export default function SelectImage({
+	onChange,
+	multiple = false,
+}: SelectImageProps) {
 	const [isDrag, setIsDrag] = useState(false);
 	const fileRef = useRef<HTMLInputElement | null>(null);
 	const dragRef = useRef<HTMLDivElement | null>(null);
-	const { imageListDispatch } = useImageList();
 
 	async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
 		const files = e.target.files;
 		if (files) {
-			imageListDispatch({
-				type: "add",
-				payload: Array.from(files).map((item) => {
-					return {
-						file: item,
-						id: uuidv4(),
-					};
-				}),
+			const fileList = Array.from(files).map((item) => {
+				return {
+					file: item,
+					id: uuidv4(),
+				};
 			});
+			onChange(fileList);
 		}
 	}
 
@@ -46,15 +49,13 @@ export default function SelectImage() {
 			setIsDrag(false);
 			const files = e.dataTransfer?.files;
 			if (files) {
-				imageListDispatch({
-					type: "add",
-					payload: Array.from(files).map((item) => {
-						return {
-							file: item,
-							id: uuidv4(),
-						};
-					}),
+				const fileList = Array.from(files).map((item) => {
+					return {
+						file: item,
+						id: uuidv4(),
+					};
 				});
+				onChange(fileList);
 			}
 		}
 	}
@@ -91,7 +92,7 @@ export default function SelectImage() {
 				ref={dragRef}
 				className={`w-full my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border border-2px ${style}`}
 			>
-				<i className='i-lucide:image-plus w-64px h-64px text-#777'></i>
+				<i className='i-lucide:image-plus w-64px h-64px text-blue'></i>
 				<span className='text-12px op-70'>
 					<span className='!text-blue'>点击选择图片</span>
 					或者将图片拖放到这里！
@@ -102,7 +103,7 @@ export default function SelectImage() {
 				ref={fileRef}
 				type='file'
 				accept='image/*'
-				multiple
+				multiple={multiple}
 				onChange={handleFileChange}
 				className='hidden w-0 h-0 op-0'
 			/>

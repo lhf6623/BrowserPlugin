@@ -1,5 +1,25 @@
 import { getKey } from "@/utils";
 
+// 浏览器端测试用例
+// const _chrome = {
+// 	storage: {
+// 		onChanged: {
+// 			addListener() {},
+// 			removeListener(){}
+// 		},
+// 		local: {
+// 			get(key: string) {
+// 				return {} as any;
+// 			},
+// 			set(data: any) {
+// 				return {};
+// 			},
+// 			remove(key: string) {},
+// 			clear() {},
+// 		},
+// 	},
+// };
+
 const { storage } = chrome;
 const { local } = storage;
 
@@ -25,7 +45,7 @@ class Cache {
 		const data = await this.getAllLocal();
 		return data[key] || defaultData;
 	}
-	async setItem<T>(key: string, value: T){
+	async setItem<T>(key: string, value: T) {
 		if (!key) {
 			throw new Error(`请传入键值`);
 		}

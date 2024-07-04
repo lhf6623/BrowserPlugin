@@ -23,7 +23,9 @@
 		"types": ["chrome-types", "./src/types.d.ts"],
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["src/*"],
+			"@opt/*": ["src/options/*"],
+			"@pages/*": ["src/options/pages/*"]
 		}
 	},
 	"include": ["src"],

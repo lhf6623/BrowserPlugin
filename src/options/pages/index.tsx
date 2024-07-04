@@ -1,23 +1,20 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
-import { routes } from "@/options/routes";
+import useCurrRouters from "@/hooks/useCurrRouters";
 
 export default function Layout() {
 	const [isSm, setIsSm] = useState(false);
 
-	const location = useLocation();
-	let { pathname } = location;
-
-	const routerList = routes[0].children;
+	const routerList = useCurrRouters("/");
 
 	// @unocss-include
 	const active = "bg-#fff font-600";
 	const showMenu = "!translate-x-0%";
 	return (
 		<div className='flex h-full'>
-			<div className='block fixed top-0 z-6 h-40px w-full text-14px shadow-md sm:h-0 bg-white'>
+			<div className=' absolute flex items-center top-0 z-6 h-40px !w-full border-b sm:h-0 bg-white'>
 				<button
-					className='i-gg:menu h-full text-26px ml-16px'
+					className='i-gg:menu h-full text-26px mx-16px'
 					onClick={() => setIsSm(true)}
 				></button>
 			</div>
@@ -38,20 +35,22 @@ export default function Layout() {
 				>
 					{routerList.map(({ path, name }) => {
 						return (
-							<Link
+							<NavLink
 								key={path}
 								to={path}
-								className={`py-16px px-32px line-height-20px cursor-pointer w-full hover:bg-#fff ${
-									path === pathname && active
-								}`}
+								className={({ isActive }) => {
+									return `py-16px px-32px line-height-20px cursor-pointer w-full hover:bg-#fff ${
+										isActive && active
+									}`;
+								}}
 							>
 								{name}
-							</Link>
+							</NavLink>
 						);
 					})}
 				</nav>
 			</div>
-			<div className='transition-all flex-1 relative flex flex-col items-center justify-between'>
+			<div className='transition-all flex-1 h-full relative flex flex-col items-center justify-between overflow-auto'>
 				<Outlet />
 			</div>
 		</div>
