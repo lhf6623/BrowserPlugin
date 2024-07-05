@@ -55,11 +55,9 @@ export default function CutOut() {
 		const url = canvas.toDataURL(imageInfo.imgFile.type, 1);
 		setUrl(url);
 	}
-
-	const ratio = (imageInfo?.image.width ?? 1) / cutData.w;
-	const size = `${((cutData.w - cutData.bl - cutData.br) * ratio).toFixed(
-		0
-	)}*${((cutData.h - cutData.bt - cutData.bb) * ratio).toFixed(0)} `;
+	const ratio = (imageInfo?.image.width ?? 1) / cutData.w || 1;
+	const w = ((cutData.w - cutData.bl - cutData.br) * ratio || 0).toFixed(0);
+	const h = ((cutData.h - cutData.bt - cutData.bb) * ratio || 0).toFixed(0);
 	return (
 		<div className='w-600px box-content bg-#fafaff relative p-4'>
 			{!imageInfo ? (
@@ -78,7 +76,7 @@ export default function CutOut() {
 					<p className='text-13px mt-4'>
 						原图像素：{`${imageInfo.image.width}*${imageInfo.image.height}`}
 						&nbsp;&nbsp; 目标像素：
-						<span className='text-blue'>{size}</span>
+						<span className='text-blue'>{`${w}*${h} `}</span>
 						&nbsp;&nbsp;为方便操作，已进行缩小展示
 					</p>
 					<div className='*:border *:py-1 *:px-4 *: *:bg-white text-blue my-4'>
