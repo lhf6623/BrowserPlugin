@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: "18"
 
@@ -30,4 +30,4 @@ jobs:
         run: |
           echo "Version ${steps.check_message.outputs.version} found. Running package script."
           pnpm install
-          pnpm dev
+          pnpm build
