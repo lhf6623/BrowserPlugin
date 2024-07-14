@@ -2,9 +2,8 @@ name: Package
 
 on:
   push:
-    branches:
-      - main
-
+    tags:
+      - "v*"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,13 +20,5 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Check commit message for version number
-        id: check_message
-        run: echo "::set-output name=version::$(git log -1 --pretty=%B | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+')"
-
-      - name: Run package script if version is found
-        if: steps.check_message.outputs.version != ''
-        run: |
-          echo "Version ${steps.check_message.outputs.version} found. Running package script."
-          pnpm install
-          pnpm build
+      - name: build
+        run: pnpm install && pnpm run build
