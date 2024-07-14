@@ -21,18 +21,28 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies and build
-        run: |
-          pnpm install
-          pnpm build
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: pnpm build
 
       - name: Archive build artifacts
         run: tar -czvf build-${GITHUB_SHA}.tar.gz ./dist
 
+      - name: Get release ID
+        id: get_release
+        uses: octokit/request-action@v2.0.7
+        with:
+          route: GET /repos/${{ github.repository }}/releases/tags/${{ github.ref }}
+          mediaType: "application/vnd.github.v3+json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.get_release.outputs.data.upload_url }}
           asset_path: build-${GITHUB_SHA}.tar.gz
           asset_name: build-${GITHUB_SHA}.tar.gz
           asset_content_type: application/gzip
