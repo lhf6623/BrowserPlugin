@@ -14,7 +14,7 @@
 当前只上架了 Microsoft Edge 扩展商店：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
 
 下载扩展直接用
-浏览器 => 设置 => 扩展程序 => 打开开发人员模式 => 加载已解压的扩展程序 => 选择下载的压缩包 => 添加
+浏览器 => 设置 => 扩展程序 => 打开开发人员模式 => 加载已解压的扩展程序 => 选择下载的压缩包 => 添加=
 
 <img alt='popup展示' src='https://github.com/lhf6623/BrowserPlugin/raw/main/public/popup.jpg' width='500' />
 
