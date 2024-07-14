@@ -45,18 +45,18 @@ function App() {
 			/>
 			<footer className='w-full text-right mt-1 *:text-lg *:opacity-30 *:text-#409eff all:transition-400'>
 				<a
-					className='i-uil:github hover:opacity-100'
+					className='i-mdi:github hover:opacity-100'
 					target='_blank'
-					href='https://github.com/lhf6623'
+					href='https://github.com/lhf6623/BrowserPlugin'
 					title='源代码'
 				></a>
 				<button
-					className='i-gridicons:add hover:opacity-100'
+					className='i-mdi:calendar-add hover:opacity-100'
 					title='添加任务'
 					onClick={handleShowPanel}
 				></button>
 				<button
-					className='i-tdesign:setting-1 hover:opacity-100'
+					className='i-mdi:mixer-settings hover:opacity-100'
 					title='任务面板配置'
 					onClick={goOptions}
 				></button>

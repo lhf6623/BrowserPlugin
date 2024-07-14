@@ -54,7 +54,11 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
 					const isLast = index === taskList.length - 1;
 
 					return (
-						<li key={index} className='progress_li group' style={liStyle}>
+						<li
+							key={index}
+							className='progress_li group'
+							style={liStyle}
+						>
 							<div className='w-full flex items-center justify-between'>
 								{config.showTitle ? <label>{title}</label> : <span></span>}
 								<div className='hidden py-1px group-hover:flex float-right text-#0797E1 cursor-pointer *:text-14px *:mr-1'>
@@ -64,7 +68,7 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
 											className='l-button h-14px w-14px flex-center'
 											onClick={() => updateList("up", item.id)}
 										>
-											<i className='i-ph:arrow-up-light h-14px w-14px'></i>
+											<i className='i-mdi:arrow-up h-14px w-14px'></i>
 										</button>
 									)}
 									{!isLast && (
@@ -73,7 +77,7 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
 											className='l-button h-14px w-14px flex-center'
 											onClick={() => updateList("down", item.id)}
 										>
-											<i className='i-ph:arrow-down-light h-14px w-14px'></i>
+											<i className='i-mdi:arrow-down h-14px w-14px'></i>
 										</button>
 									)}
 									<button
@@ -81,11 +85,11 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
 										className='l-button h-14px w-14px flex-center'
 										onClick={() => handleShowAddPanel(item)}
 									>
-										<i className='i-lucide:edit h-14px w-14px'></i>
+										<i className='i-mdi:calendar-edit-outline h-14px w-14px'></i>
 									</button>
 									<button
 										title='删除当前行'
-										className='i-material-symbols:delete-outline text-red h-14px w-14px'
+										className='i-mdi:delete-outline text-red h-14px w-14px'
 										onClick={() => handleDelete(item)}
 									></button>
 								</div>

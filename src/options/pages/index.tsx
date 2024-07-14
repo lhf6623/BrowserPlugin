@@ -14,7 +14,7 @@ export default function Layout() {
 		<div className='flex h-full'>
 			<div className=' absolute flex items-center top-0 z-6 h-40px !w-full border-b sm:h-0 bg-white'>
 				<button
-					className='i-gg:menu h-full text-26px mx-16px'
+					className='i-mdi:menu h-full text-26px mx-16px'
 					onClick={() => setIsSm(true)}
 				></button>
 			</div>

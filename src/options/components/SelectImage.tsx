@@ -92,7 +92,7 @@ export default function SelectImage({
 				ref={dragRef}
 				className={`w-full my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border border-2px ${style}`}
 			>
-				<i className='i-lucide:image-plus w-64px h-64px text-blue'></i>
+				<i className='i-mdi:file-image-plus-outline w-64px h-64px text-blue'></i>
 				<span className='text-12px op-70'>
 					<span className='!text-blue'>点击选择图片</span>
 					或者将图片拖放到这里！

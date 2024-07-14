@@ -111,26 +111,26 @@ function Task({ file }: { file: File }) {
 			<div className='flex justify-between items-center border-t mt-1'>
 				<p className='flex items-center gap-x-2'>
 					<button
-						className='i-tabler:image-in-picture'
+						className='i-mdi:content-copy'
 						title='复制 base64 地址'
 						onClick={() => copyBase64(imgData!.oldValue.base64Url)}
 					></button>
 				</p>
 				<p className='flex items-center gap-x-2'>
 					<button
-						className='i-tabler:image-in-picture'
+						className='i-mdi:content-copy'
 						title='复制压缩后的 base64'
 						onClick={() => copyBase64(imgData!.newValue.base64Url)}
 					></button>
 					<button
-						className='i-material-symbols:eye-tracking-rounded'
+						className='i-mdi:print-preview'
 						title='预览压缩后的图片'
 						onClick={() => {
 							setShowImg(!showImg);
 						}}
 					></button>
 					<button
-						className='i-solar:gallery-download-outline'
+						className='i-mdi:file-download-outline'
 						title='下载压缩后的图片'
 						onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
 					></button>

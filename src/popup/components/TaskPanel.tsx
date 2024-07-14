@@ -100,7 +100,10 @@ export default function AddTaskPanel({
 	const defaultStart = dayjs(task.start).format("YYYY-MM-DD HH:mm");
 
 	return (
-		<dialog ref={dialogRef} key={uuidv4()}>
+		<dialog
+			ref={dialogRef}
+			key={uuidv4()}
+		>
 			<form
 				ref={formRef}
 				className='w-280px p-1 bg-white'
@@ -109,12 +112,15 @@ export default function AddTaskPanel({
 				<div className='w-full h-26px flex justify-between items-center mb-2 border-b'>
 					<h1 className='text-16px font-700'>{title}</h1>
 					<div>
-						<button className='l-button px-1 mr-1' type='submit'>
+						<button
+							className='l-button px-1 mr-1'
+							type='submit'
+						>
 							保存
 						</button>
 						<button
 							onClick={handleClose}
-							className='i-memory:close-outline w-20px h-20px'
+							className='i-mdi:close w-20px h-20px'
 							type='button'
 						></button>
 					</div>
@@ -122,7 +128,10 @@ export default function AddTaskPanel({
 				<div className='w-full flex justify-center pb-2'>
 					<ul className='w-230px *:flex *:justify-between *:pb-3'>
 						<li>
-							<label htmlFor='title' className='w-40px mr-1'>
+							<label
+								htmlFor='title'
+								className='w-40px mr-1'
+							>
 								标题
 							</label>
 							<input
@@ -136,7 +145,10 @@ export default function AddTaskPanel({
 						</li>
 						<li className='*:flex *:items-center'>
 							<div>
-								<label htmlFor='color' className='w-30px mr-1'>
+								<label
+									htmlFor='color'
+									className='w-30px mr-1'
+								>
 									颜色
 								</label>
 								<input
@@ -146,13 +158,22 @@ export default function AddTaskPanel({
 								/>
 							</div>
 							<div>
-								<label htmlFor='type' className='w-30px mr-1'>
+								<label
+									htmlFor='type'
+									className='w-30px mr-1'
+								>
 									类型
 								</label>
-								<select name='taskType' defaultValue={task.taskType}>
+								<select
+									name='taskType'
+									defaultValue={task.taskType}
+								>
 									{optionTypes.map((types) => {
 										return (
-											<option key={types.value} value={types.value}>
+											<option
+												key={types.value}
+												value={types.value}
+											>
 												{types.title}
 											</option>
 										);
@@ -161,7 +182,10 @@ export default function AddTaskPanel({
 							</div>
 						</li>
 						<li>
-							<label htmlFor='start' className='w-60px mr-1'>
+							<label
+								htmlFor='start'
+								className='w-60px mr-1'
+							>
 								开始时间
 							</label>
 							<input
@@ -179,7 +203,10 @@ export default function AddTaskPanel({
 							>
 								结束时间
 							</label>
-							<EndTime task={task} key={uuidv4()} />
+							<EndTime
+								task={task}
+								key={uuidv4()}
+							/>
 						</li>
 					</ul>
 				</div>
@@ -261,7 +288,7 @@ function EndTime({ task }: { task: Task }) {
 				<button
 					title={isDatetime ? "切换为时间段" : "切换为具体日期"}
 					type='button'
-					className='i-mingcute:right-line w-18px h-18px text-#0797E1 hover:op-70'
+					className='i-mdi:chevron-right w-18px h-18px text-#0797E1 hover:op-70'
 					onClick={handleChangeEndType}
 				></button>
 			</div>

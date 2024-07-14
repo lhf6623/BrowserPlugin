@@ -6,6 +6,7 @@ import GeneralSettings from "@pages/GeneralSettings";
 import ImageProcessing from "@pages/ImageProcessing/index";
 import Compress from "@pages/ImageProcessing/Compress";
 import CutOut from "@pages/ImageProcessing/CutOut";
+import ColorDependent from "@pages/ColorDependent";
 
 export const routes = [
 	{
@@ -34,6 +35,11 @@ export const routes = [
 						element: <CutOut />,
 					},
 				],
+			},
+			{
+				path: "/ColorDependent",
+				name: "颜色相关",
+				element: <ColorDependent />,
 			},
 		],
 	},
