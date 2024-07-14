@@ -21,4 +21,4 @@ jobs:
         run: npm install -g pnpm
 
       - name: build
-        run: pnpm run build
+        run: pnpm install --no-frozen-lockfile && pnpm run build
