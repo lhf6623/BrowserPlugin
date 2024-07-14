@@ -1,6 +1,4 @@
 import { name } from "../../package.json";
-// import { MD5 } from "crypto-js";
-// import { v4 as uuidv4 } from "uuid";
 
 /**
  * 根据提供的键名、名称和版本构造一个键。
