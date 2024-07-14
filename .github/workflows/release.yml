@@ -21,4 +21,4 @@ jobs:
         run: npm install -g pnpm
 
       - name: build
-        run: pnpm install && pnpm run build
+        run: pnpm run build
