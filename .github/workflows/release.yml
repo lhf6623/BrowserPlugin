@@ -27,12 +27,12 @@ jobs:
           pnpm build
 
       - name: Archive build artifacts
-        run: tar -czvf build-${GITHUB_REF##*/}.tar.gz ./dist
+        run: tar -czvf build-${GITHUB_SHA}.tar.gz ./dist
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build-${GITHUB_REF##*/}.tar.gz
-          asset_name: build-${GITHUB_REF##*/}.tar.gz
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build-${GITHUB_SHA}.tar.gz
+          asset_name: build-${GITHUB_SHA}.tar.gz
           asset_content_type: application/gzip
