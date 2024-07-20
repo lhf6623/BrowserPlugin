@@ -1,27 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import SingleColorSelect from "./SingleColorSelect";
-import MoveBoxBlock from "./MoveBoxBlock";
+import MoveBoxBlock from "@opt/components/MoveBoxBlock";
 import ColorSelect from "./ColorSelect";
-import { bilinearInterpolation } from "@/utils/color";
+import {
+	getColorByXY,
+	hexToRgb,
+	getXYByColor,
+	getColorSelectXY,
+} from "@/utils/color";
 
 const WIDTH = 128;
+const DEFAULT_COLOR = [255, 0, 0];
 
 export default function ColorDependent() {
 	// 透明度
 	const [transparency, setTransparency] = useState(WIDTH);
-	const [singleData, setSingleData] = useState([255, 0, 0]);
-	const [colorRgb, setColorRgb] = useState([255, 0, 0]);
+	const [singleData, setSingleData] = useState(DEFAULT_COLOR);
+	const [colorRgb, setColorRgb] = useState(DEFAULT_COLOR);
 	const [XY, setXY] = useState({ x: 232, y: 0 });
+	const [singleXY, setSingleXY] = useState({ x: 232, y: 0 });
+	const [selectColorX, setSelectColorX] = useState(0);
 
 	function handleColorSelect(data: number[]) {
 		const [r, g, b] = data;
 
-		const rgb = bilinearInterpolation({
+		const rgb = getColorByXY({
 			...XY,
 			w: 232,
 			h: 128,
 			rt: { r, g, b },
 		});
+
 		setColorRgb(rgb);
 		setSingleData([r, g, b]);
 	}
@@ -34,21 +43,62 @@ export default function ColorDependent() {
 		setColorRgb(rgb);
 		setXY(xy);
 	}
+
+	function handleGetColor(p: number[]) {
+		// @unocss-skip-start
+		// 目标颜色
+		const [r, g, b] = p;
+		// 计算出的右上角颜色 和 模拟鼠标选择的坐标
+		const { rgb, xy } = getXYByColor({ r, g, b });
+
+		const _x = Math.round((xy!.x / 255) * 232);
+		const _y = Math.round((xy!.y / 255) * 128);
+
+		setColorRgb(p);
+		setSingleData(rgb!);
+		setSingleXY({ x: _x, y: _y });
+		const selectColor = getColorSelectXY({ r: rgb[0], g: rgb[1], b: rgb[2] });
+		setSelectColorX((selectColor / 255) * 128);
+		// @unocss-skip-end
+	}
+
 	return (
-		<div className="w-full h-full flex-center max-sm:pt-40px'">
-			<div className='w-232px shadow rounded overflow-hidden'>
+		<div
+			w-full
+			h-full
+			flex-center
+			max-sm='pt-40px'
+		>
+			<div
+				w-232px
+				shadow
+				rounded
+				overflow-hidden
+				bg='@dark:#282828'
+			>
 				<SingleColorSelect
 					rgb={singleData}
+					xy={singleXY}
 					onChange={singleColorSelect}
 				/>
-				<div className='p-14px flex-center gap-x-3'>
-					<div className='i-mdi:colorize w-18px h-18px cursor-pointer'></div>
+				<div
+					p-14px
+					flex-center
+					gap-x-2
+				>
+					<ColorExtraction onGetColor={handleGetColor} />
 					<ColorCopy
 						opacity={transparency / WIDTH}
 						rgb={colorRgb}
 					/>
-					<div className='relative'>
-						<ColorSelect onColorChange={handleColorSelect} />
+					<div
+						relative
+						flex-shrink-0
+					>
+						<ColorSelect
+							x={selectColorX}
+							onColorChange={handleColorSelect}
+						/>
 						<TransparencySelect
 							rgb={colorRgb}
 							transparency={transparency}
@@ -57,6 +107,57 @@ export default function ColorDependent() {
 					</div>
 				</div>
 			</div>
+		</div>
+	);
+}
+
+interface ColorExtractionProps {
+	onGetColor: (p: number[]) => void;
+}
+/** 取色 */
+function ColorExtraction({ onGetColor }: ColorExtractionProps) {
+	const [action, setAction] = useState(false);
+
+	function getColor() {
+		if (!window.EyeDropper) {
+			console.error("你的浏览器不支持 EyeDropper API");
+			return;
+		}
+		setAction(true);
+		const eyeDropper = new window.EyeDropper();
+		eyeDropper
+			.open()
+			.then((result) => {
+				const rgb = hexToRgb(result.sRGBHex);
+
+				onGetColor(rgb);
+			})
+			.catch((e) => {
+				console.error(e);
+			})
+			.finally(() => {
+				setAction(false);
+			});
+	}
+	return (
+		<div
+			w-28px
+			h-28px
+			p-2px
+			flex='center shrink-0'
+			rounded-sm
+			hover='@dark:bg-#484848 @light:bg-#f2f2f2'
+			style={{ color: "black" }}
+		>
+			<div
+				w-24px
+				h-24px
+				cursor-pointer
+				text='@dark:white @light:#1f1f1f'
+				i-mage:color-picker
+				className={action ? "!text-#1c6ef3" : ""}
+				onClick={getColor}
+			></div>
 		</div>
 	);
 }
@@ -102,15 +203,64 @@ function TransparencySelect({
 function ColorCopy({ opacity, rgb }: { opacity: number; rgb: number[] }) {
 	const [r, g, b] = rgb;
 	const color = `rgb(${r}, ${g}, ${b})`;
+	const [isDown, setIsDown] = useState(false);
+
+	function copy() {
+		navigator.clipboard
+			.writeText(color)
+			.then(() => {
+				console.log("复制成功", color);
+				setIsDown(true);
+			})
+			.catch((err) => {
+				console.error("复制失败", err);
+			});
+	}
+	// @unocss-include
+	const icon = isDown ? "i-mdi:check" : "i-mdi:content-copy";
+
 	return (
-		<div className='rounded-full relative border h-30px w-30px box-content overflow-hidden *:hover:h-full cursor-pointer'>
+		<div
+			rounded-full
+			relative
+			border
+			h-30px
+			w-30px
+			box-content
+			overflow-hidden
+			hover='*:h-full'
+			cursor-pointer
+			flex-shrink-0
+			onClick={copy}
+		>
 			<Marshall size={5} />
 			<div
-				className='w-full h-full absolute top-0 left-0 z-20'
+				w-full
+				h-full
+				absolute
+				top-0
+				left-0
+				z-20
 				style={{ opacity, backgroundColor: color }}
+				onMouseOut={() => setIsDown(false)}
 			></div>
-			<div className=' bg-#0000004a flex-center w-full h-0 absolute left-0 top-0 z-30 overflow-hidden'>
-				<div className='i-mdi:content-copy w-20px h-20px text-white'></div>
+			<div
+				bg='@dark:#ffffff4a @light:#0000004a'
+				flex-center
+				w-full
+				h-0
+				absolute
+				left-0
+				top-0
+				z-30
+				overflow-hidden
+			>
+				<div
+					className={`${icon}`}
+					w-14px
+					h-14px
+					text=' @light:white @dark:#282828'
+				></div>
 			</div>
 		</div>
 	);

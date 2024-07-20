@@ -5,7 +5,7 @@ import { getKey } from "@/utils";
 // 	storage: {
 // 		onChanged: {
 // 			addListener() {},
-// 			removeListener(){}
+// 			removeListener() {},
 // 		},
 // 		local: {
 // 			get(key: string) {
@@ -29,7 +29,7 @@ class Cache {
 	constructor(key: string) {
 		this.baseKey = key;
 		// console.log('clear')
-		local.clear();
+		// local.clear();
 		// storage.onChanged.addListener((a) => {
 		// 	console.log("storage.onChanged", a[this.baseKey].newValue);
 		// });

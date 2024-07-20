@@ -8,16 +8,6 @@ import {
 } from "unocss";
 
 export default defineConfig({
-	content: {
-		pipeline: {
-			include: [
-				// the default
-				/\.([jt]sx|html)($|\?)/,
-				// include js/ts files
-				"src/**/*.{ts,tsx}",
-			],
-		},
-	},
 	presets: [
 		presetUno(),
 		presetAttributify(),

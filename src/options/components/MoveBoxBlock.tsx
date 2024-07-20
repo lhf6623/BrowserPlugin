@@ -11,6 +11,7 @@ interface ProgressBarProps {
 	/** 移动块实际距离 */
 	x?: number;
 	y?: number;
+	blockType?: "transparent";
 }
 
 /**
@@ -24,6 +25,7 @@ export default function MoveBoxBlock({
 	height,
 	x,
 	y,
+	blockType,
 }: ProgressBarProps) {
 	/** 盒子 */
 	const barRef = useRef<HTMLDivElement>(null);
@@ -114,21 +116,24 @@ export default function MoveBoxBlock({
 		cursor = "ns-resize"; // 上下
 	}
 
+	// @unocss-include
+	const blockClass =
+		blockType === "transparent" ? "!bg-transparent border-#000 border" : "";
 	return (
 		<div
 			ref={barRef}
-			className={`${className ?? ""} relative cursor-crosshair`}
+			className={`${className ?? ""} relative cursor-crosshair bg-transparent`}
 			style={{ height: `${height}px`, width: `${width}px` }}
 		>
 			<div
-				className='h-14px w-14px bg-#edf2f3 rounded-full z-99 shadow border absolute'
+				ref={moveBoxRef}
+				className={`h-14px w-14px rounded-full z-99 shadow-lg absolute @light:bg-#f2f2f2 @light:outline-#0001 @dark:bg-#3c3c3c @dark:outline-#fff4 outline-solid outline-1px ${blockClass}`}
 				style={{
 					left: `${x ?? width / 2}px`,
 					top: `${y ?? height / 2}px`,
 					cursor: `${cursor}`,
 					transform: `translate(-7px, -7px)`,
 				}}
-				ref={moveBoxRef}
 			></div>
 			{children}
 		</div>

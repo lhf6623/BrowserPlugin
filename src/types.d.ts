@@ -41,7 +41,15 @@ export type ReturnData = Record<
 	boolean | number
 >;
 
+interface EyeDropper {
+	new (): EyeDropper;
+	open: (options?: { signal: AbortSignal }) => Promise<{ sRGBHex: string }>;
+}
 declare global {
 	// 定义一个工具类型来提取 Promise<T> 中的 T 类型
 	type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+
+	interface Window {
+		EyeDropper: EyeDropper;
+	}
 }

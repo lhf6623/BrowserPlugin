@@ -76,7 +76,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
 								max={1}
 								onChange={handleChangeQuality}
 							/>
-							{custom.quality}%
+							{custom.quality * 100}%
 						</div>
 					</div>
 					<RadioGroup
