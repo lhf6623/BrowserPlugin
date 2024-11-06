@@ -1,13 +1,15 @@
-import { name } from "../../package.json";
+import { name, version } from "../../package.json";
+
+// 定义变量
 
 /**
- * 根据提供的键名、名称和版本构造一个键。
- * @param key 可选的字符串，用于在键前添加额外的前缀。如果提供，会在键中添加此参数值加连字符。
- * @returns 返回一个字符串，格式为：`[key]-[name]`。其中，`key` 是可选参数，如果提供，则在结果字符串中出现；`name` 的值来源于外部变量，它们的具体值没有在函数内定义。
+ * 根据版本改变的 key
+ * @param prefix 前缀
+ * @returns {String}
  */
-export const getKey = (key?: string) => {
-	const _key = key ? `${key}-` : "";
-	return `${_key}${name}`;
+export const getKeyByVersion = (prefix?: string): string => {
+	const _prefix = prefix ? `${prefix}-` : "";
+	return `${_prefix}${name}_${version}`;
 };
 
 /**

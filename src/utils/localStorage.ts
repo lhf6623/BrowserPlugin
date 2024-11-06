@@ -1,26 +1,27 @@
-import { getKey } from "@/utils";
+import { getKeyByVersion } from "@/utils";
 
-// 浏览器端测试用例
-// const _chrome = {
-// 	storage: {
-// 		onChanged: {
-// 			addListener() {},
-// 			removeListener() {},
-// 		},
-// 		local: {
-// 			get(key: string) {
-// 				return {} as any;
-// 			},
-// 			set(data: any) {
-// 				return {};
-// 			},
-// 			remove(key: string) {},
-// 			clear() {},
-// 		},
-// 	},
-// };
+// 浏览器端测试数据
+const _chrome = {
+	store: {},
+	storage: {
+		onChanged: {
+			addListener() {},
+			removeListener() {},
+		},
+		local: {
+			get(_key: string) {
+				return {} as any;
+			},
+			set(_data: any) {
+				return {};
+			},
+			remove(_key: string) {},
+			clear() {},
+		},
+	},
+};
 
-const { storage } = chrome;
+const { storage } = window.chrome.storage ? window.chrome : _chrome;
 const { local } = storage;
 
 class Cache {
@@ -69,4 +70,4 @@ class Cache {
 	}
 }
 
-export default new Cache(getKey("cache"));
+export default new Cache(getKeyByVersion("cache"));

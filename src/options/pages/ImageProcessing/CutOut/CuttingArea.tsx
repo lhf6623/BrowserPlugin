@@ -71,13 +71,10 @@ export default memo(function CuttingArea({
 			"--bb": `${bb}px`,
 		} as CSSProperties;
 
-		boxRef.current!.style.cssText = Object.entries(style).reduce(
-			(pre, curr) => {
-				const [key, value] = curr;
-				return `${pre}${key}:${value};`;
-			},
-			""
-		);
+		boxRef.current!.style.cssText = Object.entries(style).reduce((pre, curr) => {
+			const [key, value] = curr;
+			return `${pre}${key}:${value};`;
+		}, "");
 
 		onChange(_data);
 	}
@@ -203,45 +200,48 @@ export default memo(function CuttingArea({
 		height: "calc(var(--h) - var(--bt) - var(--bb))",
 	};
 	return (
-		<div
-			ref={boxRef}
-			className='select-none inset-0 absolute'
-		>
+		<div ref={boxRef} select-none inset-0 absolute>
 			<div
 				style={cut_box}
-				className='*:cursor-pointer absolute border-solid top-0 left-0 z-30 border-#00000099 *:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid'
+				absolute
+				border-solid
+				top-0
+				left-0
+				z-30
+				border='#00000099'
+				className='*:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid'
 			>
 				<div
 					data-key='top-left'
-					className='left-0 top-0 border-t-4px border-l-4px translate-x--4px translate-y--4px'
+					className='left-0 cursor-nw-resize top-0 border-t-4px border-l-4px translate-x--4px translate-y--4px'
 				></div>
 				<div
 					data-key='top'
-					className='bg-#0072ff h-4px w-19px top-0 left-50% translate-x--50% translate-y--100%'
+					className='bg-#0072ff cursor-n-resize h-4px w-19px top-0 left-50% translate-x--50% translate-y--100%'
 				></div>
 				<div
 					data-key='top-right'
-					className='right-0 top-0 border-t-4px border-r-4px translate-x-4px translate-y--4px'
+					className='right-0 cursor-ne-resize top-0 border-t-4px border-r-4px translate-x-4px translate-y--4px'
 				></div>
 				<div
 					data-key='left'
-					className='bg-#0072ff h-19px w-4px top-50% left-0 translate-y--50% translate-x--100%'
+					className='bg-#0072ff cursor-w-resize h-19px w-4px top-50% left-0 translate-y--50% translate-x--100%'
 				></div>
 				<div
 					data-key='right'
-					className='bg-#0072ff h-19px w-4px top-50% right-0 translate-y--50% translate-x-100%'
+					className='bg-#0072ff cursor-e-resize h-19px w-4px top-50% right-0 translate-y--50% translate-x-100%'
 				></div>
 				<div
 					data-key='bottom-left'
-					className='left-0 bottom-0 border-l-4px border-b-4px translate-x--4px translate-y-4px'
+					className='left-0 cursor-sw-resize bottom-0 border-l-4px border-b-4px translate-x--4px translate-y-4px'
 				></div>
 				<div
 					data-key='bottom'
-					className='bg-#0072ff h-4px w-19px bottom-0 left-50% translate-x--50% translate-y-100%'
+					className='bg-#0072ff cursor-s-resize h-4px w-19px bottom-0 left-50% translate-x--50% translate-y-100%'
 				></div>
 				<div
 					data-key='bottom-right'
-					className='right-0 bottom-0 border-r-4px border-b-4px translate-x-4px translate-y-4px'
+					className='right-0 cursor-se-resize bottom-0 border-r-4px border-b-4px translate-x-4px translate-y-4px'
 				></div>
 			</div>
 			<div

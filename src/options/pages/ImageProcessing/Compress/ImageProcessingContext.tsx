@@ -1,11 +1,4 @@
-import {
-	createContext,
-	useContext,
-	useReducer,
-	ReactNode,
-	Reducer,
-	Dispatch,
-} from "react";
+import { createContext, useContext, useReducer, ReactNode, Reducer, Dispatch } from "react";
 
 const ImageListContext = createContext<{
 	imageList: ImageListContextType[];
@@ -16,10 +9,7 @@ const ImageListContext = createContext<{
 });
 
 /** 压缩模式 */
-export const CompressionMode: Record<
-	"reduce" | "clearness" | "custom",
-	ConfigType
-> = {
+export const CompressionMode: Record<"reduce" | "clearness" | "custom", ConfigType> = {
 	/** 缩小优先 */
 	reduce: {
 		type: "image/jpeg",
@@ -48,17 +38,12 @@ const ConfigContext = createContext<{
 });
 
 export function ImageProcessingProvider({ children }: { children: ReactNode }) {
-	const [imageList, imageListDispatch] = useReducer(
-		imageListReducer,
-		initialImageList
-	);
+	const [imageList, imageListDispatch] = useReducer(imageListReducer, initialImageList);
 	const [config, configDispatch] = useReducer(configReducer, initialConfig);
 
 	return (
 		<ImageListContext.Provider value={{ imageList, imageListDispatch }}>
-			<ConfigContext.Provider value={{ config, configDispatch }}>
-				{children}
-			</ConfigContext.Provider>
+			<ConfigContext.Provider value={{ config, configDispatch }}>{children}</ConfigContext.Provider>
 		</ImageListContext.Provider>
 	);
 }
@@ -77,15 +62,10 @@ interface ImageListContextAction {
 	payload: ImageListContextType | ImageListContextType[];
 }
 
-const imageListReducer: Reducer<
-	ImageListContextType[],
-	ImageListContextAction
-> = (list, action) => {
+const imageListReducer: Reducer<ImageListContextType[], ImageListContextAction> = (list, action) => {
 	switch (action.type) {
 		case "add":
-			const _list = Array.isArray(action.payload)
-				? action.payload
-				: [action.payload];
+			const _list = Array.isArray(action.payload) ? action.payload : [action.payload];
 			return [...list, ..._list];
 		case "remove":
 			return list.flatMap((item) => {

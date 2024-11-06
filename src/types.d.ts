@@ -1,10 +1,4 @@
-export type TaskType =
-	| "unrestricted"
-	| "year"
-	| "month"
-	| "day"
-	| "date"
-	| "hour";
+export type TaskType = "unrestricted" | "year" | "month" | "day" | "date" | "hour";
 
 export type Task = {
 	id: string;
@@ -36,10 +30,7 @@ export type DateConfigType = Record<DateConfigKey, ItemConfig>;
 export type TaskConfigType = Record<TaskConfigKey, ItemConfig>;
 export type AllConfigType = DateConfigType | TaskConfigType;
 
-export type ReturnData = Record<
-	DateConfigKey | TaskConfigKey,
-	boolean | number
->;
+export type ReturnData = Record<DateConfigKey | TaskConfigKey, boolean | number>;
 
 interface EyeDropper {
 	new (): EyeDropper;
@@ -48,7 +39,7 @@ interface EyeDropper {
 declare global {
 	// 定义一个工具类型来提取 Promise<T> 中的 T 类型
 	type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
-
+	type Exclude<T, U> = T extends U ? never : T;
 	interface Window {
 		EyeDropper: EyeDropper;
 	}

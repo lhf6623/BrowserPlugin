@@ -14,13 +14,13 @@
 当前只上架了 Microsoft Edge 扩展商店：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
 
 <div style='text-align: center;'>
-  <img alt='popup展示' src='https://github.com/lhf6623/BrowserPlugin/raw/main/public/popup.jpg' width='500' />
+  <img alt='popup展示' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/popup.jpg' width='500' />
 
-  <img alt='popup设置页面' src='https://github.com/lhf6623/BrowserPlugin/raw/main/public/popup_setting.jpg' width='500' />
+  <img alt='popup设置页面' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/popup_setting.jpg' width='500' />
 
-  <img alt='图片压缩' src='https://github.com/lhf6623/BrowserPlugin/raw/main/public/img_compress.jpg' width='500' />
+  <img alt='图片压缩' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/img_compress.jpg' width='500' />
 
-  <img alt='图片剪裁' src='https://github.com/lhf6623/BrowserPlugin/raw/main/public/img_cut_out.jpg' width='500' />
+  <img alt='图片剪裁' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/img_cut_out.jpg' width='500' />
 
 </div>
 

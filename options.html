@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link
-			rel="icon"
-			type="image/png"
-			href="image/icon16.png"
-		/>
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>小工具</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script
-			type="module"
-			src="/src/options/main.tsx"
-		></script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="image/icon16.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小工具</title>
+    <style>
+      body {
+        font-family: "Roboto Flex", "Open Sans", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Ubuntu, Arial, sans-serif;
+        font-optical-sizing: none;
+        font-size: 16px;
+        color: #4d4d4d;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" h-100vh w-100vw relative></div>
+    <script type="module" src="/src/options/main.tsx"></script>
+  </body>
 </html>

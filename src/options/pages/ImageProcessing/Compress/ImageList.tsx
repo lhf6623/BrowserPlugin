@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 import { useImageList, useConfig } from "./ImageProcessingContext";
 import Notify from "simple-notify";
-import {
-	getSizeText,
-	compressImage,
-	downloadImage,
-	CompressImageType,
-} from "@/utils";
+import { getSizeText, compressImage, downloadImage, CompressImageType } from "@/utils";
 
 export default function ImageList() {
 	const { imageList } = useImageList();
 	return (
 		<ul>
 			{imageList.map((item) => {
-				return (
-					<Task
-						file={item.file}
-						key={item.id}
-					/>
-				);
+				return <Task file={item.file} key={item.id} />;
 			})}
 		</ul>
 	);
@@ -90,52 +80,46 @@ function Task({ file }: { file: File }) {
 				<div className='flex'>
 					<span className='mr-4'>{getSizeText(file.size)}</span>
 					<div className='relative flex-center'>
-						<progress
-							className='w-150px h-20px rounded-xl'
-							max='100'
-							value={load}
-						>
+						<progress className='w-150px h-20px rounded-xl' max='100' value={load}>
 							{load}%
 						</progress>
 						<div className='flex-center w-full h-full absolute top-0 left-0 text-white'>
-							{load === 100 && (
-								<span className='text-12px'>已压缩 {compressionAmount}%</span>
-							)}
+							{load === 100 && <span text='12px'>已压缩 {compressionAmount}%</span>}
 						</div>
 					</div>
-					<span className='ml-4'>
-						{getSizeText(imgData?.newValue.imgFile.size || 0)}
-					</span>
+					<span className='ml-4'>{getSizeText(imgData?.newValue.imgFile.size || 0)}</span>
 				</div>
 			</div>
-			<div className='flex justify-between items-center border-t mt-1'>
-				<p className='flex items-center gap-x-2'>
-					<button
-						className='i-mdi:content-copy'
-						title='复制 base64 地址'
-						onClick={() => copyBase64(imgData!.oldValue.base64Url)}
-					></button>
-				</p>
-				<p className='flex items-center gap-x-2'>
-					<button
-						className='i-mdi:content-copy'
-						title='复制压缩后的 base64'
-						onClick={() => copyBase64(imgData!.newValue.base64Url)}
-					></button>
-					<button
-						className='i-mdi:print-preview'
-						title='预览压缩后的图片'
-						onClick={() => {
-							setShowImg(!showImg);
-						}}
-					></button>
-					<button
-						className='i-mdi:file-download-outline'
-						title='下载压缩后的图片'
-						onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
-					></button>
-				</p>
-			</div>
+			{load === 100 && (
+				<div className='flex justify-between items-center border-t mt-1'>
+					<p className='flex items-center gap-x-2'>
+						<button
+							className='i-mdi:content-copy'
+							title='复制 base64 地址'
+							onClick={() => copyBase64(imgData!.oldValue.base64Url)}
+						></button>
+					</p>
+					<p className='flex items-center gap-x-2'>
+						<button
+							className='i-mdi:content-copy'
+							title='复制压缩后的 base64'
+							onClick={() => copyBase64(imgData!.newValue.base64Url)}
+						></button>
+						<button
+							className='i-mdi:print-preview'
+							title='预览压缩后的图片'
+							onClick={() => {
+								setShowImg(!showImg);
+							}}
+						></button>
+						<button
+							className='i-mdi:file-download-outline'
+							title='下载压缩后的图片'
+							onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
+						></button>
+					</p>
+				</div>
+			)}
 			{showImg && (
 				<img
 					className='my-2'

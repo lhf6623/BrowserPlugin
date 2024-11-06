@@ -5,7 +5,6 @@ import { router } from "@/options/routes/index";
 
 import "virtual:uno.css";
 import "@unocss/reset/tailwind-compat.css";
-import "./index.css";
 import "simple-notify/dist/simple-notify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
