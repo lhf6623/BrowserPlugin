@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from "react";
-import dayjs from "@/utils/dateUtils";
-
 export default function useTime() {
-  const [time, setTime] = useState(dayjs().valueOf());
+  const [time, setTime] = useState(dateUtils().valueOf());
   const timer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     timer.current = setInterval(() => {
-      setTime(dayjs().valueOf());
+      setTime(dateUtils().valueOf());
     }, 1000);
 
     return () => {

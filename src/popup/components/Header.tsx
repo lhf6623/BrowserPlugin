@@ -1,10 +1,3 @@
-import useConfig from "@/hooks/useConfig";
-import dayjs, { getWeekday } from "@/utils/dateUtils";
-import localStorage from "@/utils/localStorage";
-import { useEffect, useRef, useState } from "react";
-import { ReturnData } from "@/types";
-import { getKeyByVersion } from "@/utils/index";
-
 interface HolidayRequertData {
   code: 0 | -1;
   holiday: {
@@ -22,12 +15,16 @@ interface HolidayRequertData {
 }
 export default function Header() {
   const { config } = useConfig();
-
+  const { showVacation, showDateTitle } = config;
   return (
-    <header className='mb-1 border-b border-b-#ccc flex justify-between'>
-      <Holiday />
-      {config.showDateTitle && <DateTitle config={config} />}
-    </header>
+    <>
+      {(showVacation || showDateTitle) && (
+        <header className="mb-1 border-b border-b-#ccc flex justify-between">
+          <span>{config.showVacation && <Holiday />}</span>
+          {config.showDateTitle && <DateTitle config={config} />}
+        </header>
+      )}
+    </>
   );
 }
 
@@ -54,9 +51,7 @@ function DateTitle({ config }: { config: ReturnData }) {
     function getDate() {
       setFlash((prevState) => !prevState);
 
-      const [months, date, hours, minutes, seconds] = dayjs()
-        .format("M-D-HH-mm-ss")
-        .split("-");
+      const [months, date, hours, minutes, seconds] = dateUtils().format("M-D-HH-mm-ss").split("-");
 
       setDateObject({
         date: `${Number(months)}月${date}日`,
@@ -100,24 +95,24 @@ function Holiday() {
   const VACATION_KEY = getKeyByVersion("VACATION");
 
   async function getNextHoliday(): Promise<HolidayRequertData> {
-    const res = await fetch(`http://timor.tech/api/holiday/next`);
+    const res = await fetch(`http://timor.tech/api/holiday/next?week=Y`);
 
     const json = await res.json();
 
     return json;
   }
   async function getLocalNextHoliday(): Promise<HolidayRequertData> {
-    const data = await localStorage.getItem<HolidayRequertData>(VACATION_KEY);
+    const data = await cache.getItem<HolidayRequertData>(VACATION_KEY);
 
     if (
       !data ||
       !data?.holiday ||
       // 判断缓存内的数据是否过期 比较的是 天 所以当天是不会更新下一个节假日的
-      (data && dayjs(data.holiday.date).isBefore(dayjs(), "D"))
+      (data && dateUtils(data.holiday.date).isBefore(dateUtils(), "D"))
     ) {
       const nextHoliday = await getNextHoliday();
 
-      localStorage.setItem<HolidayRequertData>(VACATION_KEY, nextHoliday);
+      cache.setItem<HolidayRequertData>(VACATION_KEY, nextHoliday);
       return nextHoliday;
     }
 
@@ -127,7 +122,7 @@ function Holiday() {
   useEffect(() => {
     getLocalNextHoliday().then((res) => {
       const { name, rest } = res.holiday || {};
-      let v = res.holiday ? `${name}假期还有${rest}天` : "今年没有假期";
+      let v = res.holiday ? `距离${name}还有${rest}天` : "今年没有假期了";
 
       setNextVacation(v);
     });

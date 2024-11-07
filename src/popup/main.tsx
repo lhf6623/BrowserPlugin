@@ -6,7 +6,7 @@ import "virtual:uno.css";
 import "@unocss/reset/tailwind-compat.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 );
