@@ -3,7 +3,7 @@ export const TASK_LIST_KEY = "TASK_LIST_KEY";
 export const newTask: Task = {
   id: uuidv4(),
   title: "朝九晚五",
-  taskType: "unrestricted",
+  taskType: "date",
   start: dateUtils().hour(9).minute(0).second(0).millisecond(0).valueOf(),
   end: dateUtils().hour(17).minute(0).second(0).millisecond(0).valueOf(),
   color: "#a21211",
