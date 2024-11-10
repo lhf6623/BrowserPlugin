@@ -1,37 +1,13 @@
-// 浏览器端测试数据
-const _chrome = {
-  store: {},
-  storage: {
-    onChanged: {
-      addListener() {},
-      removeListener() {},
-    },
-    local: {
-      get(_key: string) {
-        return {} as any;
-      },
-      set(_data: any) {
-        return {};
-      },
-      remove(_key: string) {},
-      clear() {},
-    },
-  },
-};
-
-const { storage } = window.chrome.storage ? window.chrome : _chrome;
+const { storage } = chrome;
 const { local } = storage;
 
 class Cache {
+  data = {};
   baseKey: string;
   storage = storage;
   constructor(key: string) {
     this.baseKey = key;
-    // console.log('clear')
     // local.clear();
-    // storage.onChanged.addListener((a) => {
-    // 	console.log("storage.onChanged", a[this.baseKey].newValue);
-    // });
   }
   async getAllLocal() {
     const data = await local.get(this.baseKey);
@@ -48,14 +24,20 @@ class Cache {
     if (!key) {
       throw new Error(`请传入键值`);
     }
-    const data = await this.getAllLocal();
-    const _data = {
+    this.data = {
+      ...this.data,
+      [key]: value,
+    };
+
+    let data = await this.getAllLocal();
+    data = {
       [this.baseKey]: {
         ...data,
-        [key]: value,
+        ...this.data,
       },
     };
-    local.set(_data);
+
+    local.set(data);
   }
   removeItem(key: string) {
     if (!key) {
@@ -68,4 +50,5 @@ class Cache {
   }
 }
 
-export default new Cache(getKeyByVersion("cache"));
+export const CACHE_KEY = getKeyByVersion("cache");
+export default new Cache(CACHE_KEY);

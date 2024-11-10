@@ -1,7 +1,15 @@
-export const defaultVacationConfig: VacationConfigType = {
+export const defaultNoticeConfig: TaskConfigType = {
+  /** 展示时间 */
+  showNotice: {
+    value: true,
+    title: "通知显示",
+    subtitle: "通过系统级通知提醒",
+    type: "checkbox",
+  },
+};
+export const defaultVacationConfig: TaskConfigType = {
   /** 展示时间 */
   showVacation: {
-    key: "showVacation",
     value: true,
     title: "显示假期",
     subtitle: "顶部左上角假期显示",
@@ -10,7 +18,7 @@ export const defaultVacationConfig: VacationConfigType = {
 };
 
 /** 时间配置 */
-export const defaultDateConfig: DateConfigType = {
+export const defaultDateConfig: TaskConfigType = {
   /** 展示时间 */
   showDateTitle: {
     value: true,
@@ -55,6 +63,12 @@ export const defaultTaskListConfig: TaskConfigType = {
     value: true,
     title: "标题展示",
     subtitle: "任务进度条上方的标题展示",
+    type: "checkbox",
+  },
+  showDateRange: {
+    value: false,
+    title: "展示时间范围",
+    subtitle: "任务进度条下方的时间展示",
     type: "checkbox",
   },
   height: {

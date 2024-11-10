@@ -1,4 +1,13 @@
 export default function GeneralSettings() {
+  function test() {
+    chrome.notifications.create("cake-notification", {
+      type: "progress",
+      iconUrl: chrome.runtime.getURL("image/icon128.png"),
+      title: "测试用例",
+      message: "这是一条测试用例",
+      progress: 100,
+    });
+  }
   return (
     <div className="py-50px px-16px relative max-w-672px w-full h-full overflow-auto select-none">
       <label className="p-16px relative flex flex-col justify-between">
@@ -7,6 +16,13 @@ export default function GeneralSettings() {
           可以设置看板的样式，看板右上角时间样式配置和每个任务样式配置
         </p>
       </label>
+      <ConfigLists defaultConfig={defaultNoticeConfig}>
+        {() => (
+          <button className="l-button ml-10px px-6px" onClick={test}>
+            测试
+          </button>
+        )}
+      </ConfigLists>
       <ConfigLists defaultConfig={defaultVacationConfig} />
       <details open name="task">
         <summary className="font-500 text-18px cursor-pointer">时间样式配置</summary>
@@ -21,15 +37,16 @@ export default function GeneralSettings() {
 }
 
 type ConfigListsProps = {
-  disabledKey?: AllConfigKey;
-  defaultConfig: AllConfigType;
+  disabledKey?: TaskConfigKey;
+  defaultConfig: TaskConfigType;
+  children?: (key: string) => ReactNode;
 };
-function ConfigLists({ disabledKey, defaultConfig }: ConfigListsProps) {
+function ConfigLists({ disabledKey, defaultConfig, children }: ConfigListsProps) {
   const { config, setConfigData } = useConfig();
-  const _defaultConfig = Object.entries(defaultConfig) as unknown as [AllConfigKey, ItemConfig][];
+  const _defaultConfig = Object.entries(defaultConfig) as unknown as [TaskConfigKey, ItemConfig][];
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const key = e.target.id as AllConfigKey;
+    const key = e.target.id as TaskConfigKey;
     const _config = {
       ...config,
       [key]: typeof config[key] === "boolean" ? !config[key] : e.target.value,
@@ -46,7 +63,7 @@ function ConfigLists({ disabledKey, defaultConfig }: ConfigListsProps) {
             disabled = !config[disabledKey] as boolean;
           }
         }
-        const _task = {
+        const attr = {
           value,
           title: item.title,
           type: item.type,
@@ -54,15 +71,20 @@ function ConfigLists({ disabledKey, defaultConfig }: ConfigListsProps) {
           id: key,
         };
         return (
-          <div className="p-14px relative" key={key}>
-            <label htmlFor={key} className="flex justify-between cursor-pointer">
-              <div>
-                <h1 className="font-500 text-16px">{item.title}</h1>
-                <p className="text-14px font-400 text-#888888 mt-4px">{item.subtitle}</p>
-              </div>
-              <Input onChange={handleChange} {..._task} />
-            </label>
-          </div>
+          <label
+            htmlFor={key}
+            key={key}
+            className="p-14px relative hover:bg-#f3f3f3 flex justify-between cursor-pointer"
+          >
+            <div>
+              <h1 className="font-500 text-16px">{item.title}</h1>
+              <p className="text-14px font-400 text-#888888 mt-4px">
+                {item.subtitle}
+                {children?.(key)}
+              </p>
+            </div>
+            <Input onChange={handleChange} {...attr} />
+          </label>
         );
       })}
     </>

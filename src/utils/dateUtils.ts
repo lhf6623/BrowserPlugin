@@ -14,11 +14,7 @@ export const getWeekday = () => {
 };
 
 /**
- * 获取指定年份和类型的日期范围。
- * @param {Object} param0 - 包含年份和类型的对象。
- * @param {number} [param0.year] - 可选参数，指定的年份。如果未提供，则使用当前年份。
- * @param {'year' | 'month' | 'week'} param0.type - 日期类型，可选值为 'year'、'month'、'week'。
- * @returns {Object} - 返回一个包含开始时间和结束时间（以Unix时间戳格式）的对象。
+ * 原始时间范围 根据 taskType 字段获取时间范围
  */
 export const getDateRange = (task: Task): { start: number; end: number } => {
   let start = dayjs(task.start),
@@ -28,9 +24,12 @@ export const getDateRange = (task: Task): { start: number; end: number } => {
   if (task.taskType === "unrestricted") {
     return { start: task.start, end: task.end };
   }
-  const type: Exclude<TaskType, "unrestricted"> = task.taskType;
 
-  const typeObj: Record<Exclude<TaskType, "unrestricted">, ManipulateType> = {
+  type Cycle = Exclude<TaskType, "unrestricted">;
+
+  const type: Cycle = task.taskType;
+
+  const typeObj: Record<Cycle, ManipulateType> = {
     year: "y",
     month: "M",
     day: "w",

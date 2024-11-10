@@ -1,7 +1,8 @@
-const TASK_CONFIG_KEY = "TASK_CONFIG_KEY";
+export const TASK_CONFIG_KEY = "TASK_CONFIG_KEY";
 
 function getDefaultConfig(): ReturnData {
-  const allData: AllConfigType = {
+  const allData: TaskConfigType = {
+    ...defaultNoticeConfig,
     ...defaultVacationConfig,
     ...defaultDateConfig,
     ...defaultTaskListConfig,
@@ -15,22 +16,25 @@ function getDefaultConfig(): ReturnData {
   }, {} as ReturnData);
   return _data;
 }
+
+export const defaultConfig = getDefaultConfig();
+
 export default function useConfig(): {
   config: ReturnData;
   setConfigData: (data: ReturnData) => void;
 } {
-  const [config, setConfig] = useState(getDefaultConfig());
+  const [config, setConfig] = useState(defaultConfig);
 
   useEffect(() => {
-    cache.getItem<ReturnData>(TASK_CONFIG_KEY, getDefaultConfig()).then((data) => {
-      setConfig(data);
+    cache.getItem<ReturnData>(TASK_CONFIG_KEY).then((data) => {
+      setConfig(data ?? defaultConfig);
     });
 
     function showDate(allLocalData: { [name: string]: chrome.storage.StorageChange }) {
       const { newValue } = allLocalData[cache.baseKey];
 
       const data = newValue?.[TASK_CONFIG_KEY];
-      setConfig(data || getDefaultConfig());
+      setConfig(data || defaultConfig);
     }
     cache.storage.onChanged.addListener(showDate);
 

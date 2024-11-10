@@ -83,7 +83,7 @@ export default function SelectImage({ onChange, multiple = false }: SelectImageP
       <div
         onClick={handleOpenFileInput}
         ref={dragRef}
-        className={`w-full my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border border-2px ${style}`}
+        className={`w-full my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border-2px ${style}`}
       >
         <i className="i-mdi:file-image-plus-outline w-64px h-64px text-blue"></i>
         <span className="text-12px op-70">

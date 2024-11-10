@@ -1,3 +1,4 @@
+import packageJson from "../../package.json";
 function App() {
   const [showPanel, setShowPanel] = useState(false);
   const [title, setTitle] = useState("修改任务");
@@ -32,7 +33,10 @@ function App() {
       <Header />
       <TaskList onEdit={handleEdit} />
       <TaskPanel title={title} show={showPanel} onChange={handleChange} task={task} />
-      <footer className="w-full text-right mt-1 *:text-lg *:opacity-30 *:text-#409eff all:transition-400">
+      <footer className="w-full overflow-hidden relative text-right mt-1 *:text-lg *:opacity-30 *:text-#409eff all:transition-400">
+        <span className="absolute inline-block flex-center left-1 !text-#000 !text-12px">
+          V: {packageJson.version}
+        </span>
         <a
           className="i-mdi:github hover:opacity-100"
           target="_blank"

@@ -23,9 +23,6 @@ declare global {
     end: number; // 秒
     color: string;
   };
-  type VacationConfigKey = "showVacation";
-  type DateConfigKey = "showDateTitle" | "showDate" | "showWeek" | "showSeparator" | "showSecond";
-  type TaskConfigKey = "showTitle" | "spacing" | "radius" | "height";
   type ItemConfig = {
     key?: string;
     value: boolean | number;
@@ -34,13 +31,23 @@ declare global {
     type: "checkbox" | "number";
     disabled?: boolean;
   };
-  type AllConfigKey = VacationConfigKey | DateConfigKey | TaskConfigKey;
-  type VacationConfigType = Record<VacationConfigKey, ItemConfig>;
-  type DateConfigType = Record<DateConfigKey, ItemConfig>;
-  type TaskConfigType = Record<TaskConfigKey, ItemConfig>;
-  type AllConfigType = VacationConfigType | DateConfigType | TaskConfigType;
+  type TaskConfigKey =
+    | "showNotice"
+    | "showVacation"
+    | "showDateTitle"
+    | "showDate"
+    | "showWeek"
+    | "showSeparator"
+    | "showSecond"
+    | "showTitle"
+    | "showDateRange"
+    | "spacing"
+    | "radius"
+    | "height";
 
-  type ReturnData = Record<AllConfigKey, boolean | number>;
+  type TaskConfigType = Partial<Record<TaskConfigKey, ItemConfig>>;
+
+  type ReturnData = Record<TaskConfigKey, boolean | number>;
   // 定义一个工具类型来提取 Promise<T> 中的 T 类型
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
   type Exclude<T, U> = T extends U ? never : T;

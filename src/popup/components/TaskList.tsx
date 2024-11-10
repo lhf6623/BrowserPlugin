@@ -2,7 +2,7 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
   const { config } = useConfig();
   const { taskList, setList } = useTaskList();
   const date = useTime();
-  const { spacing, radius, height } = config;
+  const { spacing, radius, height, showDateRange } = config;
 
   function updateList(type: "up" | "down", id: string) {
     const direction = type === "up" ? -1 : 1;
@@ -18,6 +18,9 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
   function handleDelete(_task: Task) {
     const _list = taskList.filter((t) => t.id !== _task.id);
     setList(_list);
+  }
+  function formatTime(date: number) {
+    return dateUtils(date).format("YYYY-MM-DD HH:mm:ss");
   }
   return (
     <>
@@ -77,12 +80,19 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
                   ></button>
                 </div>
               </div>
-              <progress
-                className="progress w-full flex"
-                style={progressBarStyle}
-                value={date - start}
-                max={end - start}
-              />
+              <div className="relative">
+                <progress
+                  className="progress w-full flex"
+                  style={progressBarStyle}
+                  value={date - start}
+                  max={end - start}
+                />
+                {showDateRange && (
+                  <span className="flex-center text-12px">
+                    {formatTime(start)} - {formatTime(end)}
+                  </span>
+                )}
+              </div>
             </li>
           );
         })}

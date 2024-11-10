@@ -24,7 +24,7 @@ export default defineManifest(async (_env) => {
       },
     },
     options_page: "options.html",
-    permissions: ["storage"],
+    permissions: ["storage", "notifications", "webNavigation", "alarms"],
     // content_scripts: [
     // 	{
     // 		matches: ["<all_urls>"],
@@ -32,8 +32,8 @@ export default defineManifest(async (_env) => {
     // 		all_frames: true,
     // 	},
     // ],
-    // background: {
-    // 	service_worker: "src/background/background.ts",
-    // },
+    background: {
+      service_worker: "src/background.ts",
+    },
   };
 });

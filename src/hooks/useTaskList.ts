@@ -1,4 +1,4 @@
-const TASK_LIST_KEY = "TASK_LIST_KEY";
+export const TASK_LIST_KEY = "TASK_LIST_KEY";
 
 export const newTask: Task = {
   id: uuidv4(),
@@ -9,13 +9,13 @@ export const newTask: Task = {
   color: "#a21211",
 };
 
-const defaultList: Task[] = [newTask];
+export const defaultList: Task[] = [newTask];
 export default function useTaskList() {
   const [taskList, setTaskList] = useState<Task[]>(defaultList);
 
   useEffect(() => {
-    cache.getItem<Task[]>(TASK_LIST_KEY, defaultList).then((data) => {
-      setTaskList(data);
+    cache.getItem<Task[]>(TASK_LIST_KEY).then((data) => {
+      setTaskList(data ?? defaultList);
     });
     function showDate(allLocalData: { [name: string]: chrome.storage.StorageChange }) {
       const { newValue } = allLocalData[cache.baseKey];
