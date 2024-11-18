@@ -1,3 +1,5 @@
+import path from "path";
+
 export const routes = [
   {
     path: "/",
@@ -16,12 +18,12 @@ export const routes = [
         children: [
           {
             path: "/ImageProcessing",
-            name: "图片压缩",
+            name: "压缩",
             element: <Compress />,
           },
           {
             path: "/ImageProcessing/CutOut",
-            name: "图片剪裁",
+            name: "剪裁",
             element: <CutOut />,
           },
         ],

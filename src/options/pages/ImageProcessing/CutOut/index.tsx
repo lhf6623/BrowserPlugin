@@ -47,21 +47,19 @@ export default function CutOut() {
   const w = ((cutData.w - cutData.bl - cutData.br) * ratio || 0).toFixed(0);
   const h = ((cutData.h - cutData.bt - cutData.bb) * ratio || 0).toFixed(0);
   return (
-    <div className="w-600px box-content bg-#fafaff relative p-4">
+    <div className="w-600px box-content relative p-4">
       {!imageInfo ? (
-        <div className="w-full px-4">
-          <SelectImage onChange={handleChangeFile} multiple={false} />
-        </div>
+        <SelectImage onChange={handleChangeFile} multiple={false} />
       ) : (
-        <div className="text-center w-full relative">
+        <div className="w-full bg-#fafaff relative py-4">
           <CutImage imgInfo={imageInfo} onChange={(data) => setCutData(data)} />
-          <p className="text-13px mt-4">
+          <p className="text-center text-13px mt-4">
             原图像素：{`${imageInfo.image.width}*${imageInfo.image.height}`}
             &nbsp;&nbsp; 目标像素：
             <span className="text-blue">{`${w}*${h} `}</span>
             &nbsp;&nbsp;为方便操作，已进行缩小展示
           </p>
-          <div className="*:border *:py-1 *:px-4 *: *:bg-white text-blue my-4">
+          <div className="text-center *:border *:py-1 *:px-4 *: *:bg-white text-blue my-4">
             <button
               className="rounded-s-full active:op70 hover:op80"
               onClick={() => {
@@ -78,7 +76,7 @@ export default function CutOut() {
             </button>
           </div>
           {url && (
-            <div>
+            <div className="w-full pb-100px">
               <p className="text-right mb-1">
                 <button
                   onClick={() => {

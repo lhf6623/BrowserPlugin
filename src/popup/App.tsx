@@ -35,7 +35,7 @@ function App() {
       <TaskPanel title={title} show={showPanel} onChange={handleChange} task={task} />
       <footer className="w-full overflow-hidden relative text-right mt-1 *:text-lg *:opacity-30 *:text-#409eff all:transition-400">
         <span className="absolute inline-block flex-center left-1 !text-#000 !text-12px">
-          V: {packageJson.version}
+          v: {packageJson.version}
         </span>
         <a
           className="i-mdi:github hover:opacity-100"

@@ -7,7 +7,7 @@ export default function ImageProcessing() {
         <ul className="py-16px">
           {routers.map((item) => {
             return (
-              <li key={item.path} className="inline-block mr2">
+              <li key={item.path} className="inline-block mr4">
                 <NavLink
                   to={item.path}
                   className={({ isActive }) => (isActive ? "text-#18a058" : "")}
