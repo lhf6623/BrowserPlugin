@@ -1,5 +1,3 @@
-import path from "path";
-
 export const routes = [
   {
     path: "/",
@@ -25,6 +23,11 @@ export const routes = [
             path: "/ImageProcessing/CutOut",
             name: "剪裁",
             element: <CutOut />,
+          },
+          {
+            path: "/ImageProcessing/ImageToText",
+            name: "Tauri icon 生成",
+            element: <TauriIcons />,
           },
         ],
       },

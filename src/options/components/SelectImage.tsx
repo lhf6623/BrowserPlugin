@@ -1,8 +1,13 @@
 interface SelectImageProps {
   multiple?: boolean;
+  accept?: string;
   onChange: (file: { file: File; id: string }[]) => void;
 }
-export default function SelectImage({ onChange, multiple = false }: SelectImageProps) {
+export default function SelectImage({
+  onChange,
+  multiple = false,
+  accept = "image/*",
+}: SelectImageProps) {
   const [isDrag, setIsDrag] = useState(false);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const dragRef = useRef<HTMLDivElement | null>(null);
@@ -95,7 +100,7 @@ export default function SelectImage({ onChange, multiple = false }: SelectImageP
       <input
         ref={fileRef}
         type="file"
-        accept="image/*"
+        accept={accept}
         multiple={multiple}
         onChange={handleFileChange}
         className="hidden w-0 h-0 op-0"

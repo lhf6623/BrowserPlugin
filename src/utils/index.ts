@@ -28,6 +28,35 @@ export function getSizeText(fileSize: number) {
   }
 }
 
+/**
+ * 改变图片尺寸
+ * @param image
+ * @param width
+ * @param height
+ * @param type
+ * @returns
+ */
+export function changeImgSize(
+  image: HTMLImageElement,
+  width: number,
+  height: number,
+  type?: string,
+) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = width;
+  canvas.height = height;
+  ctx!.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+  const dataURL = canvas.toDataURL(type ?? "image/png", 1);
+  return dataURL;
+}
+/**
+ * 获取图片信息
+ * @param file
+ * @returns
+ */
 export function getImgInfo(file: File | Blob): Promise<ImageFileInfo> {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -51,6 +80,14 @@ export function getImgInfo(file: File | Blob): Promise<ImageFileInfo> {
     reader.readAsDataURL(file);
   });
 }
+/**
+ * 压缩图片
+ * @param file
+ * @param type
+ * @param quality
+ * @param onProgress
+ * @returns
+ */
 export const compressImage = (
   file: File,
   type: string = "image/png",
