@@ -1,3 +1,9 @@
+import useConfig from "@/hooks/useConfig";
+import { getKeyByVersion } from "@/utils";
+import cache from "@/utils/cache";
+import dateUtils, { getWeekday } from "@/utils/dateUtils";
+import { useState, useRef, useEffect } from "react";
+
 interface HolidayRequertData {
   code: 0 | -1;
   holiday: {
@@ -45,7 +51,7 @@ function DateTitle({ config }: { config: ReturnData }) {
     second: "",
   });
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
     function getDate() {

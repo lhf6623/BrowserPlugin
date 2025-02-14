@@ -1,3 +1,12 @@
+import {
+  defaultDateConfig,
+  defaultNoticeConfig,
+  defaultTaskListConfig,
+  defaultVacationConfig,
+} from "@/config/config";
+import useConfig from "@/hooks/useConfig";
+import { ReactNode, ChangeEvent } from "react";
+
 export default function GeneralSettings() {
   function test() {
     chrome.notifications.create("cake-notification", {

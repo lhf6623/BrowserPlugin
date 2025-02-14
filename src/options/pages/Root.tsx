@@ -1,3 +1,7 @@
+import useCurrRouters from "@/hooks/useCurrRouters";
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+
 export default function Layout() {
   const [isSm, setIsSm] = useState(false);
 

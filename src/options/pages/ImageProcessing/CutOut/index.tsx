@@ -1,3 +1,8 @@
+import SelectImage from "@opt/components/SelectImage";
+import { getImgInfo, downloadImage } from "@/utils";
+import { useState } from "react";
+import CutImage from "./CutImage";
+
 export default function CutOut() {
   const [url, setUrl] = useState("");
   const [imageInfo, setImageInfo] = useState<ImgInfo | null>(null);

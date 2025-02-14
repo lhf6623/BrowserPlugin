@@ -1,3 +1,7 @@
+import SelectImage from "@opt/components/SelectImage";
+import { changeImgSize, downloadImage, getImgInfo } from "@/utils";
+import { useState } from "react";
+
 export default function TauriIcons() {
   const [imageInfo, setImageInfo] = useState<ImgInfo | null>(null);
   async function handleChangeFile(list: { file: File; id: string }[]) {
@@ -86,11 +90,16 @@ export default function TauriIcons() {
     },
   ];
 
-  function downloadImg() {
-    imgList.map((item) => {
-      const dataURL = changeImgSize(imageInfo!.image, item.width, item.height);
-      downloadImage(dataURL, `${item.name}.${item.type ?? "png"}`);
-    });
+  function downloadImg(i: number) {
+    const item = imgList[i];
+    if (!item) return;
+    const dataURL = changeImgSize(imageInfo!.image, item.width, item.height);
+    downloadImage(dataURL, `${item.name}.${item.type ?? "png"}`);
+
+    // 浏览器下载数量限制
+    setTimeout(() => {
+      downloadImg(i + 1);
+    }, 1000);
   }
 
   return (
@@ -128,7 +137,10 @@ export default function TauriIcons() {
           <button className="l-button px-3" onClick={reset}>
             重新选择
           </button>
-          <button className="l-button px-3 ml-5 bg-#0797E1 text-white" onClick={downloadImg}>
+          <button
+            className="l-button px-3 ml-5 bg-#0797E1 text-white"
+            onClick={() => downloadImg(0)}
+          >
             下载
           </button>
         </div>

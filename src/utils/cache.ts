@@ -1,3 +1,5 @@
+import { getKeyByVersion } from ".";
+
 const { storage } = chrome;
 const { local } = storage;
 

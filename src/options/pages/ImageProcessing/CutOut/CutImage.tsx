@@ -1,3 +1,5 @@
+import CuttingArea from "./CuttingArea";
+
 /**
  * 图片尺寸适当缩放
  * @param image

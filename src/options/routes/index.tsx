@@ -1,3 +1,12 @@
+import { createHashRouter } from "react-router-dom";
+import ErrorPage from "@page/ErrorPage";
+import GeneralSettings from "@page/GeneralSettings";
+import ImageProcessing from "@page/ImageProcessing";
+import Compress from "@page/ImageProcessing/Compress";
+import CutOut from "@page/ImageProcessing/CutOut";
+import TauriIcons from "@page/ImageProcessing/TauriIcons";
+import Root from "@page/Root";
+
 export const routes = [
   {
     path: "/",

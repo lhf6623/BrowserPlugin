@@ -1,6 +1,9 @@
+import dateUtils from "@/utils/dateUtils";
+import { useState, useRef, useEffect } from "react";
+
 export default function useTime() {
   const [time, setTime] = useState(dateUtils().valueOf());
-  const timer = useRef<NodeJS.Timeout | null>(null);
+  const timer = useRef<number | null>(null);
 
   useEffect(() => {
     timer.current = setInterval(() => {

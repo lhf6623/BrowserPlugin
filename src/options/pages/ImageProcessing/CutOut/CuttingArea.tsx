@@ -1,3 +1,6 @@
+import { getInRange } from "@/utils";
+import { CSSProperties, memo, useEffect, useRef } from "react";
+
 export default memo(function CuttingArea({ width = 0, height = 0, onChange }: CuttingAreaProps) {
   const boxRef = useRef<HTMLDivElement>(null);
 

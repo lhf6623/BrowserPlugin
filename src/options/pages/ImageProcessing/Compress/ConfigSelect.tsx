@@ -1,3 +1,8 @@
+import RadioGroup from "@opt/components/RadioGroup";
+import SelectImage from "@opt/components/SelectImage";
+import { useState, useEffect } from "react";
+import { useImgConfig, CompressionMode, useImageList } from "./ImageProcessingContext";
+
 function CustomConfigPanel({ show }: ConfigPanelProps) {
   const { configDispatch } = useImgConfig();
   const [custom, setCustom] = useState<{
