@@ -12,12 +12,12 @@ export default function TauriIcons() {
     setImageInfo(null);
   }
   const imgList = [
-    {
-      width: 256,
-      height: 256,
-      name: "icon",
-      type: "ico",
-    },
+    // {
+    //   width: 256,
+    //   height: 256,
+    //   name: "icon",
+    //   type: "ico",
+    // },
     {
       width: 32,
       height: 32,
@@ -94,7 +94,7 @@ export default function TauriIcons() {
     const item = imgList[i];
     if (!item) return;
     const dataURL = changeImgSize(imageInfo!.image, item.width, item.height);
-    downloadImage(dataURL, `${item.name}.${item.type ?? "png"}`);
+    downloadImage(dataURL, `${item.name}.png`);
 
     // 浏览器下载数量限制
     setTimeout(() => {
@@ -105,8 +105,11 @@ export default function TauriIcons() {
   return (
     <div className="w-600px relative p-4">
       <p className="text-amber-500 p-2 b b-amber">
-        选择一张 <code>512*512</code> 或者以上的 png 格式的图片，ico
-        格式不能在浏览器上制作，只能改后缀
+        选择一张 <code>512*512</code> 或者以上的 png 格式的图片，
+        <a target="_blank" className="underline decoration-1" href="http://www.ico51.cn/">
+          ico
+        </a>{" "}
+        格式不能在浏览器上制作
       </p>
       {!imageInfo && (
         <SelectImage accept="image/png" onChange={handleChangeFile} multiple={false} />
@@ -127,7 +130,7 @@ export default function TauriIcons() {
                 名字：
               </label>
               <input type="text" id="n" defaultValue={item.name} className="b w-170px" />
-              <code className="ml-2">{item.type ?? "png"}</code>
+              <code className="ml-2">png</code>
             </div>
           );
         })}

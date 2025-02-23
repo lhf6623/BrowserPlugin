@@ -1,5 +1,6 @@
 import useCurrRouters from "@/hooks/useCurrRouters";
 import { NavLink, Outlet } from "react-router-dom";
+import { DndContext } from "@dnd-kit/core";
 
 export default function ImageProcessing() {
   const routers = useCurrRouters();
@@ -23,7 +24,9 @@ export default function ImageProcessing() {
         </ul>
       </div>
       <div className="wfull flex-1 px-16px flex justify-center overflow-auto">
-        <Outlet />
+        <DndContext>
+          <Outlet />
+        </DndContext>
       </div>
     </div>
   );

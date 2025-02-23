@@ -2,6 +2,7 @@ import SelectImage from "@opt/components/SelectImage";
 import { getImgInfo, downloadImage } from "@/utils";
 import { useState } from "react";
 import CutImage from "./CutImage";
+import Image from "@opt/components/Image";
 
 export default function CutOut() {
   const [url, setUrl] = useState("");
@@ -92,7 +93,7 @@ export default function CutOut() {
                   下载
                 </button>
               </p>
-              <img src={url} alt="" />
+              <Image src={url} />
             </div>
           )}
         </div>

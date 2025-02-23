@@ -2,6 +2,7 @@ import { compressImage, getSizeText, downloadImage } from "@/utils";
 import { useState, useEffect } from "react";
 import { useImageList, useImgConfig } from "./ImageProcessingContext";
 import Notify from "simple-notify";
+import Image from "@opt/components/Image";
 
 export default function ImageList() {
   const { imageList } = useImageList();
@@ -121,13 +122,7 @@ function Task({ file }: { file: File }) {
         </div>
       )}
       {showImg && (
-        <img
-          className="my-2"
-          height={`${imgData?.oldValue.image.height}px`}
-          width={`${imgData?.oldValue.image.width}px`}
-          src={imgData?.newValue.base64Url}
-          alt=""
-        />
+        <Image width={`${imgData?.oldValue.image.width}`} src={imgData!.newValue.base64Url}></Image>
       )}
     </li>
   );
