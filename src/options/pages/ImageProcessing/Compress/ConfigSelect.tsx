@@ -85,12 +85,14 @@ export default function ConfigSelect() {
   const [type, setType] = useState("reduce");
   const [showConfig, setShowConfig] = useState(false);
   const { configDispatch } = useImgConfig();
-  const { imageListDispatch } = useImageList();
+  const { imageList, imageListDispatch } = useImageList();
 
   function handleFileChange(fileList: { file: File; id: string }[]) {
     imageListDispatch({
       type: "add",
-      payload: fileList,
+      payload: fileList.filter(({ id }) => {
+        return !imageList.find((item) => item.id === id);
+      }),
     });
   }
 

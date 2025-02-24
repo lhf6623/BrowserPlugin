@@ -66,10 +66,7 @@ const imageListReducer: Reducer<ImageListContextType[], ImageListContextAction> 
       return [...list, ..._list];
     case "remove":
       return list.flatMap((item) => {
-        if (item.id === action.id) {
-          [];
-        }
-        return [item];
+        return item.id === action.id ? [] : [item];
       });
     case "update":
       if (Array.isArray(action.payload)) {

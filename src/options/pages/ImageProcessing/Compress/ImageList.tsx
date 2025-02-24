@@ -5,17 +5,29 @@ import Notify from "simple-notify";
 import Image from "@opt/components/Image";
 
 export default function ImageList() {
-  const { imageList } = useImageList();
+  const { imageList, imageListDispatch } = useImageList();
+  function remove(id: string) {
+    const payload = imageList.find((item) => item.id === id)!;
+    imageListDispatch({ type: "remove", id, payload });
+  }
   return (
     <ul>
       {imageList.map((item) => {
-        return <Task file={item.file} key={item.id} />;
+        return <Task file={item.file} id={item.id} key={item.id} onOperation={remove} />;
       })}
     </ul>
   );
 }
 
-function Task({ file }: { file: File }) {
+function Task({
+  file,
+  id,
+  onOperation,
+}: {
+  file: File;
+  id: string;
+  onOperation: (id: string) => void;
+}) {
   const { config } = useImgConfig();
   const [load, setLoad] = useState(0);
   const [showImg, setShowImg] = useState(false);
@@ -118,6 +130,7 @@ function Task({ file }: { file: File }) {
               title="下载压缩后的图片"
               onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
             ></button>
+            <button onClick={() => onOperation(id)}>删除</button>
           </p>
         </div>
       )}
