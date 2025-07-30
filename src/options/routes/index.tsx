@@ -5,6 +5,7 @@ import ImageProcessing from "@page/ImageProcessing";
 import Compress from "@page/ImageProcessing/Compress";
 import CutOut from "@page/ImageProcessing/CutOut";
 import TauriIcons from "@page/ImageProcessing/TauriIcons";
+import Base64ToImg from "@page/ImageProcessing/Base64ToImg";
 import Root from "@page/Root";
 
 export const routes = [
@@ -37,6 +38,11 @@ export const routes = [
             path: "/ImageProcessing/ImageToText",
             name: "Tauri icon 生成",
             element: <TauriIcons />,
+          },
+          {
+            path: "/ImageProcessing/Base64ToImg",
+            name: "Base64和图片互转",
+            element: <Base64ToImg />,
           },
         ],
       },

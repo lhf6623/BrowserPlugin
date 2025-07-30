@@ -1,7 +1,6 @@
 import useTaskList from "@/hooks/useTaskList";
 import dateUtils from "@/utils/dateUtils";
 import { useRef, useEffect, FormEvent, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 type Timetype = "day" | "hour" | "minute";
 
@@ -80,7 +79,7 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
       : dateUtils(formData.start).add(formData.end, endType).valueOf();
     // 新增
     if (!task.id) {
-      setList([...taskList, { ...formData, id: uuidv4(), start, end }]);
+      setList([...taskList, { ...formData, id: crypto.randomUUID(), start, end }]);
     } else {
       const list = taskList.map((item) => {
         if (item.id === task.id) {
@@ -96,7 +95,7 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
   const defaultStart = dateUtils(task.start).format("YYYY-MM-DD HH:mm");
 
   return (
-    <dialog ref={dialogRef} key={uuidv4()}>
+    <dialog ref={dialogRef} key={crypto.randomUUID()}>
       <form ref={formRef} className="w-280px p-1 bg-white" onSubmit={handleSubmit}>
         <div className="w-full h-26px flex justify-between items-center mb-2 border-b">
           <h1 className="text-16px font-700">{title}</h1>
@@ -171,7 +170,7 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
               <label htmlFor="end" className="w-60px mr-1 w-fit flex-shrink-0 min-w-60px">
                 结束时间
               </label>
-              <EndTime task={task} key={uuidv4()} />
+              <EndTime task={task} key={crypto.randomUUID()} />
             </li>
           </ul>
         </div>
@@ -228,7 +227,7 @@ function EndTime({ task }: { task: Task }) {
         ) : (
           <div className="flex">
             <input
-              key={uuidv4()}
+              key={crypto.randomUUID()}
               className="w-84px"
               name="end"
               id="end"

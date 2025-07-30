@@ -29,7 +29,7 @@ export function getSizeText(fileSize: number) {
 }
 
 /**
- * 改变图片尺寸
+ * 改变图片尺寸,获取base64
  * @param image
  * @param width
  * @param height

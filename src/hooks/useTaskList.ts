@@ -1,11 +1,10 @@
 import cache from "@/utils/cache";
 import dateUtils from "@/utils/dateUtils";
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 export const TASK_LIST_KEY = "TASK_LIST_KEY";
 
 export const newTask: Task = {
-  id: uuidv4(),
+  id: crypto.randomUUID(),
   title: "朝九晚五",
   taskType: "date",
   start: dateUtils().hour(9).minute(0).second(0).millisecond(0).valueOf(),
