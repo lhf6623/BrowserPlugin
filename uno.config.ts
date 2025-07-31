@@ -1,6 +1,6 @@
 import {
   defineConfig,
-  presetUno,
+  presetMini,
   presetIcons,
   presetAttributify,
   presetTypography,
@@ -9,7 +9,7 @@ import {
 
 export default defineConfig({
   presets: [
-    presetUno(),
+    presetMini(),
     presetAttributify(),
     presetIcons({
       extraProperties: {

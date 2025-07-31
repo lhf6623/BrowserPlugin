@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import SelectImage from "@opt/components/SelectImage";
-import { changeImgSize, getSizeText } from "@/utils";
+import { changeImgSize, getSizeText, downloadImage } from "@/utils";
 type ImgInfo = {
   width: number;
   height: number;
@@ -82,7 +82,7 @@ export default function Base64ToImg() {
   }
   // 图片转base64
   async function getBase64() {
-    if (imgRef.current) {
+    if (imgRef.current && imgInfo.src) {
       // 获取图片实例
       const base64 = await changeImgSize(
         imgRef.current,
@@ -174,6 +174,16 @@ export default function Base64ToImg() {
             {imgInfo.src && (
               <button className="l-button px-6px ml-6px" onClick={clearImgInfo}>
                 清空
+              </button>
+            )}
+            {imgInfo.src && (
+              <button
+                className="l-button px-6px ml-6px"
+                onClick={() => {
+                  imgInfo.src && downloadImage(imgInfo.src, imgInfo.name);
+                }}
+              >
+                下载
               </button>
             )}
           </div>
