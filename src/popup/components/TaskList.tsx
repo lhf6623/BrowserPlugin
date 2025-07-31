@@ -49,51 +49,51 @@ export default function TaskList({ onEdit }: { onEdit: (task: Task) => void }) {
           const isLast = index === taskList.length - 1;
 
           return (
-            <li key={index} className="progress_li group" style={liStyle}>
-              <div className="w-full flex items-center justify-between">
+            <li key={index} className='progress_li group' style={liStyle}>
+              <div className='w-full flex items-center justify-between'>
                 {config.showTitle ? <label>{title}</label> : <span></span>}
-                <div className="hidden py-1px group-hover:flex float-right text-#0797E1 cursor-pointer *:text-14px *:mr-1">
+                <div className='hidden py-1px group-hover:flex float-right text-#0797E1 cursor-pointer *:text-14px *:mr-1'>
                   {!isFirst && (
                     <button
-                      title="移动到上一行"
-                      className="l-button h-14px w-14px flex-center"
+                      title='移动到上一行'
+                      className='l-button h-14px w-14px flex-center'
                       onClick={() => updateList("up", item.id)}
                     >
-                      <i className="i-mdi:arrow-up h-14px w-14px"></i>
+                      <i className='i-mdi:arrow-up h-14px w-14px'></i>
                     </button>
                   )}
                   {!isLast && (
                     <button
-                      title="移动到下一行"
-                      className="l-button h-14px w-14px flex-center"
+                      title='移动到下一行'
+                      className='l-button h-14px w-14px flex-center'
                       onClick={() => updateList("down", item.id)}
                     >
-                      <i className="i-mdi:arrow-down h-14px w-14px"></i>
+                      <i className='i-mdi:arrow-down h-14px w-14px'></i>
                     </button>
                   )}
                   <button
-                    title="修改当前行"
-                    className="l-button h-14px w-14px flex-center"
+                    title='修改当前行'
+                    className='l-button h-14px w-14px flex-center'
                     onClick={() => onEdit(item)}
                   >
-                    <i className="i-mdi:calendar-edit-outline h-14px w-14px"></i>
+                    <i className='i-mdi:calendar-edit-outline h-14px w-14px'></i>
                   </button>
                   <button
-                    title="删除当前行"
-                    className="i-mdi:delete-outline text-red h-14px w-14px"
+                    title='删除当前行'
+                    className='i-mdi:delete-outline text-red h-14px w-14px'
                     onClick={() => handleDelete(item)}
                   ></button>
                 </div>
               </div>
-              <div className="relative">
+              <div className='relative'>
                 <progress
-                  className="progress w-full flex"
+                  className='progress w-full flex'
                   style={progressBarStyle}
                   value={date - start}
                   max={end - start}
                 />
                 {showDateRange && (
-                  <span className="flex-center text-12px">
+                  <span className='flex-center text-12px'>
                     {formatTime(start)} - {formatTime(end)}
                   </span>
                 )}

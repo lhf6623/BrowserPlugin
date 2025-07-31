@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       {(showVacation || showDateTitle) && (
-        <header className="mb-1 border-b border-b-#ccc flex justify-between">
+        <header className='mb-1 border-b border-b-#ccc flex justify-between'>
           <span>{config.showVacation && <Holiday />}</span>
           {config.showDateTitle && <DateTitle config={config} />}
         </header>

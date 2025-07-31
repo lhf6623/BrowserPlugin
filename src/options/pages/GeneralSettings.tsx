@@ -1,9 +1,4 @@
-import {
-  defaultDateConfig,
-  defaultNoticeConfig,
-  defaultTaskListConfig,
-  defaultVacationConfig,
-} from "@/config/config";
+import { defaultDateConfig, defaultNoticeConfig, defaultTaskListConfig, defaultVacationConfig } from "@/config/config";
 import useConfig from "@/hooks/useConfig";
 import { ReactNode, ChangeEvent } from "react";
 
@@ -18,27 +13,27 @@ export default function GeneralSettings() {
     });
   }
   return (
-    <div className="py-50px px-16px relative max-w-672px w-full h-full overflow-auto select-none">
-      <label className="p-16px relative flex flex-col justify-between">
-        <h1 className="text-24px font-700">常规设置</h1>
-        <p className="text-14px font-400 text-#888888 mt-8px">
+    <div className='py-50px px-16px relative max-w-672px w-full h-full overflow-auto select-none'>
+      <label className='p-16px relative flex flex-col justify-between'>
+        <h1 className='text-24px font-700'>常规设置</h1>
+        <p className='text-14px font-400 text-#888888 mt-8px'>
           可以设置看板的样式，看板右上角时间样式配置和每个任务样式配置
         </p>
       </label>
       <ConfigLists defaultConfig={defaultNoticeConfig}>
         {() => (
-          <button className="l-button ml-10px px-6px" onClick={test}>
+          <button className='l-button ml-10px px-6px' onClick={test}>
             测试
           </button>
         )}
       </ConfigLists>
       <ConfigLists defaultConfig={defaultVacationConfig} />
-      <details open name="task">
-        <summary className="font-500 text-18px cursor-pointer">时间样式配置</summary>
-        <ConfigLists defaultConfig={defaultDateConfig} disabledKey="showDateTitle" />
+      <details open name='task'>
+        <summary className='font-500 text-18px cursor-pointer'>时间样式配置</summary>
+        <ConfigLists defaultConfig={defaultDateConfig} disabledKey='showDateTitle' />
       </details>
-      <details name="task">
-        <summary className="font-500 text-18px cursor-pointer">任务统一配置</summary>
+      <details name='task'>
+        <summary className='font-500 text-18px cursor-pointer'>任务统一配置</summary>
         <ConfigLists defaultConfig={defaultTaskListConfig} />
       </details>
     </div>
@@ -83,11 +78,11 @@ function ConfigLists({ disabledKey, defaultConfig, children }: ConfigListsProps)
           <label
             htmlFor={key}
             key={key}
-            className="p-14px relative hover:bg-#f3f3f3 flex justify-between cursor-pointer"
+            className='p-14px relative hover:bg-#f3f3f3 flex justify-between cursor-pointer'
           >
             <div>
-              <h1 className="font-500 text-16px">{item.title}</h1>
-              <p className="text-14px font-400 text-#888888 mt-4px">
+              <h1 className='font-500 text-16px'>{item.title}</h1>
+              <p className='text-14px font-400 text-#888888 mt-4px'>
                 {item.subtitle}
                 {children?.(key)}
               </p>

@@ -39,15 +39,12 @@ export default function Image({ src, width }: { src: string; width?: number | st
       };
 
   return (
-    <div className="w-fit h-fit relative">
-      <img width={width ?? ""} src={src} className="cursor-pointer" onClick={() => setShow(true)} />
+    <div className='w-fit h-fit relative'>
+      <img width={width ?? ""} src={src} className='cursor-pointer' onClick={() => setShow(true)} />
       {show && (
-        <div
-          className="fixed top-0 left-0 z-999 flex-center wfull hfull bg-#0000004d"
-          onClick={() => setShow(false)}
-        >
+        <div className='fixed top-0 left-0 z-999 flex-center wfull hfull bg-#0000004d' onClick={() => setShow(false)}>
           <img
-            className="transition-all"
+            className='transition-all'
             width={width ?? ""}
             onClick={(e) => e.stopPropagation()}
             src={src}
@@ -58,17 +55,14 @@ export default function Image({ src, width }: { src: string; width?: number | st
           />
           <div
             onClick={(e) => e.stopPropagation()}
-            className="absolute bottom-50px rounded-full py-10px px-20px flex-center gap-4 bg-#0000004d *:text-30px *:text-#ffffffe6 *:cursor-pointer hover:*:text-#40444f active:*:text-#40444f99"
+            className='absolute bottom-50px rounded-full py-10px px-20px flex-center gap-4 bg-#0000004d *:text-30px *:text-#ffffffe6 *:cursor-pointer hover:*:text-#40444f active:*:text-#40444f99'
           >
-            <i
-              className="i-mdi:rotate-counter-clockwise"
-              onClick={() => setRotate(rotate - 90)}
-            ></i>
-            <i className="i-mdi:rotate-clockwise" onClick={() => setRotate(rotate + 90)}></i>
-            <i className="i-gravity-ui:magnifier-minus" onClick={() => setScale(scale - 0.1)}></i>
-            <i className="i-gravity-ui:magnifier-plus" onClick={() => setScale(scale + 0.1)}></i>
-            <i className="i-gg:software-download" onClick={download}></i>
-            <i className="i-mdi:close" onClick={() => setShow(false)}></i>
+            <i className='i-mdi:rotate-counter-clockwise' onClick={() => setRotate(rotate - 90)}></i>
+            <i className='i-mdi:rotate-clockwise' onClick={() => setRotate(rotate + 90)}></i>
+            <i className='i-gravity-ui:magnifier-minus' onClick={() => setScale(scale - 0.1)}></i>
+            <i className='i-gravity-ui:magnifier-plus' onClick={() => setScale(scale + 0.1)}></i>
+            <i className='i-gg:software-download' onClick={download}></i>
+            <i className='i-mdi:close' onClick={() => setShow(false)}></i>
           </div>
         </div>
       )}

@@ -67,9 +67,7 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { endType, ...formData } = Object.fromEntries(
-      new FormData(e.currentTarget),
-    ) as unknown as Task & {
+    const { endType, ...formData } = Object.fromEntries(new FormData(e.currentTarget)) as unknown as Task & {
       endType: Timetype;
     };
 
@@ -96,53 +94,44 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
 
   return (
     <dialog ref={dialogRef} key={crypto.randomUUID()}>
-      <form ref={formRef} className="w-280px p-1 bg-white" onSubmit={handleSubmit}>
-        <div className="w-full h-26px flex justify-between items-center mb-2 border-b">
-          <h1 className="text-16px font-700">{title}</h1>
+      <form ref={formRef} className='w-280px p-1 bg-white' onSubmit={handleSubmit}>
+        <div className='w-full h-26px flex justify-between items-center mb-2 border-b'>
+          <h1 className='text-16px font-700'>{title}</h1>
           <div>
-            <button className="l-button px-1 mr-1" type="submit">
+            <button className='l-button px-1 mr-1' type='submit'>
               保存
             </button>
-            <button
-              onClick={handleClose}
-              className="i-mdi:close w-20px h-20px"
-              type="button"
-            ></button>
+            <button onClick={handleClose} className='i-mdi:close w-20px h-20px' type='button'></button>
           </div>
         </div>
-        <div className="w-full flex justify-center pb-2">
-          <ul className="w-230px *:flex *:justify-between *:pb-3">
+        <div className='w-full flex justify-center pb-2'>
+          <ul className='w-230px *:flex *:justify-between *:pb-3'>
             <li>
-              <label htmlFor="title" className="w-40px mr-1">
+              <label htmlFor='title' className='w-40px mr-1'>
                 标题
               </label>
               <input
-                type="text"
-                name="title"
-                id="title"
-                className="border"
+                type='text'
+                name='title'
+                id='title'
+                className='border'
                 defaultValue={task.title}
                 autoFocus
                 ref={inputRef}
               />
             </li>
-            <li className="*:flex *:items-center">
+            <li className='*:flex *:items-center'>
               <div>
-                <label htmlFor="color" className="w-30px mr-1">
+                <label htmlFor='color' className='w-30px mr-1'>
                   颜色
                 </label>
-                <input
-                  type="color"
-                  name="color"
-                  id="color"
-                  defaultValue={task.color || "#a21211"}
-                />
+                <input type='color' name='color' id='color' defaultValue={task.color || "#a21211"} />
               </div>
               <div>
-                <label htmlFor="type" className="w-30px mr-1">
+                <label htmlFor='type' className='w-30px mr-1'>
                   类型
                 </label>
-                <select name="taskType" id="type" defaultValue={task.taskType}>
+                <select name='taskType' id='type' defaultValue={task.taskType}>
                   {optionTypes.map((types) => {
                     return (
                       <option key={types.value} value={types.value}>
@@ -154,20 +143,20 @@ export default function AddTaskPanel({ show, title, task, onChange }: AddTaskPan
               </div>
             </li>
             <li>
-              <label htmlFor="start" className="w-60px mr-1">
+              <label htmlFor='start' className='w-60px mr-1'>
                 开始时间
               </label>
               <input
-                type="datetime-local"
-                className="max-w-162px"
-                name="start"
-                id="start"
+                type='datetime-local'
+                className='max-w-162px'
+                name='start'
+                id='start'
                 required
                 defaultValue={defaultStart}
               />
             </li>
-            <li className="last:pb-0 relative flex">
-              <label htmlFor="end" className="w-60px mr-1 w-fit flex-shrink-0 min-w-60px">
+            <li className='last:pb-0 relative flex'>
+              <label htmlFor='end' className='w-60px mr-1 w-fit flex-shrink-0 min-w-60px'>
                 结束时间
               </label>
               <EndTime task={task} key={crypto.randomUUID()} />
@@ -213,39 +202,27 @@ function EndTime({ task }: { task: Task }) {
     localStorage.setItem(key, String(_isDatetime));
   }
   return (
-    <div className="flex relative h-20px">
+    <div className='flex relative h-20px'>
       <div>
         {isDatetime ? (
-          <input
-            className="max-w-130px"
-            name="end"
-            id="end"
-            required
-            type="datetime-local"
-            defaultValue={defaultEnd}
-          />
+          <input className='max-w-130px' name='end' id='end' required type='datetime-local' defaultValue={defaultEnd} />
         ) : (
-          <div className="flex">
+          <div className='flex'>
             <input
               key={crypto.randomUUID()}
-              className="w-84px"
-              name="end"
-              id="end"
+              className='w-84px'
+              name='end'
+              id='end'
               required
-              type="number"
+              type='number'
               defaultValue={defaultEnd}
               step={0.1}
               min={0.1}
             />
-            <select
-              className="w-44px"
-              value={timetype}
-              name="endType"
-              onChange={handleChangeTimeType}
-            >
-              <option value="day">天</option>
-              <option value="hour">小时</option>
-              <option value="minute">分钟</option>
+            <select className='w-44px' value={timetype} name='endType' onChange={handleChangeTimeType}>
+              <option value='day'>天</option>
+              <option value='hour'>小时</option>
+              <option value='minute'>分钟</option>
             </select>
           </div>
         )}
@@ -253,8 +230,8 @@ function EndTime({ task }: { task: Task }) {
       <div>
         <button
           title={isDatetime ? "切换为时间段" : "切换为具体日期"}
-          type="button"
-          className="i-mdi:chevron-right w-18px h-18px text-#0797E1 hover:op-70"
+          type='button'
+          className='i-mdi:chevron-right w-18px h-18px text-#0797E1 hover:op-70'
           onClick={handleChangeEndType}
         ></button>
       </div>

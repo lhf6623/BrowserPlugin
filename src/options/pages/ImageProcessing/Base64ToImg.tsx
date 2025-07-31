@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import SelectImage from "@opt/components/SelectImage";
 import { changeImgSize, getSizeText, downloadImage } from "@/utils";
+import CopyButton from "@opt/components/CopyButton";
+
 type ImgInfo = {
   width: number;
   height: number;
@@ -38,15 +40,9 @@ export default function Base64ToImg() {
           resolve(blob!);
         },
         type,
-        1,
+        1
       );
     });
-  }
-  // 复制内容到剪贴板
-  function copyToClipboard() {
-    if (!base64) return;
-    if (!navigator.clipboard) return;
-    navigator.clipboard.writeText(base64);
   }
 
   function handleBaseToImg() {
@@ -84,12 +80,7 @@ export default function Base64ToImg() {
   async function getBase64() {
     if (imgRef.current && imgInfo.src) {
       // 获取图片实例
-      const base64 = await changeImgSize(
-        imgRef.current,
-        imgInfo.width,
-        imgInfo.height,
-        imgInfo.type,
-      );
+      const base64 = await changeImgSize(imgRef.current, imgInfo.width, imgInfo.height, imgInfo.type);
       setBase64(base64);
       setErrorStr("");
     }
@@ -132,53 +123,49 @@ export default function Base64ToImg() {
   }
 
   return (
-    <div className="py-50px px-16px relative max-w-672px w-full h-full overflow-auto">
-      <h1 className="text-center text-2xl mb-30px">支持图片或Base64互相转换</h1>
-      <div className="mb-16px b-b b-dashed b-b-2px pb-6px">
-        <div className="flex justify-between mb-6px items-center">
+    <div className='py-50px px-16px relative max-w-672px w-full h-full overflow-auto'>
+      <h1 className='text-center text-2xl mb-30px'>支持图片或Base64互相转换</h1>
+      <div className='mb-16px b-b b-dashed b-b-2px pb-6px'>
+        <div className='flex justify-between mb-6px items-center'>
           <p>base64 输入</p>
           <div>
-            <button onClick={handleBaseToImg} className="l-button px-6px">
+            <button onClick={handleBaseToImg} className='l-button px-6px'>
               base64转图片
             </button>
             {base64 && (
-              <button className="l-button ml-6px px-6px" onClick={() => setBase64("")}>
+              <button className='l-button ml-6px px-6px' onClick={() => setBase64("")}>
                 清空
               </button>
             )}
-            {base64 && (
-              <button className="l-button ml-6px px-6px" onClick={copyToClipboard}>
-                复制
-              </button>
-            )}
+            {base64 && <CopyButton title='复制 Base64' text={base64} className='l-button ml-6px px-6px'></CopyButton>}
           </div>
         </div>
-        {errorStr && <p className="text-red-500">{errorStr}</p>}
+        {errorStr && <p className='text-red-500'>{errorStr}</p>}
         <textarea
-          resize="none"
+          resize='none'
           value={base64}
           onChange={(e) => setBase64(e.target.value)}
           cols={10}
           rows={6}
-          placeholder="请输入base64"
-          className="border wfull p6px"
+          placeholder='请输入base64'
+          className='border wfull p6px'
         ></textarea>
       </div>
       <div>
-        <div className="flex justify-between mb-6px items-center">
+        <div className='flex justify-between mb-6px items-center'>
           <p>图片选择</p>
           <div>
-            <button className="l-button px-6px" onClick={getBase64}>
+            <button className='l-button px-6px' onClick={getBase64}>
               图片转 base64
             </button>
             {imgInfo.src && (
-              <button className="l-button px-6px ml-6px" onClick={clearImgInfo}>
+              <button className='l-button px-6px ml-6px' onClick={clearImgInfo}>
                 清空
               </button>
             )}
             {imgInfo.src && (
               <button
-                className="l-button px-6px ml-6px"
+                className='l-button px-6px ml-6px'
                 onClick={() => {
                   imgInfo.src && downloadImage(imgInfo.src, imgInfo.name);
                 }}
@@ -190,14 +177,14 @@ export default function Base64ToImg() {
         </div>
         {imgInfo.src && (
           <div>
-            <span className="mr-16px">{imgInfo.name}</span>
-            <span className="mr-16px">
+            <span className='mr-16px'>{imgInfo.name}</span>
+            <span className='mr-16px'>
               {imgInfo.width}×{imgInfo.height}
             </span>
-            <span className="mr-16px">{getSizeText(imgInfo.size)}</span>
+            <span className='mr-16px'>{getSizeText(imgInfo.size)}</span>
           </div>
         )}
-        <div className="b flex justify-center p-6px">
+        <div className='b flex justify-center p-6px'>
           {!imgInfo.src && <SelectImage onChange={handleChangeFile} multiple={false}></SelectImage>}
 
           <img ref={imgRef} src={imgInfo.src} />

@@ -36,12 +36,7 @@ export function getSizeText(fileSize: number) {
  * @param type
  * @returns
  */
-export function changeImgSize(
-  image: HTMLImageElement,
-  width: number,
-  height: number,
-  type?: string,
-) {
+export function changeImgSize(image: HTMLImageElement, width: number, height: number, type?: string) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
@@ -92,7 +87,7 @@ export const compressImage = (
   file: File,
   type: string = "image/png",
   quality: number = 0.8,
-  onProgress?: (n: number) => void,
+  onProgress?: (n: number) => void
 ) => {
   return new Promise<CompressImageType>(async (resolve) => {
     onProgress?.(5);
@@ -123,7 +118,7 @@ export const compressImage = (
         }
       },
       type,
-      quality,
+      quality
     );
   });
 };

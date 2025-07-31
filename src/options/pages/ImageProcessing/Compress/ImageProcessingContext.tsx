@@ -56,10 +56,7 @@ export function useImgConfig() {
   return useContext(ConfigContext);
 }
 
-const imageListReducer: Reducer<ImageListContextType[], ImageListContextAction> = (
-  list,
-  action,
-) => {
+const imageListReducer: Reducer<ImageListContextType[], ImageListContextAction> = (list, action) => {
   switch (action.type) {
     case "add":
       const _list = Array.isArray(action.payload) ? action.payload : [action.payload];

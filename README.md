@@ -2,35 +2,17 @@
 
 一个小工具箱，多功能集成，后续遇到新功能会继续集成
 
-# 当前功能
+## 当前功能
 
-- 任务定时器
-- 图片压缩
-- 图片转 base64
-- 图片剪裁
+任务定时器，图片压缩，图片剪裁，Tauri 图标图片各个尺寸制作，base64和图片互转
 
-# 如何使用
+## 如何使用
 
-当前只上架了 Microsoft Edge 扩展商店：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
+Microsoft Edge浏览器：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
 
-<div style='text-align: center;'>
-  <img alt='popup展示' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/popup.jpg' width='500' />
+下载地址：[点击跳转至 GitHub Releases](https://github.com/lhf6623/BrowserPlugin/releases)
 
-  <img alt='popup设置页面' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/popup_setting.jpg' width='500' />
-
-  <img alt='图片压缩' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/img_compress.jpg' width='500' />
-
-  <img alt='图片剪裁' src='https://github.com/lhf6623/BrowserPlugin/raw/main/README_IMG/img_cut_out.jpg' width='500' />
-
-</div>
-
-# 框架介绍
-
-基于[React 18](https://react.docschina.org) + [Vite](https://cn.vitejs.dev)
-构建，使用了[CRXJS Vite Plugin](https://github.com/crxjs/chrome-extension-tools/blob/main/packages/vite-plugin/README.md)
-用来快速开发
-
-# 快速开始
+## 自己开发
 
 #### 开发环境
 
@@ -48,3 +30,4 @@
 - 运行开发环境 `pnpm dev`
 - 打包生产环境 `pnpm build`
 - 打包生产环境(跳过 TypeScript 检查) `pnpm build:test`
+- CI/CD 自动部署，需要配置 TOKEN 环境变量

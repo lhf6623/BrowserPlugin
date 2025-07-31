@@ -52,13 +52,13 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
   return (
     <>
       {show && (
-        <div className="border pl-4 relative py-1 my-1 flex flex-col gap-4 justify-center bg-#fafbfd">
-          <div className="flex items-center">
-            <label htmlFor="reduce">清晰度：</label>
+        <div className='border pl-4 relative py-1 my-1 flex flex-col gap-4 justify-center bg-#fafbfd'>
+          <div className='flex items-center'>
+            <label htmlFor='reduce'>清晰度：</label>
             <div>
               <input
-                type="range"
-                name="quality"
+                type='range'
+                name='quality'
                 value={custom.quality}
                 step={0.01}
                 min={0.1}
@@ -69,11 +69,11 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
             </div>
           </div>
           <RadioGroup
-            label="压缩格式："
+            label='压缩格式：'
             options={formatOptions}
             value={custom.type}
             onChange={handleChangeFormat}
-            name="format"
+            name='format'
           />
         </div>
       )}
@@ -128,14 +128,8 @@ export default function ConfigSelect() {
   return (
     <>
       <div>
-        <div className="flex-center border py-2 cursor-pointer">
-          <RadioGroup
-            label="压缩模式："
-            options={typeOptions}
-            value={type}
-            onChange={handleSelectType}
-            name="type"
-          />
+        <div className='flex-center border py-2 cursor-pointer'>
+          <RadioGroup label='压缩模式：' options={typeOptions} value={type} onChange={handleSelectType} name='type' />
         </div>
         <CustomConfigPanel show={showConfig} />
       </div>

@@ -53,8 +53,6 @@ export default defineConfig({
         popup: resolve(__dirname, "popup.html"),
         options: resolve(__dirname, "options.html"),
       },
-      // 把 README 描述图片从打包中过滤
-      external: ["README_IMG/**"],
       output: {
         // chunkFileNames: "assets/js/[name]-[hash].js",
         // entryFileNames: "assets/js/[name]-[hash].js",

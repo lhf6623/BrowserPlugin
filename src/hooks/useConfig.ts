@@ -1,9 +1,4 @@
-import {
-  defaultDateConfig,
-  defaultNoticeConfig,
-  defaultTaskListConfig,
-  defaultVacationConfig,
-} from "@/config/config";
+import { defaultDateConfig, defaultNoticeConfig, defaultTaskListConfig, defaultVacationConfig } from "@/config/config";
 import cache from "@/utils/cache";
 import { useState, useEffect } from "react";
 

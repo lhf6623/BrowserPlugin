@@ -165,54 +165,54 @@ export default memo(function CuttingArea({ width = 0, height = 0, onChange }: Cu
         top-0
         left-0
         z-30
-        border="#00000099"
-        className="*:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid"
+        border='#00000099'
+        className='*:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid'
       >
         <div
-          data-key="top-left"
-          className="left-0 cursor-nw-resize top-0 border-t-4px border-l-4px translate-x--4px translate-y--4px"
+          data-key='top-left'
+          className='left-0 cursor-nw-resize top-0 border-t-4px border-l-4px translate-x--4px translate-y--4px'
         ></div>
         <div
-          data-key="top"
-          className="bg-#0072ff cursor-n-resize h-4px w-19px top-0 left-50% translate-x--50% translate-y--100%"
+          data-key='top'
+          className='bg-#0072ff cursor-n-resize h-4px w-19px top-0 left-50% translate-x--50% translate-y--100%'
         ></div>
         <div
-          data-key="top-right"
-          className="right-0 cursor-ne-resize top-0 border-t-4px border-r-4px translate-x-4px translate-y--4px"
+          data-key='top-right'
+          className='right-0 cursor-ne-resize top-0 border-t-4px border-r-4px translate-x-4px translate-y--4px'
         ></div>
         <div
-          data-key="left"
-          className="bg-#0072ff cursor-w-resize h-19px w-4px top-50% left-0 translate-y--50% translate-x--100%"
+          data-key='left'
+          className='bg-#0072ff cursor-w-resize h-19px w-4px top-50% left-0 translate-y--50% translate-x--100%'
         ></div>
         <div
-          data-key="right"
-          className="bg-#0072ff cursor-e-resize h-19px w-4px top-50% right-0 translate-y--50% translate-x-100%"
+          data-key='right'
+          className='bg-#0072ff cursor-e-resize h-19px w-4px top-50% right-0 translate-y--50% translate-x-100%'
         ></div>
         <div
-          data-key="bottom-left"
-          className="left-0 cursor-sw-resize bottom-0 border-l-4px border-b-4px translate-x--4px translate-y-4px"
+          data-key='bottom-left'
+          className='left-0 cursor-sw-resize bottom-0 border-l-4px border-b-4px translate-x--4px translate-y-4px'
         ></div>
         <div
-          data-key="bottom"
-          className="bg-#0072ff cursor-s-resize h-4px w-19px bottom-0 left-50% translate-x--50% translate-y-100%"
+          data-key='bottom'
+          className='bg-#0072ff cursor-s-resize h-4px w-19px bottom-0 left-50% translate-x--50% translate-y-100%'
         ></div>
         <div
-          data-key="bottom-right"
-          className="right-0 cursor-se-resize bottom-0 border-r-4px border-b-4px translate-x-4px translate-y-4px"
+          data-key='bottom-right'
+          className='right-0 cursor-se-resize bottom-0 border-r-4px border-b-4px translate-x-4px translate-y-4px'
         ></div>
       </div>
       <div
         style={mask_box}
-        data-key="box"
-        className="z-60 absolute border-none overflow-hidden border border-#0072ff border-solid border-2px"
+        data-key='box'
+        className='z-60 absolute border-none overflow-hidden border border-#0072ff border-solid border-2px'
       >
         <div
-          data-key="box"
-          className=" absolute h-1/3 w-full border-dashed border-y-2px border-#666 top-33.33% left-0"
+          data-key='box'
+          className=' absolute h-1/3 w-full border-dashed border-y-2px border-#666 top-33.33% left-0'
         ></div>
         <div
-          data-key="box"
-          className=" absolute w-1/3 h-full border-dashed border-x-2px border-#666 left-33.33% top-0"
+          data-key='box'
+          className=' absolute w-1/3 h-full border-dashed border-x-2px border-#666 left-33.33% top-0'
         ></div>
       </div>
     </div>

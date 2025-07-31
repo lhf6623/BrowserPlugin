@@ -1,0 +1,10 @@
+{
+  "prettier.requireConfig": false,
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 120,
+  "prettier.semi": true,
+  "prettier.singleAttributePerLine": false,
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": false,
+  "editor.formatOnSave": true
+}
