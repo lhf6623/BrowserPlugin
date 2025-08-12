@@ -7,10 +7,10 @@ export default function ImageProcessing() {
   return (
     <div className='w-full h-full flex flex-col overflow-auto max-sm:pt-40px'>
       <div className='border-b px-16px h-fit flex-shrink-0'>
-        <ul role='tablist' className='tabs py-16px'>
+        <ul role='tablist' className='tabs py-8px'>
           {routers.map((item) => {
             return (
-              <li key={item.path} className='tab inline-block mr4 ' role='tab'>
+              <li key={item.path} className='tab' role='tab'>
                 <NavLink to={item.path} className={({ isActive }) => (isActive ? "tab text-info" : "tab")} end>
                   {item.name}
                 </NavLink>
