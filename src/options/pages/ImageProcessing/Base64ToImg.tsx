@@ -125,7 +125,7 @@ export default function Base64ToImg() {
   return (
     <div className='py-50px px-16px relative max-w-672px w-full h-full overflow-auto bg-base-100 border-base-300 text-base-content'>
       <h1 className='text-center text-2xl mb-30px'>支持图片或Base64互相转换</h1>
-      <div className='mb-16px b-b b-dashed b-b-2px pb-6px'>
+      <div className='mb-16px b-b b-dashed b-b-2px b-base-content/30 pb-6px'>
         <div className='flex justify-between mb-6px items-center'>
           <p>base64 输入</p>
           <div>
@@ -154,7 +154,7 @@ export default function Base64ToImg() {
           cols={10}
           rows={6}
           placeholder='请输入base64'
-          className='wfull p6px b b-base'
+          className='textarea textarea-bordered wfull p6px b b-base'
         ></textarea>
       </div>
       <div>
