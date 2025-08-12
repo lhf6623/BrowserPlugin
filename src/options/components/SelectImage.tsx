@@ -95,16 +95,25 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
   const style = isDrag ? "border-solid" : "border-dashed";
 
   return (
-    <div className='wfull hfit relative'>
+    <div className='wfull hfit relative bg-base-100 border-base-300 text-base-content'>
       <div
+        tabIndex={0}
+        onKeyDown={(e) => {
+          // 纯键盘操作
+          if (e.key === "Enter") {
+            handleOpenFileInput();
+          }
+        }}
         onClick={handleOpenFileInput}
         ref={dragRef}
         className={`w-full box-border relative my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border-2px ${style}`}
       >
         <i
-          className={`${loading ? "i-eos-icons:three-dots-loading" : "i-mdi:file-image-plus-outline"} w-64px h-64px text-blue`}
+          className={`${
+            loading ? "i-eos-icons:three-dots-loading" : "i-mdi:file-image-plus-outline"
+          } w-64px h-64px text-blue`}
         ></i>
-        <span className='text-12px op-70'>
+        <span className='text-12px op-70 bg-base-100 border-base-300 text-base-content'>
           <span className='!text-blue'>点击选择图片</span>
           或者将图片拖放到这里！
         </span>

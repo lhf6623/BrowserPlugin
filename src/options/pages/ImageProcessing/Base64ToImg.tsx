@@ -123,21 +123,27 @@ export default function Base64ToImg() {
   }
 
   return (
-    <div className='py-50px px-16px relative max-w-672px w-full h-full overflow-auto'>
+    <div className='py-50px px-16px relative max-w-672px w-full h-full overflow-auto bg-base-100 border-base-300 text-base-content'>
       <h1 className='text-center text-2xl mb-30px'>支持图片或Base64互相转换</h1>
       <div className='mb-16px b-b b-dashed b-b-2px pb-6px'>
         <div className='flex justify-between mb-6px items-center'>
           <p>base64 输入</p>
           <div>
-            <button onClick={handleBaseToImg} className='l-button px-6px'>
+            <button onClick={handleBaseToImg} className='btn btn-outline btn-info btn-sm'>
               base64转图片
             </button>
             {base64 && (
-              <button className='l-button ml-6px px-6px' onClick={() => setBase64("")}>
+              <button className='btn btn-outline btn-info btn-sm ml-6px' onClick={() => setBase64("")}>
                 清空
               </button>
             )}
-            {base64 && <CopyButton title='复制 Base64' text={base64} className='l-button ml-6px px-6px'></CopyButton>}
+            {base64 && (
+              <CopyButton
+                title='复制 Base64'
+                text={base64}
+                className='btn btn-outline btn-info btn-sm ml-6px'
+              ></CopyButton>
+            )}
           </div>
         </div>
         {errorStr && <p className='text-red-500'>{errorStr}</p>}
@@ -148,24 +154,24 @@ export default function Base64ToImg() {
           cols={10}
           rows={6}
           placeholder='请输入base64'
-          className='border wfull p6px'
+          className='wfull p6px b b-base'
         ></textarea>
       </div>
       <div>
         <div className='flex justify-between mb-6px items-center'>
           <p>图片选择</p>
           <div>
-            <button className='l-button px-6px' onClick={getBase64}>
+            <button className='btn btn-outline btn-info btn-sm' onClick={getBase64}>
               图片转 base64
             </button>
             {imgInfo.src && (
-              <button className='l-button px-6px ml-6px' onClick={clearImgInfo}>
+              <button className='btn btn-outline btn-info btn-sm ml-6px' onClick={clearImgInfo}>
                 清空
               </button>
             )}
             {imgInfo.src && (
               <button
-                className='l-button px-6px ml-6px'
+                className='btn btn-outline btn-info btn-sm ml-6px'
                 onClick={() => {
                   imgInfo.src && downloadImage(imgInfo.src, imgInfo.name);
                 }}
@@ -184,11 +190,12 @@ export default function Base64ToImg() {
             <span className='mr-16px'>{getSizeText(imgInfo.size)}</span>
           </div>
         )}
-        <div className='b flex justify-center p-6px'>
-          {!imgInfo.src && <SelectImage onChange={handleChangeFile} multiple={false}></SelectImage>}
-
-          <img ref={imgRef} src={imgInfo.src} />
-        </div>
+        {!imgInfo.src && <SelectImage onChange={handleChangeFile} multiple={false}></SelectImage>}
+        {imgInfo.src && (
+          <div className='b b-base flex justify-center p-6px'>
+            <img ref={imgRef} src={imgInfo.src} />
+          </div>
+        )}
       </div>
     </div>
   );

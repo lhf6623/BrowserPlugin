@@ -13,9 +13,9 @@ export default function RadioGroup({ label, name, value, onChange, options }: Ra
       <div className='flex flex-wrap gap-4'>
         {options.map((item) => {
           return (
-            <div key={item.value} className='cursor-pointer w-fit flex-shrink-0'>
+            <div key={item.value} className='cursor-pointer w-fit flex-shrink-0 flex justify-center items-center'>
               <input
-                className='mr-2px cursor-pointer'
+                className='radio radio-xs radio-info mr-2px'
                 type='radio'
                 name={name}
                 id={item.value}

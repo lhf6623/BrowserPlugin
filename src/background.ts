@@ -101,7 +101,7 @@ async function scheduleTaskReminders() {
 
 // 通知用户
 async function notifyUser(task: Task) {
-  const { showNotice } = await cache.getItem<ReturnData>(TASK_CONFIG_KEY);
+  const { showNotice } = await cache.getItem<PopupConfigType>(TASK_CONFIG_KEY);
   if (!showNotice) return;
   chrome.notifications.create({
     type: "progress",

@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 
-export default function CopyButton({ text, title, className }: { text: string; title: string; className?: string }) {
+// 继承 button 的属性
+type CopyButtonProps = {
+  text: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+export default function CopyButton({ text, ...attar }: CopyButtonProps) {
   const [isCopy, setIsCopy] = useState(false);
   function copy() {
     if (!text) return;
@@ -12,7 +17,7 @@ export default function CopyButton({ text, title, className }: { text: string; t
     });
   }
   return (
-    <button onClick={copy} title={title} className={className}>
+    <button onClick={copy} {...attar} type='button'>
       {isCopy ? "已复制" : "复制"}
     </button>
   );

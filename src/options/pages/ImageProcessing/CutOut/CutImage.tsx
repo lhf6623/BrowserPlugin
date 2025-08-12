@@ -22,7 +22,7 @@ export default function CutImage({ imgInfo, onChange }: CutImageProps) {
   const { width, height } = getSize(imgInfo.image);
 
   return (
-    <div className='flex justify-center relative'>
+    <div className='flex justify-center relative bg-base-100 border-base-300 text-base-content'>
       <div className='relative' style={{ width: `${width}px`, height: `${height}px` }}>
         <img className='w-full h-full z-1' src={imgInfo.base64Url} />
         <CuttingArea width={width} height={height} onChange={(data) => onChange(data)} />

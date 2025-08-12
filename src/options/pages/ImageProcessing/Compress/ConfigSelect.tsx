@@ -52,7 +52,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
   return (
     <>
       {show && (
-        <div className='border pl-4 relative py-1 my-1 flex flex-col gap-4 justify-center bg-#fafbfd'>
+        <div className='border pl-4 relative py-1 my-1 flex flex-col gap-4 justify-center'>
           <div className='flex items-center'>
             <label htmlFor='reduce'>清晰度：</label>
             <div>

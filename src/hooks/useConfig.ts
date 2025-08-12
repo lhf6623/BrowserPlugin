@@ -1,36 +1,18 @@
-import { defaultDateConfig, defaultNoticeConfig, defaultTaskListConfig, defaultVacationConfig } from "@/config/config";
 import cache from "@/utils/cache";
 import { useState, useEffect } from "react";
 
 export const TASK_CONFIG_KEY = "TASK_CONFIG_KEY";
 
-function getDefaultConfig(): ReturnData {
-  const allData: TaskConfigType = {
-    ...defaultNoticeConfig,
-    ...defaultVacationConfig,
-    ...defaultDateConfig,
-    ...defaultTaskListConfig,
-  };
-
-  const _data = Object.entries(allData).reduce((acc, [key, item]) => {
-    return {
-      ...acc,
-      [key]: item.value,
-    };
-  }, {} as ReturnData);
-  return _data;
-}
-
-export const defaultConfig = getDefaultConfig();
+export const defaultConfig = { showNotice: true };
 
 export default function useConfig(): {
-  config: ReturnData;
-  setConfigData: (data: ReturnData) => void;
+  config: PopupConfigType;
+  setConfigData: (data: PopupConfigType) => void;
 } {
   const [config, setConfig] = useState(defaultConfig);
 
   useEffect(() => {
-    cache.getItem<ReturnData>(TASK_CONFIG_KEY).then((data) => {
+    cache.getItem<PopupConfigType>(TASK_CONFIG_KEY).then((data) => {
       setConfig(data ?? defaultConfig);
     });
 

@@ -57,7 +57,7 @@ export default function CutOut() {
       {!imageInfo ? (
         <SelectImage onChange={handleChangeFile} multiple={false} />
       ) : (
-        <div className='w-full bg-#fafaff relative py-4'>
+        <div className='w-full bg-base-100 border-base-300 text-base-content relative py-4'>
           <CutImage imgInfo={imageInfo} onChange={(data) => setCutData(data)} />
           <p className='text-center text-13px mt-4'>
             原图像素：{`${imageInfo.image.width}*${imageInfo.image.height}`}
@@ -65,16 +65,16 @@ export default function CutOut() {
             <span className='text-blue'>{`${w}*${h} `}</span>
             &nbsp;&nbsp;为方便操作，已进行缩小展示
           </p>
-          <div className='text-center *:border *:py-1 *:px-4 *: *:bg-white text-blue my-4'>
+          <div className='flex gap-2 justify-center my-4'>
             <button
-              className='rounded-s-full active:op70 hover:op80'
+              className='btn btn-outline btn-info btn-sm'
               onClick={() => {
                 setImageInfo(null);
               }}
             >
               重新选择
             </button>
-            <button onClick={getImgUrl} className='border-l-white rounded-e-full active:op70 hover:op80'>
+            <button onClick={getImgUrl} className='btn btn-outline btn-info btn-sm'>
               立即剪裁
             </button>
           </div>
@@ -85,7 +85,7 @@ export default function CutOut() {
                   onClick={() => {
                     downloadImage(url, (imageInfo.imgFile as File).name);
                   }}
-                  className='l-button px-2 py-1'
+                  className='btn btn-info btn-info btn-sm'
                 >
                   下载
                 </button>

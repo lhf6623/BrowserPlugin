@@ -8,19 +8,17 @@ export default function Layout() {
   const routerList = useCurrRouters("/");
 
   // @unocss-include
-  const active = "bg-#fff font-600";
+  const active = "bg-base-100  font-600";
   const showMenu = "!translate-x-0%";
   return (
     <>
-      <div className='flex h-full'>
-        <div className=' absolute flex items-center top-0 z-6 h-40px !w-full border-b sm:h-0 bg-white'>
+      <div className='flex h-100vh'>
+        <div className=' absolute flex items-center top-0 z-6 h-40px !w-full b-b sm:h-0 '>
           <button className='i-mdi:menu h-full text-26px mx-16px' onClick={() => setIsSm(true)}></button>
         </div>
-        {isSm && (
-          <div onClick={() => setIsSm(false)} className='fixed top-0 left-0 w-full h-full z-20 bg-#00000033'></div>
-        )}
+        {isSm && <div onClick={() => setIsSm(false)} className='fixed top-0 left-0 w-full h-full z-20'></div>}
         <div
-          className={`py-48px px-0px h-full w-240px flex-shrink-0 bg-#f3f3f3 max-sm:fixed max-sm:left-0 max-sm:top-0 z-90 max-sm:translate-x--100% transition-all ${
+          className={`py-48px px-0px h-full w-240px flex-shrink-0 bg-base-300 border-base-300 text-base-content max-sm:fixed max-sm:left-0 max-sm:top-0 z-90 max-sm:translate-x--100% transition-all ${
             isSm ? showMenu : ""
           }`}
         >
@@ -31,7 +29,7 @@ export default function Layout() {
                   key={path}
                   to={path}
                   className={({ isActive }) => {
-                    return `py-16px px-32px line-height-20px cursor-pointer w-full hover:bg-#fff ${isActive && active}`;
+                    return `py-16px px-32px line-height-20px cursor-pointer w-full my-1px ${isActive && active}`;
                   }}
                 >
                   {name}

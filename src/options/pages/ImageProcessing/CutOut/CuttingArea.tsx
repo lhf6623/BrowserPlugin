@@ -157,16 +157,14 @@ export default memo(function CuttingArea({ width = 0, height = 0, onChange }: Cu
     height: "calc(var(--h) - var(--bt) - var(--bb))",
   };
   return (
-    <div ref={boxRef} select-none inset-0 absolute>
+    <div ref={boxRef} className='select-none inset-0 absolute'>
       <div
         style={cut_box}
-        absolute
+        className='border-#00000099 *:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid absolute
         border-solid
         top-0
         left-0
-        z-30
-        border='#00000099'
-        className='*:absolute *:w-15px *:h-15px *:border-#0072ff *:border-solid'
+        z-30'
       >
         <div
           data-key='top-left'

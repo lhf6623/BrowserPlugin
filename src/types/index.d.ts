@@ -1,8 +1,3 @@
-interface EyeDropper {
-  new (): EyeDropper;
-  open: (options?: { signal: AbortSignal }) => Promise<{ sRGBHex: string }>;
-}
-
 export {};
 declare global {
   interface ImageFileInfo {
@@ -23,31 +18,8 @@ declare global {
     end: number; // 秒
     color: string;
   };
-  type ItemConfig = {
-    key?: string;
-    value: boolean | number;
-    title: string;
-    subtitle: string;
-    type: "checkbox" | "number";
-    disabled?: boolean;
-  };
-  type TaskConfigKey =
-    | "showNotice"
-    | "showVacation"
-    | "showDateTitle"
-    | "showDate"
-    | "showWeek"
-    | "showSeparator"
-    | "showSecond"
-    | "showTitle"
-    | "showDateRange"
-    | "spacing"
-    | "radius"
-    | "height";
 
-  type TaskConfigType = Partial<Record<TaskConfigKey, ItemConfig>>;
-
-  type ReturnData = Record<TaskConfigKey, boolean | number>;
+  type PopupConfigType = { showNotice: boolean };
   // 定义一个工具类型来提取 Promise<T> 中的 T 类型
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
   type Exclude<T, U> = T extends U ? never : T;

@@ -40,7 +40,18 @@ export default function Image({ src, width }: { src: string; width?: number | st
 
   return (
     <div className='w-fit h-fit relative'>
-      <img width={width ?? ""} src={src} className='cursor-pointer' onClick={() => setShow(true)} />
+      <img
+        width={width ?? ""}
+        src={src}
+        className='cursor-pointer'
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setShow(true);
+          }
+        }}
+        onClick={() => setShow(true)}
+      />
       {show && (
         <div className='fixed top-0 left-0 z-999 flex-center wfull hfull bg-#0000004d' onClick={() => setShow(false)}>
           <img
@@ -55,14 +66,44 @@ export default function Image({ src, width }: { src: string; width?: number | st
           />
           <div
             onClick={(e) => e.stopPropagation()}
-            className='absolute bottom-50px rounded-full py-10px px-20px flex-center gap-4 bg-#0000004d *:text-30px *:text-#ffffffe6 *:cursor-pointer hover:*:text-#40444f active:*:text-#40444f99'
+            className='absolute bottom-50px rounded-full flex items-center py-10px px-20px flex-center gap-4 bg-#0000004d *:text-30px'
           >
-            <i className='i-mdi:rotate-counter-clockwise' onClick={() => setRotate(rotate - 90)}></i>
-            <i className='i-mdi:rotate-clockwise' onClick={() => setRotate(rotate + 90)}></i>
-            <i className='i-gravity-ui:magnifier-minus' onClick={() => setScale(scale - 0.1)}></i>
-            <i className='i-gravity-ui:magnifier-plus' onClick={() => setScale(scale + 0.1)}></i>
-            <i className='i-gg:software-download' onClick={download}></i>
-            <i className='i-mdi:close' onClick={() => setShow(false)}></i>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={() => setRotate(rotate - 90)}
+            >
+              <i className='i-mdi:rotate-counter-clockwise h-30px w-30px'></i>
+            </button>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={() => setRotate(rotate + 90)}
+            >
+              <i className='i-mdi:rotate-clockwise h-30px w-30px'></i>
+            </button>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={() => setScale(scale - 0.1)}
+            >
+              <i className='i-gravity-ui:magnifier-minus h-30px w-30px'></i>
+            </button>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={() => setScale(scale + 0.1)}
+            >
+              <i className='i-gravity-ui:magnifier-plus h-30px w-30px'></i>
+            </button>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={download}
+            >
+              <i className='i-gg:software-download h-30px w-30px'></i>
+            </button>
+            <button
+              className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              onClick={() => setShow(false)}
+            >
+              <i className='i-mdi:close h-30px w-30px'></i>
+            </button>
           </div>
         </div>
       )}

@@ -67,16 +67,16 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
 
   const name = getImageName();
   return (
-    <li className=' bg-#f0f0f0 border px-2 py1px mt-2'>
+    <li className='border px-2 py1px mt-2'>
       <div className='flex justify-between items-center'>
         <span>{file.name}</span>
         <div className='flex'>
           <span className='mr-4'>{getSizeText(file.size)}</span>
           <div className='relative flex-center'>
-            <progress className='w-150px h-20px rounded-xl' max='100' value={load}>
+            <progress className='progress w-150px h-20px progress-info' max='100' value={load}>
               {load}%
             </progress>
-            <div className='flex-center w-full h-full absolute top-0 left-0 text-white'>
+            <div className='flex-center w-full h-full absolute top-0 left-0 text-base-300'>
               {load === 100 && <span text='12px'>已压缩 {compressionAmount}%</span>}
             </div>
           </div>
@@ -86,23 +86,37 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
       {load === 100 && (
         <div className='flex justify-between items-center border-t mt-1'>
           <p className='flex items-center gap-x-2'>
-            <CopyButton text={imgData!.oldValue.base64Url} title='复制 base64 地址' />
+            <CopyButton
+              className='btn btn-xs btn-info btn-outline'
+              text={imgData!.oldValue.base64Url}
+              title='复制 base64 地址'
+            />
           </p>
           <p className='flex items-center gap-x-2'>
-            <CopyButton text={imgData!.newValue.base64Url} title='复制压缩后的 base64' />
+            <CopyButton
+              className='btn btn-xs btn-info btn-outline'
+              text={imgData!.newValue.base64Url}
+              title='复制压缩后的 base64'
+            />
             <button
-              className='i-mdi:print-preview'
+              className='btn btn-outline btn-xs btn-info px-0 b-none !hover:bg-transparent'
               title='预览压缩后的图片'
               onClick={() => {
                 setShowImg(!showImg);
               }}
-            ></button>
+            >
+              <i className='i-mdi:print-preview w-24px h-24px inline-block'></i>
+            </button>
             <button
-              className='i-mdi:file-download-outline'
+              className='btn btn-outline btn-xs btn-info px-0 b-none !hover:bg-transparent'
               title='下载压缩后的图片'
               onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
-            ></button>
-            <button onClick={() => onOperation(id)}>删除</button>
+            >
+              <i className='i-mdi:file-download-outline w-24px h-24px inline-block'></i>
+            </button>
+            <button className='btn btn-xs btn-info btn-outline btn-error' onClick={() => onOperation(id)}>
+              删除
+            </button>
           </p>
         </div>
       )}

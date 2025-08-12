@@ -9,7 +9,7 @@ import { name, version } from "../../package.json";
  */
 export const getKeyByVersion = (prefix?: string): string => {
   const _prefix = prefix ? `${prefix}-` : "";
-  return `${_prefix}${name}_${version}`;
+  return `${_prefix}${name}_${version}`.toLocaleUpperCase();
 };
 
 /**
@@ -153,3 +153,50 @@ export function getInRange(n: number, start = 0, end?: number) {
   if (n > end) return end;
   return n;
 }
+
+export function hexToHsl(hex: string) {
+  // 移除#号并解析RGB值
+  let r = parseInt(hex.substring(1, 3), 16) / 255;
+  let g = parseInt(hex.substring(3, 5), 16) / 255;
+  let b = parseInt(hex.substring(5, 7), 16) / 255;
+
+  // 计算最大值和最小值
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let h = 0,
+    s = 0,
+    l = (max + min) / 2;
+
+  // 计算色相和饱和度
+  if (max === min) {
+    h = s = 0; // 灰度
+  } else {
+    let d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+    h /= 6;
+  }
+
+  // 转换为百分比和角度
+  return [Math.round(h * 360), Math.round(s * 100) + "%", Math.round(l * 100) + "%"].join(" ");
+}
+
+const op = 0.1;
+export const taskTypeColor: Record<TaskType, string> = {
+  unrestricted: `rgba(85, 85, 85, ${op})`, // 暖红色
+  year: `rgba(30, 58, 138, ${op})`, // 红色
+  month: `rgba(22, 101, 52, ${op})`, // 绿色
+  day: `rgba(234, 88, 12, ${op})`, // 蓝色
+  date: `rgba(220, 38, 38, ${op})`, // 黄色
+  hour: `rgba(139, 92, 246, ${op})`, // 暖橙色
+};

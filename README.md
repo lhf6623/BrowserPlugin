@@ -4,11 +4,24 @@
 
 ## 当前功能
 
-任务定时器，图片压缩，图片剪裁，Tauri 图标图片各个尺寸制作，base64和图片互转
+#### 任务定时器
+
+- 假如时间段为：2025-01-01 09:00:00 - 2025-01-01 17:00:00
+- 每天循环：
+- 假设今日时间为：2025-10-10 10:10:10
+- 计算后得出时间段：2025-10-10 09:00:00 - 2025-10-10 17:00:00
+
+#### 图片压缩
+
+#### 图片剪裁
+
+#### Tauri 图标图片各个尺寸制作
+
+#### base64 和图片互转
 
 ## 如何使用
 
-Microsoft Edge浏览器：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
+Microsoft Edge 浏览器：[点击跳转至 Microsoft Edge 扩展商店](https://microsoftedge.microsoft.com/addons/detail/adghdebcjdnllphndeljpdghfemgbpjp)
 
 下载地址：[点击跳转至 GitHub Releases](https://github.com/lhf6623/BrowserPlugin/releases)
 

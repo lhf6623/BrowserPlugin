@@ -3,16 +3,16 @@ import "dayjs/locale/zh-cn";
 
 // 是否相同或之前
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import duration from "dayjs/plugin/duration";
+import relativeTime from "dayjs/plugin/relativeTime";
+import weekday from "dayjs/plugin/weekday";
 
 dayjs.locale("zh-cn");
 
 dayjs.extend(isSameOrBefore);
-
-/** 获取星期天数 */
-export const getWeekday = () => {
-  const weeks = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-  return weeks[dayjs().day() - 1];
-};
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
+dayjs.extend(weekday);
 
 /**
  * 原始时间范围 根据 taskType 字段获取时间范围

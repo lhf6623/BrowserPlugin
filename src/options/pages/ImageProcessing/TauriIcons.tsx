@@ -103,19 +103,21 @@ export default function TauriIcons() {
   }
 
   return (
-    <div className='w-600px relative p-4'>
-      <p className='text-amber-500 p-2 b b-amber'>
-        选择一张 <code>512*512</code> 或者以上的 png 格式的图片，
-        <a target='_blank' className='underline decoration-1' href='http://www.ico51.cn/'>
-          ico
-        </a>{" "}
-        格式不能在浏览器上制作
-      </p>
+    <div className='w-600px relative p-4 bg-base-100 border-base-300 text-base-content'>
+      <div role='alert' className=' p-2 alert alert-warning b-dashed bg-transparent text-#fcb700 b-#fcb700'>
+        <span>
+          选择一张 <code>512*512</code> 或者以上的 png 格式的图片，
+          <a target='_blank' className='link link-info' href='http://www.ico51.cn/'>
+            ico
+          </a>{" "}
+          格式不能在浏览器上制作
+        </span>
+      </div>
       {!imageInfo && <SelectImage accept='image/png' onChange={handleChangeFile} multiple={false} />}
       {imageInfo &&
         imgList.map((item, i) => {
           return (
-            <div key={i} className='w-full bg-#fafaff relative flex-center *:flex-shrink-0 my-1'>
+            <div key={i} className='w-ful relative flex-center *:flex-shrink-0 my-1'>
               <label htmlFor='w' className='ml-2'>
                 宽：
               </label>
@@ -134,11 +136,11 @@ export default function TauriIcons() {
         })}
 
       {imageInfo && (
-        <div className='flex-center py-2'>
-          <button className='l-button px-3' onClick={reset}>
+        <div className='flex-center py-2 gap-1'>
+          <button className='btn btn-outline btn-info btn-sm' onClick={reset}>
             重新选择
           </button>
-          <button className='l-button px-3 ml-5 bg-#0797E1 text-white' onClick={() => downloadImg(0)}>
+          <button className='btn btn-info btn-sm' onClick={() => downloadImg(0)}>
             下载
           </button>
         </div>
