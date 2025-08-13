@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 export const TASK_CONFIG_KEY = "TASK_CONFIG_KEY";
 
-export const defaultConfig = { showNotice: true };
+export const defaultConfig: PopupConfigType = { showNotice: true, showDate: true, showTitle: true, showTotal: true };
 
 export default function useConfig(): {
   config: PopupConfigType;

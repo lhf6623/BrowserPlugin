@@ -1,13 +1,17 @@
 import useConfig from "@/hooks/useConfig";
 import useTaskList from "@/hooks/useTaskList";
 import dateUtils from "@/utils/dateUtils";
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode, useState } from "react";
 import { taskTypeColor } from "@/utils";
+import useCurrRouters from "@/hooks/useCurrRouters";
 
 export default function GeneralSettings() {
+  const routerList = useCurrRouters("/");
+  const currRouter = routerList.find((item) => item.path === "/");
+
   return (
     <div className='py-50px px-16px relative w-full h-full overflow-auto select-none bg-base-100 border-base-300 text-base-content'>
-      <h1 className='text-24px'>常规设置</h1>
+      <h1 className='text-24px'>{currRouter?.name}</h1>
       <ConfigLists />
       <h1 className='text-24px mt-16px'>任务列表</h1>
       <TaskLists />
@@ -156,7 +160,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
       <td>
         <select
           name='taskType'
-          className='select select-info select-sm'
+          className='select select-info select-xs'
           id='taskType'
           defaultValue={task.taskType}
           onChange={changeValue}
@@ -213,47 +217,98 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
 
 function ConfigLists() {
   const { config, setConfigData } = useConfig();
+  const [notificationsId, setNotificationsId] = useState<string>("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const key = e.target.id as keyof PopupConfigType;
-    const _config = {
+    const target = e.target as HTMLInputElement;
+    const key = target.id as keyof PopupConfigType;
+    const value = target.checked;
+    setConfigData({
       ...config,
-      [key]: e.target.checked,
-    };
-    setConfigData(_config);
-  }
-  function test() {
-    chrome.notifications.create("cake-notification", {
-      type: "progress",
-      iconUrl: chrome.runtime.getURL("image/icon128.png"),
-      title: "测试用例",
-      message: "这是一条测试用例",
-      progress: 100,
+      [key]: value,
     });
   }
+  async function test() {
+    if (notificationsId) {
+      chrome.notifications.clear(notificationsId);
+    }
+    const id = await chrome.notifications.create("cake-notification", {
+      type: "basic",
+      iconUrl: "image/icon128.png",
+      title: "",
+      message: "测试通知",
+    });
+    setNotificationsId(id);
+  }
+  type ConfigItem = {
+    title: string;
+    msg: string;
+    id: keyof PopupConfigType;
+    value: boolean;
+    children?: () => ReactNode;
+  };
+  const configList: ConfigItem[] = [
+    {
+      title: "通知显示",
+      msg: "通过系统级通知提醒",
+      id: "showNotice" as keyof PopupConfigType,
+      value: false,
+      children: () => {
+        if (!config.showNotice) return null;
+        return (
+          <button className='btn btn-xs btn-info  btn-outline ml-10px px-6px' onClick={test}>
+            测试通知
+          </button>
+        );
+      },
+    },
+    {
+      title: "标题显示",
+      msg: "进度条顶部标题",
+      id: "showTitle" as keyof PopupConfigType,
+      value: false,
+    },
+    {
+      title: "总时间显示",
+      msg: "剩余时间和总时间显示",
+      id: "showTotal" as keyof PopupConfigType,
+      value: false,
+    },
+    {
+      title: "时间显示",
+      msg: "进度条底部开始时间和结束时间",
+      id: "showDate" as keyof PopupConfigType,
+      value: false,
+    },
+  ].map((item) => {
+    return {
+      ...item,
+      value: config[item.id],
+    };
+  });
   return (
-    <>
-      <label
-        htmlFor='showNotice'
-        className='p-14px relative b-rounded bg-base-200 hover:bg-base-300 flex justify-between cursor-pointer'
-      >
-        <div>
-          <h1>通知显示</h1>
-          <p className='text-14px mt-4px text-base-content/70'>
-            通过系统级通知提醒
-            <button className='btn btn-xs btn-info  btn-outline ml-10px px-6px' onClick={test}>
-              测试
-            </button>
-          </p>
-        </div>
-        <input
-          type='checkbox'
-          checked={config.showNotice}
-          id='showNotice'
-          className='checkbox checkbox-info'
-          onChange={handleChange}
-        />
-      </label>
-    </>
+    // 宽度不够自动换行
+    <div className='flex gap-1 flex-wrap'>
+      {configList.map((item) => {
+        return (
+          <div key={item.id} className='p-14px relative b-rounded bg-base-200 flex justify-between'>
+            <div>
+              <h1>{item.title}</h1>
+              <p className='text-14px mt-4px mr-6px text-base-content/70'>
+                {item.msg}
+                {item.children && item.children()}
+              </p>
+            </div>
+            <input
+              type='checkbox'
+              checked={item.value}
+              id={item.id}
+              className='checkbox checkbox-info'
+              onChange={handleChange}
+            />
+          </div>
+        );
+      })}
+    </div>
   );
 }

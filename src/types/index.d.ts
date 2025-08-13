@@ -19,7 +19,7 @@ declare global {
     color: string;
   };
 
-  type PopupConfigType = { showNotice: boolean };
+  type PopupConfigType = { showNotice: boolean; showDate: boolean; showTitle: boolean; showTotal: boolean };
   // 定义一个工具类型来提取 Promise<T> 中的 T 类型
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
   type Exclude<T, U> = T extends U ? never : T;

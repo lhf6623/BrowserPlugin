@@ -17,6 +17,17 @@ export default defineConfig({
       prefix: "i-",
     }),
   ],
+  rules: [
+    [
+      "line-clamp-4",
+      {
+        overflow: "hidden",
+        display: "-webkit-box",
+        "-webkit-box-orient": "vertical",
+        "-webkit-line-clamp": 4,
+      },
+    ],
+  ],
   shortcuts: {
     "flex-center": "flex justify-center items-center",
     "absolute-full": "absolute w-full h-full top-0 left-0",

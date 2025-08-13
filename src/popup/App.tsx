@@ -1,6 +1,7 @@
 import packageJson from "../../package.json";
 import useTaskList from "@/hooks/useTaskList";
-import dateUtils, { getDateRange } from "@/utils/dateUtils";
+import useConfig from "@/hooks/useConfig";
+import dateUtils, { getDateRange, getDateStyle } from "@/utils/dateUtils";
 import { getKeyByVersion, hexToHsl, taskTypeColor } from "@/utils";
 import cache from "@/utils/cache";
 import { useState, useEffect } from "react";
@@ -20,15 +21,19 @@ export default function App() {
       <Header />
       <TaskList />
       <footer className='text-14px b-t flex-center justify-between px-6px text-base-content/50'>
-        <span className='text-12px'>{packageJson.version}</span>
-        <div className='flex gap-1'>
-          <a
-            className='i-mdi:github'
-            target='_blank'
-            href='https://github.com/lhf6623/BrowserPlugin'
-            title='源代码'
-          ></a>
-          <button className='i-mdi:mixer-settings' title='任务面板配置' onClick={goOptions}></button>
+        <span className='text-12px op-60 btn btn-xs bg-transparent b-none'>{packageJson.version}</span>
+        <div className='flex gap-1 op-60'>
+          <button className='btn btn-xs bg-transparent b-none'>
+            <a
+              className='i-mdi:github'
+              target='_blank'
+              href='https://github.com/lhf6623/BrowserPlugin'
+              title='源代码'
+            ></a>
+          </button>
+          <button className=' btn btn-xs bg-transparent b-none' title='任务面板配置' onClick={goOptions}>
+            <i className='i-mdi:mixer-settings'></i>
+          </button>
         </div>
       </footer>
     </div>
@@ -36,7 +41,10 @@ export default function App() {
 }
 function TaskList() {
   const { taskList } = useTaskList();
+  const { config } = useConfig();
   const date = useTime();
+
+  const { showDate, showTitle, showTotal } = config;
 
   return (
     <ul className='flex flex-col gap-2 p-6px flex-1 overflow-auto'>
@@ -49,15 +57,25 @@ function TaskList() {
           backgroundColor: taskTypeColor[item.taskType],
         } as React.CSSProperties;
         // 还未开始 已完成
-        const diff = start > date ? "未开始" : end < date ? "已完成" : dateUtils(item.end).to(date, true);
+        const diff = start > date ? "未开始" : end < date ? "已完成" : dateUtils().to(end, true);
 
         return (
           <li key={item.id} className='bg-base-300 p-6px rounded-sm' style={liStyle}>
             <div className='flex justify-between items-center text-base-content/70'>
-              <span className='text-ellipsis overflow-hidden whitespace-nowrap'>{title}</span>
-              <span className='text-ellipsis overflow-hidden whitespace-nowrap'>{diff}</span>
+              {showTitle && <span className='text-ellipsis overflow-hidden whitespace-nowrap flex-1'>{title}</span>}
+              {showTotal && (
+                <span className='text-ellipsis overflow-hidden whitespace-nowrap'>
+                  {diff} / {dateUtils(start).to(end, true)}
+                </span>
+              )}
             </div>
             <progress className='progress progress-info w-full flex' value={date - start} max={end - start} />
+            {showDate && (
+              <div className='flex justify-between text-base-content/50'>
+                <span>{getDateStyle(start)}</span>
+                <span>{getDateStyle(end)}</span>
+              </div>
+            )}
           </li>
         );
       })}

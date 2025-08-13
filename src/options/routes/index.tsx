@@ -16,12 +16,12 @@ export const routes = [
     children: [
       {
         path: "/",
-        name: "常规设置",
+        name: "任务设置",
         element: <GeneralSettings />,
       },
       {
         path: "/ImageProcessing",
-        name: "图片相关",
+        name: "图片工具",
         element: <ImageProcessing />,
         children: [
           {
