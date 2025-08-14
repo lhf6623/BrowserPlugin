@@ -1,13 +1,16 @@
 import { defineConfig, presetMini, presetIcons } from "unocss";
+import themes from "./src/assets/themes.json";
 
 import { presetDaisy } from "unocss-preset-daisy";
 
 export default defineConfig({
   presets: [
-    presetMini(),
+    presetMini({
+      dark: "class",
+    }),
     presetDaisy({
       styled: true,
-      themes: ["light", "dark"],
+      themes,
     }),
     presetIcons({
       extraProperties: {
@@ -31,5 +34,6 @@ export default defineConfig({
   shortcuts: {
     "flex-center": "flex justify-center items-center",
     "absolute-full": "absolute w-full h-full top-0 left-0",
+    "btn-icon-info": "btn btn-info text-info btn-outline btn-xs px-0 b-none !bg-transparent hover:text-info/70",
   },
 });

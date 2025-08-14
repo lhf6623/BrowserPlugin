@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useState, useRef, ChangeEvent, useEffect } from "react";
 
 interface SelectImageProps {
@@ -91,11 +92,8 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
     };
   }, []);
 
-  // @unocss-include
-  const style = isDrag ? "border-solid" : "border-dashed";
-
   return (
-    <div className='wfull hfit relative bg-base-100 border-base-300 text-base-content'>
+    <div className='wfull hfit relative bg-base-100 b-base-300 text-base-content'>
       <div
         tabIndex={0}
         onKeyDown={(e) => {
@@ -106,17 +104,25 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
         }}
         onClick={handleOpenFileInput}
         ref={dragRef}
-        className={`w-full box-border relative my-1 cursor-pointer border-#616778 text-#40444f text-center py-2 flex items-center flex-col border-2px ${style}`}
+        className={clsx(
+          "w-full btn-icon-info my-1 cursor-pointer py-2 flex items-center flex-col b-2px",
+          isDrag ? "b-solid" : "b-dashed"
+        )}
       >
-        <i
-          className={`${
+        <button
+          title='点击选择图片'
+          className={clsx(
+            "w-64px h-64px",
             loading ? "i-eos-icons:three-dots-loading" : "i-mdi:file-image-plus-outline"
-          } w-64px h-64px text-blue`}
-        ></i>
-        <span className='text-12px op-70 bg-base-100 border-base-300 text-base-content'>
-          <span className='!text-blue'>点击选择图片</span>
+          )}
+          type='button'
+        ></button>
+        <p className='text-12px op-70 bg-base-100 b-base-300 text-base-content'>
+          <button className='btn-icon-info' type='button' title='点击选择图片'>
+            点击选择图片
+          </button>
           或者将图片拖放到这里！
-        </span>
+        </p>
       </div>
 
       {loading && <div onClick={(e) => e.stopPropagation()} className='absolute inset-0'></div>}
@@ -124,6 +130,7 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
       <input
         ref={fileRef}
         type='file'
+        placeholder='点击选择图片'
         accept={accept}
         multiple={multiple}
         onChange={handleFileChange}

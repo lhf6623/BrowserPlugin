@@ -121,15 +121,15 @@ export default function TauriIcons() {
               <label htmlFor='w' className='ml-2'>
                 宽：
               </label>
-              <input type='number' id='w' defaultValue={item.width} className='b w-52px' />
+              <input type='number' id='w' placeholder='输入宽度' defaultValue={item.width} className='b w-52px' />
               <label htmlFor='h' className='ml-2'>
                 高：
               </label>
-              <input type='number' id='h' defaultValue={item.height} className='b w-52px' />
+              <input type='number' id='h' placeholder='输入高度' defaultValue={item.height} className='b w-52px' />
               <label htmlFor='n' className='ml-2'>
                 名字：
               </label>
-              <input type='text' id='n' defaultValue={item.name} className='b w-170px' />
+              <input type='text' id='n' placeholder='输入名字' defaultValue={item.name} className='b w-170px' />
               <code className='ml-2'>png</code>
             </div>
           );
@@ -137,10 +137,10 @@ export default function TauriIcons() {
 
       {imageInfo && (
         <div className='flex-center py-2 gap-1'>
-          <button className='btn btn-outline btn-info btn-sm' onClick={reset}>
+          <button title='重新选择' className='btn btn-outline btn-info btn-sm' type='button' onClick={reset}>
             重新选择
           </button>
-          <button className='btn btn-info btn-sm' onClick={() => downloadImg(0)}>
+          <button title='下载图片' className='btn btn-info btn-sm' type='button' onClick={() => downloadImg(0)}>
             下载
           </button>
         </div>

@@ -16,7 +16,7 @@ export default function ErrorPage() {
         <p className='font-200 text-12px mb4'>
           <i>{error.statusText || error.message}</i>
         </p>
-        <button className='btn btn-info btn-sm' onClick={handleToHome}>
+        <button className='btn btn-info btn-sm' type='button' title='返回主页' onClick={handleToHome}>
           返回主页
         </button>
       </div>

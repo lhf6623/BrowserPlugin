@@ -129,11 +129,21 @@ export default function Base64ToImg() {
         <div className='flex justify-between mb-6px items-center'>
           <p>base64 输入</p>
           <div>
-            <button onClick={handleBaseToImg} className='btn btn-outline btn-info btn-sm'>
-              base64转图片
+            <button
+              title='base64 转图片'
+              onClick={handleBaseToImg}
+              type='button'
+              className='btn btn-outline btn-info btn-sm'
+            >
+              base64 转图片
             </button>
             {base64 && (
-              <button className='btn btn-outline btn-info btn-sm ml-6px' onClick={() => setBase64("")}>
+              <button
+                title='清空 base64'
+                className='btn btn-outline btn-info btn-sm ml-6px'
+                type='button'
+                onClick={() => setBase64("")}
+              >
                 清空
               </button>
             )}
@@ -161,17 +171,24 @@ export default function Base64ToImg() {
         <div className='flex justify-between mb-6px items-center'>
           <p>图片选择</p>
           <div>
-            <button className='btn btn-outline btn-info btn-sm' onClick={getBase64}>
+            <button title='图片转 base64' className='btn btn-outline btn-info btn-sm' type='button' onClick={getBase64}>
               图片转 base64
             </button>
             {imgInfo.src && (
-              <button className='btn btn-outline btn-info btn-sm ml-6px' onClick={clearImgInfo}>
-                清空
+              <button
+                title='清空图片'
+                className='btn btn-outline btn-info btn-sm ml-6px'
+                type='button'
+                onClick={clearImgInfo}
+              >
+                清空图片
               </button>
             )}
             {imgInfo.src && (
               <button
+                title='下载图片'
                 className='btn btn-outline btn-info btn-sm ml-6px'
+                type='button'
                 onClick={() => {
                   imgInfo.src && downloadImage(imgInfo.src, imgInfo.name);
                 }}

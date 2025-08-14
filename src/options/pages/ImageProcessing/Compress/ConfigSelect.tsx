@@ -63,6 +63,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
                 step={0.01}
                 min={0.1}
                 max={1}
+                placeholder='清晰度'
                 onChange={handleChangeQuality}
               />
               {custom.quality * 100}%

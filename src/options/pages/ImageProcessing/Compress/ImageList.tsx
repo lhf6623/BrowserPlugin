@@ -99,7 +99,8 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
               title='复制压缩后的 base64'
             />
             <button
-              className='btn btn-outline btn-xs btn-info px-0 b-none !hover:bg-transparent'
+              type='button'
+              className='btn-icon-info'
               title='预览压缩后的图片'
               onClick={() => {
                 setShowImg(!showImg);
@@ -108,13 +109,19 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
               <i className='i-mdi:print-preview w-24px h-24px inline-block'></i>
             </button>
             <button
-              className='btn btn-outline btn-xs btn-info px-0 b-none !hover:bg-transparent'
+              type='button'
+              className='btn-icon-info'
               title='下载压缩后的图片'
               onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
             >
               <i className='i-mdi:file-download-outline w-24px h-24px inline-block'></i>
             </button>
-            <button className='btn btn-xs btn-info btn-outline btn-error' onClick={() => onOperation(id)}>
+            <button
+              title='删除'
+              className='btn btn-xs btn-info btn-outline btn-error'
+              type='button'
+              onClick={() => onOperation(id)}
+            >
               删除
             </button>
           </p>

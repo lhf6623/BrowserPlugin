@@ -22,6 +22,7 @@ export default function RadioGroup({ label, name, value, onChange, options }: Ra
                 value={item.value}
                 checked={value === item.value}
                 onChange={() => onChange(item)}
+                placeholder={item.label}
               />
               <label htmlFor={item.value} className='cursor-pointer'>
                 {item.label}

@@ -5,7 +5,7 @@ export default defineManifest(async (_env) => {
   return {
     manifest_version: 3,
     name: "工具箱 - 基于浏览器API制作",
-    description: "基于浏览器API制作，图片压缩，base64，图片剪裁，tauri 图片剪裁",
+    description: "基于浏览器API制作，图片压缩，base64，图片剪裁，tauri 图片剪裁，base64与图片互转",
     version: packageJson.version,
     icons: {
       "16": "image/icon16.png",

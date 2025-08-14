@@ -19,7 +19,32 @@ declare global {
     color: string;
   };
 
-  type PopupConfigType = { showNotice: boolean; showDate: boolean; showTitle: boolean; showTotal: boolean };
+  type PopupConfigType = {
+    showNotice: boolean;
+    showDate: boolean;
+    showTitle: boolean;
+    showTotal: boolean;
+  };
+
+  type SystemConfigType = {
+    theme: string;
+    language: string;
+  };
+  interface HolidayRequertData {
+    code: 0 | -1;
+    holiday: {
+      /** 该字段一定为true */
+      holiday: true;
+      /** 节假日的中文名。 */
+      name: string;
+      /** 薪资倍数，3表示是3倍工资 */
+      wage: number;
+      /** 节假日的日期 2018-10-01 */
+      date: string;
+      /** 表示当前时间距离目标还有多少天。比如今天是 2018-09-28，距离 2018-10-01 还有3天 */
+      rest: number;
+    };
+  }
   // 定义一个工具类型来提取 Promise<T> 中的 T 类型
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
   type Exclude<T, U> = T extends U ? never : T;

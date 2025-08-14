@@ -5,7 +5,7 @@ import { DndContext } from "@dnd-kit/core";
 export default function ImageProcessing() {
   const routers = useCurrRouters();
   return (
-    <div className='w-full h-full flex flex-col overflow-auto max-sm:pt-40px'>
+    <div className='w-full h-full flex flex-col overflow-auto pt-40px'>
       <div className='border-b px-16px h-fit flex-shrink-0'>
         <ul role='tablist' className='tabs py-8px'>
           {routers.map((item) => {

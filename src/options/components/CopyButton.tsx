@@ -17,7 +17,7 @@ export default function CopyButton({ text, ...attar }: CopyButtonProps) {
     });
   }
   return (
-    <button onClick={copy} {...attar} type='button'>
+    <button onClick={copy} {...attar} type='button' title='复制'>
       {isCopy ? "已复制" : "复制"}
     </button>
   );

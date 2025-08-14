@@ -4,7 +4,7 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "strict": true

@@ -70,36 +70,48 @@ export default function Image({ src, width }: { src: string; width?: number | st
           >
             <button
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              title='逆时针旋转90度'
+              type='button'
               onClick={() => setRotate(rotate - 90)}
             >
               <i className='i-mdi:rotate-counter-clockwise h-30px w-30px'></i>
             </button>
             <button
+              title='顺时针旋转90度'
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              type='button'
               onClick={() => setRotate(rotate + 90)}
             >
               <i className='i-mdi:rotate-clockwise h-30px w-30px'></i>
             </button>
             <button
+              title='缩小'
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              type='button'
               onClick={() => setScale(scale - 0.1)}
             >
               <i className='i-gravity-ui:magnifier-minus h-30px w-30px'></i>
             </button>
             <button
+              title='放大'
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              type='button'
               onClick={() => setScale(scale + 0.1)}
             >
               <i className='i-gravity-ui:magnifier-plus h-30px w-30px'></i>
             </button>
             <button
+              title='下载'
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              type='button'
               onClick={download}
             >
               <i className='i-gg:software-download h-30px w-30px'></i>
             </button>
             <button
+              title='关闭'
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
+              type='button'
               onClick={() => setShow(false)}
             >
               <i className='i-mdi:close h-30px w-30px'></i>

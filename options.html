@@ -1,29 +1,17 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="image/icon16.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="小工具 基于浏览器API制作，图片压缩，base64，图片剪裁，tauri 图片剪裁，base64与图片互转"
+    />
     <title>小工具</title>
-    <style>
-      body {
-        font-family:
-          "Roboto Flex",
-          "Open Sans",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Ubuntu,
-          Arial,
-          sans-serif;
-        font-optical-sizing: none;
-        font-size: 16px;
-        color: #4d4d4d;
-      }
-    </style>
   </head>
   <body>
-    <div id="root" h-100vh w-100vw relative></div>
+    <div id="root" class="h-100vh w-100vw relative overflow-hidden"></div>
     <script type="module" src="/src/options/main.tsx"></script>
   </body>
 </html>

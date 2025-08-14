@@ -1,7 +1,6 @@
 import dateUtils, { getDateRange } from "@/utils/dateUtils";
 import cache from "@/utils/cache";
-import { TASK_CONFIG_KEY } from "@/hooks/useConfig";
-import { TASK_LIST_KEY } from "@/hooks/useTaskList";
+import { TASK_CONFIG_KEY, TASK_LIST_KEY } from "@/hooks/cacheConfig";
 
 const getTaskKey = (id = "") => `taskReminder_${id}`;
 

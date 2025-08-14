@@ -67,14 +67,16 @@ export default function CutOut() {
           </p>
           <div className='flex gap-2 justify-center my-4'>
             <button
+              title='重新选择'
               className='btn btn-outline btn-info btn-sm'
               onClick={() => {
                 setImageInfo(null);
               }}
+              type='button'
             >
               重新选择
             </button>
-            <button onClick={getImgUrl} className='btn btn-outline btn-info btn-sm'>
+            <button onClick={getImgUrl} type='button' title='立即剪裁' className='btn btn-outline btn-info btn-sm'>
               立即剪裁
             </button>
           </div>
@@ -82,10 +84,12 @@ export default function CutOut() {
             <div className='w-full pb-100px'>
               <p className='text-right mb-1'>
                 <button
+                  title='下载剪裁后的图片'
+                  type='button'
                   onClick={() => {
                     downloadImage(url, (imageInfo.imgFile as File).name);
                   }}
-                  className='btn btn-info btn-info btn-sm'
+                  className='btn btn-info btn-sm'
                 >
                   下载
                 </button>

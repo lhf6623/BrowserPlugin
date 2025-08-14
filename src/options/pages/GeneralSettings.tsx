@@ -1,9 +1,8 @@
-import useConfig from "@/hooks/useConfig";
-import useTaskList from "@/hooks/useTaskList";
 import dateUtils from "@/utils/dateUtils";
 import { ChangeEvent, ReactNode, useState } from "react";
 import { taskTypeColor } from "@/utils";
 import useCurrRouters from "@/hooks/useCurrRouters";
+import { useCacheContext } from "@/hooks/CacheContext";
 
 export default function GeneralSettings() {
   const routerList = useCurrRouters("/");
@@ -20,10 +19,9 @@ export default function GeneralSettings() {
 }
 
 function TaskLists() {
-  const { taskList, setList } = useTaskList();
-
+  const { taskList, setTaskList } = useCacheContext();
   function addNewTask() {
-    setList([
+    setTaskList([
       ...taskList,
       {
         id: crypto.randomUUID(),
@@ -55,7 +53,7 @@ function TaskLists() {
           })}
           <tr>
             <td colSpan={6} className='text-center'>
-              <button className='btn btn-xs btn-info' onClick={addNewTask}>
+              <button className='btn btn-xs btn-info' type='button' title='新增一行' onClick={addNewTask}>
                 新增一行
               </button>
             </td>
@@ -93,12 +91,12 @@ const optionTypes = [
   },
 ];
 function TaskForm({ task, index }: { task: Task; index: number }) {
-  const { taskList, setList } = useTaskList();
+  const { taskList, setTaskList } = useCacheContext();
   const start = dateUtils(task.start).format("YYYY-MM-DD HH:mm");
   const end = dateUtils(task.end).format("YYYY-MM-DD HH:mm");
   function handleDelete() {
     const list = taskList.filter((item) => item.id !== task.id);
-    setList(list);
+    setTaskList(list);
   }
   function handleMove(type: "up" | "down") {
     const list = [...taskList];
@@ -109,7 +107,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
       if (isLast) return;
       [list[index], list[index + 1]] = [list[index + 1], list[index]];
     }
-    setList(list);
+    setTaskList(list);
   }
   function changeValue(e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) {
     const name = e.target.name as keyof Task;
@@ -124,7 +122,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
     // 使用类型断言解决类型不匹配问题
     (newTask[name] as Task[keyof Task]) = value;
     list[index] = newTask;
-    setList(list);
+    setTaskList(list);
   }
   const isLast = index === taskList.length - 1;
   const isFirst = index === 0;
@@ -155,6 +153,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='color'
           defaultValue={task.color}
           onChange={changeValue}
+          placeholder='选择颜色'
         />
       </td>
       <td>
@@ -164,6 +163,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='taskType'
           defaultValue={task.taskType}
           onChange={changeValue}
+          title='任务类型'
         >
           {optionTypes.map((types) => {
             return (
@@ -181,6 +181,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='start'
           name='start'
           step={1}
+          placeholder='选择开始时间'
           defaultValue={start}
           onChange={changeValue}
         />
@@ -192,22 +193,38 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='end'
           name='end'
           step={1}
+          placeholder='选择结束时间'
           defaultValue={end}
           onChange={changeValue}
         />
       </td>
       <td className='flex gap-1'>
         {!isFirst && (
-          <button className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap' onClick={() => handleMove("up")}>
+          <button
+            title='上移'
+            className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap'
+            type='button'
+            onClick={() => handleMove("up")}
+          >
             上移
           </button>
         )}
         {!isLast && (
-          <button className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap' onClick={() => handleMove("down")}>
+          <button
+            title='下移'
+            className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap'
+            type='button'
+            onClick={() => handleMove("down")}
+          >
             下移
           </button>
         )}
-        <button className='btn btn-xs w-fit btn-error whitespace-nowrap' onClick={handleDelete}>
+        <button
+          title='删除'
+          className='btn btn-xs w-fit btn-error whitespace-nowrap'
+          type='button'
+          onClick={handleDelete}
+        >
           删除
         </button>
       </td>
@@ -216,15 +233,15 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
 }
 
 function ConfigLists() {
-  const { config, setConfigData } = useConfig();
+  const { taskConfig, setTaskConfig } = useCacheContext();
   const [notificationsId, setNotificationsId] = useState<string>("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement;
-    const key = target.id as keyof PopupConfigType;
+    const key = target.id as IdType;
     const value = target.checked;
-    setConfigData({
-      ...config,
+    setTaskConfig({
+      ...taskConfig,
       [key]: value,
     });
   }
@@ -240,23 +257,32 @@ function ConfigLists() {
     });
     setNotificationsId(id);
   }
+  type IdType = keyof PopupConfigType;
+
   type ConfigItem = {
     title: string;
     msg: string;
-    id: keyof PopupConfigType;
+    id: IdType;
     value: boolean;
     children?: () => ReactNode;
   };
+
+  // 剔除 theme 相关配置
   const configList: ConfigItem[] = [
     {
       title: "通知显示",
       msg: "通过系统级通知提醒",
-      id: "showNotice" as keyof PopupConfigType,
+      id: "showNotice" as IdType,
       value: false,
       children: () => {
-        if (!config.showNotice) return null;
+        if (!taskConfig.showNotice) return null;
         return (
-          <button className='btn btn-xs btn-info  btn-outline ml-10px px-6px' onClick={test}>
+          <button
+            className='btn btn-xs btn-info  btn-outline ml-10px px-6px'
+            type='button'
+            title='测试通知'
+            onClick={test}
+          >
             测试通知
           </button>
         );
@@ -265,25 +291,25 @@ function ConfigLists() {
     {
       title: "标题显示",
       msg: "进度条顶部标题",
-      id: "showTitle" as keyof PopupConfigType,
+      id: "showTitle" as IdType,
       value: false,
     },
     {
-      title: "总时间显示",
+      title: "剩余时间显示",
       msg: "剩余时间和总时间显示",
-      id: "showTotal" as keyof PopupConfigType,
+      id: "showTotal" as IdType,
       value: false,
     },
     {
       title: "时间显示",
       msg: "进度条底部开始时间和结束时间",
-      id: "showDate" as keyof PopupConfigType,
+      id: "showDate" as IdType,
       value: false,
     },
   ].map((item) => {
     return {
       ...item,
-      value: config[item.id],
+      value: taskConfig[item.id],
     };
   });
   return (
@@ -303,6 +329,7 @@ function ConfigLists() {
               type='checkbox'
               checked={item.value}
               id={item.id}
+              placeholder={item.title}
               className='checkbox checkbox-info'
               onChange={handleChange}
             />
