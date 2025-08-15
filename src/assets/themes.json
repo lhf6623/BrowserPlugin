@@ -1,31 +1,118 @@
-[
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "synthwave",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "dracula",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter"
-]
+{
+  "light": {
+    "zh": "明亮",
+    "en": "light"
+  },
+  "dark": {
+    "zh": "暗黑",
+    "en": "dark"
+  },
+  "cupcake": {
+    "zh": "纸杯蛋糕",
+    "en": "cupcake"
+  },
+  "bumblebee": {
+    "zh": "大黄蜂",
+    "en": "bumblebee"
+  },
+  "emerald": {
+    "zh": "翡翠",
+    "en": "emerald"
+  },
+  "corporate": {
+    "zh": "企业",
+    "en": "corporate"
+  },
+  "synthwave": {
+    "zh": "合成波",
+    "en": "synthwave"
+  },
+  "retro": {
+    "zh": "复古",
+    "en": "retro"
+  },
+  "cyberpunk": {
+    "zh": "赛博朋克",
+    "en": "cyberpunk"
+  },
+  "valentine": {
+    "zh": "情人节",
+    "en": "valentine"
+  },
+  "halloween": {
+    "zh": "万圣节",
+    "en": "halloween"
+  },
+  "garden": {
+    "zh": "花园",
+    "en": "garden"
+  },
+  "forest": {
+    "zh": "森林",
+    "en": "forest"
+  },
+  "aqua": {
+    "zh": "水色",
+    "en": "aqua"
+  },
+  "lofi": {
+    "zh": "低保真",
+    "en": "lofi"
+  },
+  "pastel": {
+    "zh": "柔和",
+    "en": "pastel"
+  },
+  "fantasy": {
+    "zh": "幻想",
+    "en": "fantasy"
+  },
+  "wireframe": {
+    "zh": "线框",
+    "en": "wireframe"
+  },
+  "black": {
+    "zh": "纯黑",
+    "en": "black"
+  },
+  "luxury": {
+    "zh": "奢华",
+    "en": "luxury"
+  },
+  "dracula": {
+    "zh": "吸血鬼",
+    "en": "dracula"
+  },
+  "cmyk": {
+    "zh": "印刷四色",
+    "en": "cmyk"
+  },
+  "autumn": {
+    "zh": "秋季",
+    "en": "autumn"
+  },
+  "business": {
+    "zh": "商务",
+    "en": "business"
+  },
+  "acid": {
+    "zh": "酸性",
+    "en": "acid"
+  },
+  "lemonade": {
+    "zh": "柠檬水",
+    "en": "lemonade"
+  },
+  "night": {
+    "zh": "夜晚",
+    "en": "night"
+  },
+  "coffee": {
+    "zh": "咖啡",
+    "en": "coffee"
+  },
+  "winter": {
+    "zh": "冬季",
+    "en": "winter"
+  }
+}

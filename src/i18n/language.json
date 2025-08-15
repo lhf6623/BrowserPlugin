@@ -1,0 +1,244 @@
+{
+  "en": {
+    "translation": {
+      "theme": {
+        "followSystem": "Follow System",
+        "switchTo": "Switch to {{theme}} theme"
+      },
+      "language": {
+        "switchTo": "Switch to {{language}} language"
+      },
+      "popop": {
+        "notStart": "Not started",
+        "sourceCode": "Source Code",
+        "taskPanelConfig": "Task Panel Config"
+      },
+      "routes": {
+        "imageTool": "Image Tool",
+        "taskSettings": "Task Settings",
+        "compress": "Compress",
+        "cutOut": "Cut Out",
+        "tauriIcons": "Tauri Icon Generator",
+        "base64ToImg": "Base64 to Image Conversion"
+      },
+      "components": {
+        "copy": "Copy",
+        "copied": "Copied",
+        "rotate": "Rotate Counterclockwise 90 Degrees",
+        "rotate90": "Rotate Clockwise 90 Degrees",
+        "zoomOut": "Zoom Out",
+        "zoomIn": "Zoom In",
+        "download": "Download",
+        "close": "Close",
+        "selectImage": "Click to select image",
+        "dragOrDrop": "or drag and drop image here"
+      },
+      "GeneralSettings": {
+        "taskList": "Task List",
+        "newTask": "New Task",
+        "title": "Title",
+        "color": "Color",
+        "taskType": "Task Type",
+        "start": "Start Time",
+        "end": "End Time",
+        "operation": "Operation",
+        "addNewLine": "Add New Line",
+        "moveUp": "Move Up",
+        "moveDown": "Move Down",
+        "delete": "Delete",
+        "testNotification": "Test Notification",
+        "notificationDisplay": "Notification Display",
+        "notificationReminder": "Notification Reminder",
+        "titleDisplay": "Title Display",
+        "titleDisplayMsg": "Progress bar top title",
+        "remainingTimeDisplay": "Remaining Time Display",
+        "remainingTimeDisplayMsg": "Remaining time and total time display",
+        "timeDisplay": "Time Display",
+        "timeDisplayMsg": "Progress bar bottom start time and end time"
+      },
+      "TaskOptionType": {
+        "year": "Yearly",
+        "month": "Monthly",
+        "day": "Weekly",
+        "date": "Daily",
+        "hour": "Hourly",
+        "none": "None"
+      },
+      "ErrorPage": {
+        "returnHome": "Return to Home",
+        "errorOccurred": "Sorry, an unexpected error occurred."
+      },
+      "Compress": {
+        "originalFormat": "Original Format",
+        "quality": "Quality",
+        "format": "Format",
+        "reducePriority": "Reduce Priority",
+        "clearPriority": "Clear Priority",
+        "custom": "Custom",
+        "compressMode": "Compress Mode",
+        "compressed": "Compressed",
+        "copyBase64": "Copy Base64",
+        "copyCompressedBase64": "Copy Compressed Base64",
+        "previewCompressedImage": "Preview Compressed Image",
+        "downloadCompressedImage": "Download Compressed Image",
+        "delete": "Delete"
+      },
+      "CutOut": {
+        "originalPixel": "Original Pixel",
+        "targetPixel": "Target Pixel",
+        "scaledDown": "Scaled Down",
+        "reselect": "Reselect",
+        "cut": "Cut",
+        "downloadCutImage": "Download Cut Image",
+        "download": "Download"
+      },
+      "TauriIcons": {
+        "selectImage": "Select an image with a resolution of {{width}}*{{height}} or higher in png format",
+        "icoFormatNotSupported": "{{ico}} format is not supported in the browser",
+        "width": "Width",
+        "inputWidth": "Input Width",
+        "height": "Height",
+        "inputHeight": "Input Height",
+        "name": "Name",
+        "inputName": "Input Name",
+        "reselect": "Reselect",
+        "download": "Download",
+        "downloadImg": "Download Image"
+      },
+      "Base64ToImg": {
+        "imgLoadFailed": "Image load failed",
+        "supportImgOrBase64": "Support image or Base64 conversion",
+        "base64Input": "Base64 Input",
+        "base64ToImg": "Base64 to Image",
+        "clearBase64": "Clear Base64",
+        "copyBase64": "Copy Base64",
+        "base64InputMsg": "Please input Base64 string",
+        "selectImage": "Select Image",
+        "imgToBase64": "Image to Base64",
+        "clearImg": "Clear Image",
+        "downloadImg": "Download Image"
+      }
+    }
+  },
+  "zh": {
+    "translation": {
+      "theme": {
+        "followSystem": "跟随系统",
+        "switchTo": "切换到{{theme}}主题"
+      },
+      "language": {
+        "switchTo": "切换到{{language}}语言"
+      },
+      "popop": {
+        "notStart": "未开始",
+        "sourceCode": "源代码",
+        "taskPanelConfig": "任务面板配置"
+      },
+      "routes": {
+        "imageTool": "图片工具",
+        "taskSettings": "任务设置",
+        "compress": "压缩",
+        "cutOut": "剪裁",
+        "tauriIcons": "Tauri icon 生成",
+        "base64ToImg": "Base64和图片互转"
+      },
+      "components": {
+        "copy": "复制",
+        "copied": "已复制",
+        "rotate": "逆时针旋转90度",
+        "rotate90": "顺时针旋转90度",
+        "zoomOut": "缩小",
+        "zoomIn": "放大",
+        "download": "下载",
+        "close": "关闭",
+        "selectImage": "点击选择图片",
+        "dragOrDrop": "或者将图片拖放到这里！"
+      },
+      "GeneralSettings": {
+        "taskList": "任务列表",
+        "newTask": "新任务",
+        "title": "标题",
+        "color": "颜色",
+        "taskType": "任务类型",
+        "start": "开始时间",
+        "end": "结束时间",
+        "operation": "操作",
+        "addNewLine": "新增一行",
+        "moveUp": "上移",
+        "moveDown": "下移",
+        "delete": "删除",
+        "testNotification": "测试通知",
+        "notificationDisplay": "通知显示",
+        "notificationReminder": "通过系统级通知提醒",
+        "titleDisplay": "标题显示",
+        "titleDisplayMsg": "进度条顶部标题",
+        "remainingTimeDisplay": "剩余时间显示",
+        "remainingTimeDisplayMsg": "剩余时间和总时间显示",
+        "timeDisplay": "时间显示",
+        "timeDisplayMsg": "进度条底部开始时间和结束时间"
+      },
+      "TaskOptionType": {
+        "year": "每年循环",
+        "month": "每月循环",
+        "day": "每周循环",
+        "date": "每天循环",
+        "hour": "每小时循环",
+        "none": "不循环"
+      },
+      "ErrorPage": {
+        "returnHome": "返回主页",
+        "errorOccurred": "抱歉，发生了意外错误。"
+      },
+      "Compress": {
+        "originalFormat": "原格式",
+        "quality": "清晰度",
+        "format": "压缩格式",
+        "reducePriority": "缩小优先",
+        "clearPriority": "清晰优先",
+        "custom": "自定义",
+        "compressMode": "压缩模式",
+        "compressed": "已压缩",
+        "copyBase64": "复制 base64 地址",
+        "copyCompressedBase64": "复制压缩后的 base64 地址",
+        "previewCompressedImage": "预览压缩后的图片",
+        "downloadCompressedImage": "下载压缩后的图片",
+        "delete": "删除"
+      },
+      "CutOut": {
+        "originalPixel": "原图像素",
+        "targetPixel": "目标像素",
+        "scaledDown": "为方便操作，已进行缩小展示",
+        "reselect": "重新选择",
+        "cut": "立即剪裁",
+        "downloadCutImage": "下载剪裁后的图片",
+        "download": "下载"
+      },
+      "TauriIcons": {
+        "selectImage": "选择一张 {{width}}*{{height}} 或者以上的 png 格式的图片",
+        "icoFormatNotSupported": "{{ico}} 格式不能在浏览器上制作",
+        "width": "宽度",
+        "inputWidth": "输入宽度",
+        "height": "高度",
+        "inputHeight": "输入高度",
+        "name": "名称",
+        "inputName": "输入名称",
+        "reselect": "重新选择",
+        "download": "下载图片",
+        "downloadImg": "下载图片"
+      },
+      "Base64ToImg": {
+        "imgLoadFailed": "图片加载失败",
+        "supportImgOrBase64": "支持图片或Base64互相转换",
+        "base64Input": "Base64 输入",
+        "base64ToImg": "Base64 转图片",
+        "clearBase64": "清空 Base64",
+        "copyBase64": "复制 Base64",
+        "base64InputMsg": "请输入 Base64 字符串",
+        "selectImage": "选择图片",
+        "imgToBase64": "图片转 Base64",
+        "clearImg": "清空图片",
+        "downloadImg": "下载图片"
+      }
+    }
+  }
+}

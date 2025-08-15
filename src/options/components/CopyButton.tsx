@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // 继承 button 的属性
 type CopyButtonProps = {
@@ -7,6 +8,7 @@ type CopyButtonProps = {
 
 export default function CopyButton({ text, ...attar }: CopyButtonProps) {
   const [isCopy, setIsCopy] = useState(false);
+  const { t } = useTranslation();
   function copy() {
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
@@ -17,8 +19,8 @@ export default function CopyButton({ text, ...attar }: CopyButtonProps) {
     });
   }
   return (
-    <button onClick={copy} {...attar} type='button' title='复制'>
-      {isCopy ? "已复制" : "复制"}
+    <button onClick={copy} title={t("components.copy")} {...attar} type='button'>
+      {isCopy ? t("components.copied") : t("components.copy")}
     </button>
   );
 }

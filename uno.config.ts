@@ -3,6 +3,7 @@ import themes from "./src/assets/themes.json";
 
 import { presetDaisy } from "unocss-preset-daisy";
 
+const localThemes = Object.keys(themes);
 export default defineConfig({
   presets: [
     presetMini({
@@ -10,7 +11,7 @@ export default defineConfig({
     }),
     presetDaisy({
       styled: true,
-      themes,
+      themes: localThemes,
     }),
     presetIcons({
       extraProperties: {

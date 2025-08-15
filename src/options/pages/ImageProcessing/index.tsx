@@ -1,9 +1,11 @@
 import useCurrRouters from "@/hooks/useCurrRouters";
 import { NavLink, Outlet } from "react-router-dom";
 import { DndContext } from "@dnd-kit/core";
+import { useTranslation } from "react-i18next";
 
 export default function ImageProcessing() {
   const routers = useCurrRouters();
+  const { t } = useTranslation();
   return (
     <div className='w-full h-full flex flex-col overflow-auto pt-40px'>
       <div className='border-b px-16px h-fit flex-shrink-0'>
@@ -12,7 +14,7 @@ export default function ImageProcessing() {
             return (
               <li key={item.path} className='tab' role='tab'>
                 <NavLink to={item.path} className={({ isActive }) => (isActive ? "tab text-info" : "tab")} end>
-                  {item.name}
+                  {t(item.name)}
                 </NavLink>
               </li>
             );

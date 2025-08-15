@@ -1,7 +1,9 @@
 import { useDraggable } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Image({ src, width }: { src: string; width?: number | string }) {
+  const { t } = useTranslation();
   // 旋转角度
   const [rotate, setRotate] = useState(0);
   // 放大倍数
@@ -70,14 +72,14 @@ export default function Image({ src, width }: { src: string; width?: number | st
           >
             <button
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
-              title='逆时针旋转90度'
+              title={t("components.rotate")}
               type='button'
               onClick={() => setRotate(rotate - 90)}
             >
               <i className='i-mdi:rotate-counter-clockwise h-30px w-30px'></i>
             </button>
             <button
-              title='顺时针旋转90度'
+              title={t("components.rotate90")}
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
               type='button'
               onClick={() => setRotate(rotate + 90)}
@@ -85,7 +87,7 @@ export default function Image({ src, width }: { src: string; width?: number | st
               <i className='i-mdi:rotate-clockwise h-30px w-30px'></i>
             </button>
             <button
-              title='缩小'
+              title={t("components.zoomOut")}
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
               type='button'
               onClick={() => setScale(scale - 0.1)}
@@ -93,7 +95,7 @@ export default function Image({ src, width }: { src: string; width?: number | st
               <i className='i-gravity-ui:magnifier-minus h-30px w-30px'></i>
             </button>
             <button
-              title='放大'
+              title={t("components.zoomIn")}
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
               type='button'
               onClick={() => setScale(scale + 0.1)}
@@ -101,7 +103,7 @@ export default function Image({ src, width }: { src: string; width?: number | st
               <i className='i-gravity-ui:magnifier-plus h-30px w-30px'></i>
             </button>
             <button
-              title='下载'
+              title={t("components.download")}
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
               type='button'
               onClick={download}
@@ -109,7 +111,7 @@ export default function Image({ src, width }: { src: string; width?: number | st
               <i className='i-gg:software-download h-30px w-30px'></i>
             </button>
             <button
-              title='关闭'
+              title={t("components.close")}
               className='btn btn-outline btn-xs text-base-content px-0 b-none !hover:bg-transparent h-30px w-30px'
               type='button'
               onClick={() => setShow(false)}

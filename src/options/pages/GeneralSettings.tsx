@@ -3,29 +3,30 @@ import { ChangeEvent, ReactNode, useState } from "react";
 import { taskTypeColor } from "@/utils";
 import useCurrRouters from "@/hooks/useCurrRouters";
 import { useCacheContext } from "@/hooks/CacheContext";
-
+import { useTranslation } from "react-i18next";
 export default function GeneralSettings() {
+  const { t } = useTranslation();
   const routerList = useCurrRouters("/");
   const currRouter = routerList.find((item) => item.path === "/");
-
   return (
     <div className='py-50px px-16px relative w-full h-full overflow-auto select-none bg-base-100 border-base-300 text-base-content'>
-      <h1 className='text-24px'>{currRouter?.name}</h1>
+      <h1 className='text-24px'>{t(currRouter?.name || "")}</h1>
       <ConfigLists />
-      <h1 className='text-24px mt-16px'>任务列表</h1>
+      <h1 className='text-24px mt-16px'>{t("GeneralSettings.taskList")}</h1>
       <TaskLists />
     </div>
   );
 }
 
 function TaskLists() {
+  const { t } = useTranslation();
   const { taskList, setTaskList } = useCacheContext();
   function addNewTask() {
     setTaskList([
       ...taskList,
       {
         id: crypto.randomUUID(),
-        title: "新任务",
+        title: t("GeneralSettings.newTask"),
         color: "#a21211",
         taskType: "unrestricted",
         start: dateUtils().valueOf(),
@@ -39,12 +40,12 @@ function TaskLists() {
       <table className='table border border-base-200 b-rounded '>
         <thead>
           <tr>
-            <th>标题</th>
-            <th>颜色</th>
-            <th>类型</th>
-            <th>开始时间</th>
-            <th>结束时间</th>
-            <th>操作</th>
+            <th>{t("GeneralSettings.title")}</th>
+            <th>{t("GeneralSettings.color")}</th>
+            <th>{t("GeneralSettings.taskType")}</th>
+            <th>{t("GeneralSettings.start")}</th>
+            <th>{t("GeneralSettings.end")}</th>
+            <th>{t("GeneralSettings.operation")}</th>
           </tr>
         </thead>
         <tbody>
@@ -53,8 +54,13 @@ function TaskLists() {
           })}
           <tr>
             <td colSpan={6} className='text-center'>
-              <button className='btn btn-xs btn-info' type='button' title='新增一行' onClick={addNewTask}>
-                新增一行
+              <button
+                className='btn btn-xs btn-info'
+                type='button'
+                title={t("GeneralSettings.addNewLine")}
+                onClick={addNewTask}
+              >
+                {t("GeneralSettings.addNewLine")}
               </button>
             </td>
           </tr>
@@ -67,30 +73,31 @@ function TaskLists() {
 const optionTypes = [
   {
     value: "year",
-    title: "每年循环",
+    title: "TaskOptionType.year",
   },
   {
     value: "month",
-    title: "每月循环",
+    title: "TaskOptionType.month",
   },
   {
     value: "day",
-    title: "每周循环",
+    title: "TaskOptionType.day",
   },
   {
     value: "date",
-    title: "每日循环",
+    title: "TaskOptionType.date",
   },
   {
     value: "hour",
-    title: "每小时循环",
+    title: "TaskOptionType.hour",
   },
   {
     value: "unrestricted",
-    title: "不循环",
+    title: "TaskOptionType.none",
   },
 ];
 function TaskForm({ task, index }: { task: Task; index: number }) {
+  const { t } = useTranslation();
   const { taskList, setTaskList } = useCacheContext();
   const start = dateUtils(task.start).format("YYYY-MM-DD HH:mm");
   const end = dateUtils(task.end).format("YYYY-MM-DD HH:mm");
@@ -138,7 +145,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
         <input
           type='text'
           className='input input-info input-xs w-165px'
-          placeholder='标题'
+          placeholder={t("GeneralSettings.title")}
           name='title'
           id='title'
           defaultValue={task.title}
@@ -153,7 +160,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='color'
           defaultValue={task.color}
           onChange={changeValue}
-          placeholder='选择颜色'
+          placeholder={t("GeneralSettings.color")}
         />
       </td>
       <td>
@@ -163,12 +170,12 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='taskType'
           defaultValue={task.taskType}
           onChange={changeValue}
-          title='任务类型'
+          title={t("GeneralSettings.taskType")}
         >
           {optionTypes.map((types) => {
             return (
               <option key={types.value} value={types.value}>
-                {types.title}
+                {t(types.title)}
               </option>
             );
           })}
@@ -181,7 +188,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='start'
           name='start'
           step={1}
-          placeholder='选择开始时间'
+          placeholder={t("GeneralSettings.start")}
           defaultValue={start}
           onChange={changeValue}
         />
@@ -193,7 +200,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
           id='end'
           name='end'
           step={1}
-          placeholder='选择结束时间'
+          placeholder={t("GeneralSettings.end")}
           defaultValue={end}
           onChange={changeValue}
         />
@@ -201,31 +208,31 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
       <td className='flex gap-1'>
         {!isFirst && (
           <button
-            title='上移'
+            title={t("GeneralSettings.moveUp")}
             className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap'
             type='button'
             onClick={() => handleMove("up")}
           >
-            上移
+            {t("GeneralSettings.moveUp")}
           </button>
         )}
         {!isLast && (
           <button
-            title='下移'
+            title={t("GeneralSettings.moveDown")}
             className='btn btn-xs btn-square w-fit btn-info whitespace-nowrap'
             type='button'
             onClick={() => handleMove("down")}
           >
-            下移
+            {t("GeneralSettings.moveDown")}
           </button>
         )}
         <button
-          title='删除'
+          title={t("GeneralSettings.delete")}
           className='btn btn-xs w-fit btn-error whitespace-nowrap'
           type='button'
           onClick={handleDelete}
         >
-          删除
+          {t("GeneralSettings.delete")}
         </button>
       </td>
     </tr>
@@ -235,6 +242,7 @@ function TaskForm({ task, index }: { task: Task; index: number }) {
 function ConfigLists() {
   const { taskConfig, setTaskConfig } = useCacheContext();
   const [notificationsId, setNotificationsId] = useState<string>("");
+  const { t } = useTranslation();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement;
@@ -253,7 +261,7 @@ function ConfigLists() {
       type: "basic",
       iconUrl: "image/icon128.png",
       title: "",
-      message: "测试通知",
+      message: t("GeneralSettings.testNotification"),
     });
     setNotificationsId(id);
   }
@@ -270,8 +278,8 @@ function ConfigLists() {
   // 剔除 theme 相关配置
   const configList: ConfigItem[] = [
     {
-      title: "通知显示",
-      msg: "通过系统级通知提醒",
+      title: "GeneralSettings.notificationDisplay",
+      msg: "GeneralSettings.notificationReminder",
       id: "showNotice" as IdType,
       value: false,
       children: () => {
@@ -280,29 +288,29 @@ function ConfigLists() {
           <button
             className='btn btn-xs btn-info  btn-outline ml-10px px-6px'
             type='button'
-            title='测试通知'
+            title={t("GeneralSettings.testNotification")}
             onClick={test}
           >
-            测试通知
+            {t("GeneralSettings.testNotification")}
           </button>
         );
       },
     },
     {
-      title: "标题显示",
-      msg: "进度条顶部标题",
+      title: "GeneralSettings.titleDisplay",
+      msg: "GeneralSettings.titleDisplayMsg",
       id: "showTitle" as IdType,
       value: false,
     },
     {
-      title: "剩余时间显示",
-      msg: "剩余时间和总时间显示",
+      title: "GeneralSettings.remainingTimeDisplay",
+      msg: "GeneralSettings.remainingTimeDisplayMsg",
       id: "showTotal" as IdType,
       value: false,
     },
     {
-      title: "时间显示",
-      msg: "进度条底部开始时间和结束时间",
+      title: "GeneralSettings.timeDisplay",
+      msg: "GeneralSettings.timeDisplayMsg",
       id: "showDate" as IdType,
       value: false,
     },
@@ -319,9 +327,9 @@ function ConfigLists() {
         return (
           <div key={item.id} className='p-14px relative b-rounded bg-base-200 flex justify-between'>
             <div>
-              <h1>{item.title}</h1>
+              <h1>{t(item.title)}</h1>
               <p className='text-14px mt-4px mr-6px text-base-content/70'>
-                {item.msg}
+                {t(item.msg)}
                 {item.children && item.children()}
               </p>
             </div>

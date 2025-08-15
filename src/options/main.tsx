@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-
-import "@unocss/reset/tailwind-compat.css";
-import "virtual:uno.css";
 import { router } from "./routes";
+
+import "../i18n";
+import "../uno-imports";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

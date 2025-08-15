@@ -1,8 +1,10 @@
 import SelectImage from "@opt/components/SelectImage";
 import { changeImgSize, downloadImage, getImgInfo } from "@/utils";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function TauriIcons() {
+  const { t } = useTranslation();
   const [imageInfo, setImageInfo] = useState<ImgInfo | null>(null);
   async function handleChangeFile(list: { file: File; id: string }[]) {
     const imageInfo = await getImgInfo(list[0].file);
@@ -106,11 +108,11 @@ export default function TauriIcons() {
     <div className='w-600px relative p-4 bg-base-100 border-base-300 text-base-content'>
       <div role='alert' className=' p-2 alert alert-warning b-dashed bg-transparent text-#fcb700 b-#fcb700'>
         <span>
-          选择一张 <code>512*512</code> 或者以上的 png 格式的图片，
+          {t("TauriIcons.selectImage", { width: 512, height: 512 })}&nbsp;
           <a target='_blank' className='link link-info' href='http://www.ico51.cn/'>
             ico
           </a>{" "}
-          格式不能在浏览器上制作
+          {t("TauriIcons.icoFormatNotSupported", { ico: "" })}
         </span>
       </div>
       {!imageInfo && <SelectImage accept='image/png' onChange={handleChangeFile} multiple={false} />}
@@ -119,17 +121,35 @@ export default function TauriIcons() {
           return (
             <div key={i} className='w-ful relative flex-center *:flex-shrink-0 my-1'>
               <label htmlFor='w' className='ml-2'>
-                宽：
+                {t("TauriIcons.width")}：
               </label>
-              <input type='number' id='w' placeholder='输入宽度' defaultValue={item.width} className='b w-52px' />
+              <input
+                type='number'
+                id='w'
+                placeholder={t("TauriIcons.inputWidth")}
+                defaultValue={item.width}
+                className='b w-52px'
+              />
               <label htmlFor='h' className='ml-2'>
-                高：
+                {t("TauriIcons.height")}：
               </label>
-              <input type='number' id='h' placeholder='输入高度' defaultValue={item.height} className='b w-52px' />
+              <input
+                type='number'
+                id='h'
+                placeholder={t("TauriIcons.inputHeight")}
+                defaultValue={item.height}
+                className='b w-52px'
+              />
               <label htmlFor='n' className='ml-2'>
-                名字：
+                {t("TauriIcons.name")}：
               </label>
-              <input type='text' id='n' placeholder='输入名字' defaultValue={item.name} className='b w-170px' />
+              <input
+                type='text'
+                id='n'
+                placeholder={t("TauriIcons.inputName")}
+                defaultValue={item.name}
+                className='b w-170px'
+              />
               <code className='ml-2'>png</code>
             </div>
           );
@@ -137,11 +157,21 @@ export default function TauriIcons() {
 
       {imageInfo && (
         <div className='flex-center py-2 gap-1'>
-          <button title='重新选择' className='btn btn-outline btn-info btn-sm' type='button' onClick={reset}>
-            重新选择
+          <button
+            title={t("TauriIcons.reselect")}
+            className='btn btn-outline btn-info btn-sm'
+            type='button'
+            onClick={reset}
+          >
+            {t("TauriIcons.reselect")}
           </button>
-          <button title='下载图片' className='btn btn-info btn-sm' type='button' onClick={() => downloadImg(0)}>
-            下载
+          <button
+            title={t("TauriIcons.downloadImg")}
+            className='btn btn-info btn-sm'
+            type='button'
+            onClick={() => downloadImg(0)}
+          >
+            {t("TauriIcons.downloadImg")}
           </button>
         </div>
       )}

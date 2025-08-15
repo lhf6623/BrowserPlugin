@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useImageList, useImgConfig } from "./ImageProcessingContext";
 import Image from "@opt/components/Image";
 import CopyButton from "@opt/components/CopyButton";
+import { useTranslation } from "react-i18next";
 
 export default function ImageList() {
   const { imageList, imageListDispatch } = useImageList();
@@ -24,6 +25,7 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
   const [load, setLoad] = useState(0);
   const [showImg, setShowImg] = useState(false);
   const [imgData, setImgData] = useState<CompressImageType | null>(null);
+  const { t } = useTranslation();
 
   function getImageName() {
     const { type } = config;
@@ -77,7 +79,11 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
               {load}%
             </progress>
             <div className='flex-center w-full h-full absolute top-0 left-0 text-base-300'>
-              {load === 100 && <span text='12px'>已压缩 {compressionAmount}%</span>}
+              {load === 100 && (
+                <span text='12px'>
+                  {t("Compress.compressed")} {compressionAmount}%
+                </span>
+              )}
             </div>
           </div>
           <span className='ml-4'>{getSizeText(imgData?.newValue.imgFile.size || 0)}</span>
@@ -89,19 +95,19 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
             <CopyButton
               className='btn btn-xs btn-info btn-outline'
               text={imgData!.oldValue.base64Url}
-              title='复制 base64 地址'
+              title={t("Compress.copyBase64")}
             />
           </p>
           <p className='flex items-center gap-x-2'>
             <CopyButton
               className='btn btn-xs btn-info btn-outline'
               text={imgData!.newValue.base64Url}
-              title='复制压缩后的 base64'
+              title={t("Compress.copyCompressedBase64")}
             />
             <button
               type='button'
               className='btn-icon-info'
-              title='预览压缩后的图片'
+              title={t("Compress.previewCompressedImage")}
               onClick={() => {
                 setShowImg(!showImg);
               }}
@@ -111,18 +117,18 @@ function Task({ file, id, onOperation }: { file: File; id: string; onOperation: 
             <button
               type='button'
               className='btn-icon-info'
-              title='下载压缩后的图片'
+              title={t("Compress.downloadCompressedImage")}
               onClick={() => downloadImage(imgData!.newValue.base64Url, name)}
             >
               <i className='i-mdi:file-download-outline w-24px h-24px inline-block'></i>
             </button>
             <button
-              title='删除'
+              title={t("Compress.delete")}
               className='btn btn-xs btn-info btn-outline btn-error'
               type='button'
               onClick={() => onOperation(id)}
             >
-              删除
+              {t("Compress.delete")}
             </button>
           </p>
         </div>

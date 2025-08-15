@@ -91,6 +91,18 @@ export function CacheProvider({ children }: { children: ReactNode }) {
           vacation: data[VACATION_KEY] || initialVacation,
         },
       });
+      if (!data[TASK_LIST_KEY]) {
+        cache.setItem(TASK_LIST_KEY, defaultList);
+      }
+      if (!data[TASK_CONFIG_KEY]) {
+        cache.setItem(TASK_CONFIG_KEY, defaultConfig);
+      }
+      if (!data[SYSTEM_CONFIG_KEY]) {
+        cache.setItem(SYSTEM_CONFIG_KEY, defaultSystemConfig);
+      }
+      if (!data[VACATION_KEY]) {
+        cache.setItem(VACATION_KEY, initialVacation);
+      }
     }
 
     initializeCache();

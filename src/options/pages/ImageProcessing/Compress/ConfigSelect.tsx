@@ -2,8 +2,10 @@ import RadioGroup from "@opt/components/RadioGroup";
 import SelectImage from "@opt/components/SelectImage";
 import { useState, useEffect } from "react";
 import { useImgConfig, CompressionMode, useImageList } from "./ImageProcessingContext";
+import { useTranslation } from "react-i18next";
 
 function CustomConfigPanel({ show }: ConfigPanelProps) {
+  const { t } = useTranslation();
   const { configDispatch } = useImgConfig();
   const [custom, setCustom] = useState<{
     type: ConfigType["type"];
@@ -13,7 +15,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
   const formatOptions: { value: ConfigType["type"]; label: string }[] = [
     {
       value: "original",
-      label: "原格式",
+      label: t("Compress.originalFormat"),
     },
     {
       value: "image/png",
@@ -54,7 +56,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
       {show && (
         <div className='border pl-4 relative py-1 my-1 flex flex-col gap-4 justify-center'>
           <div className='flex items-center'>
-            <label htmlFor='reduce'>清晰度：</label>
+            <label htmlFor='reduce'>{t("Compress.quality")}：</label>
             <div>
               <input
                 type='range'
@@ -63,14 +65,14 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
                 step={0.01}
                 min={0.1}
                 max={1}
-                placeholder='清晰度'
+                placeholder={t("Compress.quality")}
                 onChange={handleChangeQuality}
               />
               {custom.quality * 100}%
             </div>
           </div>
           <RadioGroup
-            label='压缩格式：'
+            label={t("Compress.format") + "："}
             options={formatOptions}
             value={custom.type}
             onChange={handleChangeFormat}
@@ -83,6 +85,7 @@ function CustomConfigPanel({ show }: ConfigPanelProps) {
 }
 
 export default function ConfigSelect() {
+  const { t } = useTranslation();
   const [type, setType] = useState("reduce");
   const [showConfig, setShowConfig] = useState(false);
   const { configDispatch } = useImgConfig();
@@ -114,15 +117,15 @@ export default function ConfigSelect() {
   const typeOptions = [
     {
       value: "reduce",
-      label: "缩小优先",
+      label: t("Compress.reducePriority"),
     },
     {
       value: "clearness",
-      label: "清晰优先",
+      label: t("Compress.clearPriority"),
     },
     {
       value: "custom",
-      label: "自定义",
+      label: t("Compress.custom"),
     },
   ];
 
@@ -130,7 +133,13 @@ export default function ConfigSelect() {
     <>
       <div>
         <div className='flex-center border py-2 cursor-pointer'>
-          <RadioGroup label='压缩模式：' options={typeOptions} value={type} onChange={handleSelectType} name='type' />
+          <RadioGroup
+            label={t("Compress.compressMode") + "："}
+            options={typeOptions}
+            value={type}
+            onChange={handleSelectType}
+            name='type'
+          />
         </div>
         <CustomConfigPanel show={showConfig} />
       </div>

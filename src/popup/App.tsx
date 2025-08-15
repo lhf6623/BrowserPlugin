@@ -1,9 +1,10 @@
 import packageJson from "../../package.json";
-import dateUtils, { getDateRange, getDateStyle } from "@/utils/dateUtils";
+import dateUtils, { getDateRange, getDateStyle, changeDateLocale } from "@/utils/dateUtils";
 import { hexToHsl, taskTypeColor } from "@/utils";
 import { useState, useEffect } from "react";
 import useTime from "@/hooks/useTime";
 import { CacheProvider, useCacheContext } from "@/hooks/CacheContext";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
 function TaskList() {
   const { taskList, taskConfig } = useCacheContext();
   const date = useTime();
+  const { t } = useTranslation();
 
   const { showDate, showTitle, showTotal } = taskConfig;
 
@@ -32,8 +34,8 @@ function TaskList() {
           "--in": hexToHsl(color),
           backgroundColor: taskTypeColor[item.taskType],
         } as React.CSSProperties;
-        // 还未开始 已完成
-        const diff = start > date ? "未开始" : end < date ? "已完成" : dateUtils().to(end, true);
+        // 还未开始
+        const diff = start > date ? t("popop.notStart") : dateUtils().to(end, true);
 
         return (
           <li key={item.id} className='bg-base-300 p-6px rounded-sm' style={liStyle}>
@@ -63,7 +65,7 @@ function TaskList() {
 
 function Header() {
   const date = useTime();
-  const { vacation, setVacation } = useCacheContext();
+  const { vacation, setVacation, systemConfig } = useCacheContext();
   // 闪动
   const [flash, setFlash] = useState(false);
   // 右上角时间显示
@@ -89,11 +91,13 @@ function Header() {
   }
 
   useEffect(() => {
-    const _date = `${dateUtils().format("M月D日")} ${dateUtils().format("ddd")} ${
+    const _date = `${dateUtils().format("MMMM D")} ${dateUtils().format("ddd")} ${
       flash ? dateUtils().format("HH:mm:ss") : dateUtils().format("HH mm ss")
     }`;
     setDateStr(_date);
     setFlash(!flash);
+
+    if (systemConfig.language !== "zh") return setNextVacation("");
 
     getLocalNextHoliday().then((res) => {
       const { name, rest } = res.holiday || {};
@@ -113,8 +117,14 @@ function Header() {
 function Footer() {
   // 为了这个才有 Footer 组件
   const { systemConfig } = useCacheContext();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
+    // 切换主题
     document.startViewTransition(changeSystemTheme);
+    // 切换时间语言
+    changeDateLocale(systemConfig.language);
+    // 切换语言
+    i18n.changeLanguage(systemConfig.language);
   }, [systemConfig]);
 
   function changeSystemTheme() {
@@ -146,15 +156,20 @@ function Footer() {
     <footer className='text-14px b-t flex-center justify-between px-6px text-base-content/50'>
       <span className='text-12px op-60 btn btn-xs bg-transparent b-none'>{packageJson.version}</span>
       <div className='flex gap-1 op-60'>
-        <button className='btn btn-xs bg-transparent b-none' type='button' title='源代码'>
+        <button className='btn btn-xs bg-transparent b-none' type='button' title={t("popop.sourceCode")}>
           <a
             className='i-mdi:github'
             target='_blank'
             href='https://github.com/lhf6623/BrowserPlugin'
-            title='源代码'
+            title={t("popop.sourceCode")}
           ></a>
         </button>
-        <button className=' btn btn-xs bg-transparent b-none' type='button' title='任务面板配置' onClick={goOptions}>
+        <button
+          className=' btn btn-xs bg-transparent b-none'
+          type='button'
+          title={t("popop.taskPanelConfig")}
+          onClick={goOptions}
+        >
           <i className='i-mdi:mixer-settings'></i>
         </button>
       </div>

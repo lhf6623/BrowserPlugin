@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useState, useRef, ChangeEvent, useEffect } from "react";
-
+import { useTranslation } from "react-i18next";
 interface SelectImageProps {
   multiple?: boolean;
   accept?: string;
@@ -8,6 +8,7 @@ interface SelectImageProps {
 }
 export default function SelectImage({ onChange, multiple = false, accept = "image/*" }: SelectImageProps) {
   const [isDrag, setIsDrag] = useState(false);
+  const { t } = useTranslation();
   const fileRef = useRef<HTMLInputElement | null>(null);
   const dragRef = useRef<HTMLDivElement | null>(null);
   // 加载状态
@@ -110,7 +111,7 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
         )}
       >
         <button
-          title='点击选择图片'
+          title={t("components.selectImage")}
           className={clsx(
             "w-64px h-64px",
             loading ? "i-eos-icons:three-dots-loading" : "i-mdi:file-image-plus-outline"
@@ -118,10 +119,10 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
           type='button'
         ></button>
         <p className='text-12px op-70 bg-base-100 b-base-300 text-base-content'>
-          <button className='btn-icon-info' type='button' title='点击选择图片'>
-            点击选择图片
+          <button className='btn-icon-info' type='button' title={t("components.selectImage")}>
+            {t("components.selectImage")}
           </button>
-          或者将图片拖放到这里！
+          <span>&nbsp;{t("components.dragOrDrop")}</span>
         </p>
       </div>
 
@@ -130,7 +131,7 @@ export default function SelectImage({ onChange, multiple = false, accept = "imag
       <input
         ref={fileRef}
         type='file'
-        placeholder='点击选择图片'
+        placeholder={t("components.selectImage")}
         accept={accept}
         multiple={multiple}
         onChange={handleFileChange}

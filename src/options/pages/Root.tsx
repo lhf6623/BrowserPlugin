@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import themes from "../../assets/themes.json";
 import { CacheProvider, useCacheContext } from "@/hooks/CacheContext";
+import { useTranslation } from "react-i18next";
+import { changeDateLocale } from "@/utils/dateUtils";
+import { langList } from "@/assets/language";
 
 export default function Layout() {
   const [isSm, setIsSm] = useState(false);
   const routerList = useCurrRouters("/");
+  const { t } = useTranslation();
 
   return (
     <CacheProvider>
@@ -22,7 +26,8 @@ export default function Layout() {
             ></button>
           </div>
           <div className='flex items-center'>
-            <ThemeButton></ThemeButton>
+            <ThemeButton />
+            <LanguageButton />
           </div>
         </div>
         {isSm && <div onClick={() => setIsSm(false)} className='fixed top-0 left-0 w-full h-full z-20'></div>}
@@ -46,7 +51,7 @@ export default function Layout() {
                     });
                   }}
                 >
-                  {name}
+                  {t(name)}
                 </NavLink>
               );
             })}
@@ -60,9 +65,59 @@ export default function Layout() {
   );
 }
 
+function LanguageButton() {
+  const { systemConfig, setSystemConfig } = useCacheContext();
+  const { t, i18n } = useTranslation();
+
+  function handleLanguageChange(language: SystemConfigType["language"]) {
+    setSystemConfig({
+      ...systemConfig,
+      language,
+    });
+  }
+  useEffect(() => {
+    const { language } = systemConfig;
+    i18n.changeLanguage(language);
+    document.documentElement.setAttribute("lang", language);
+    changeDateLocale(language);
+  }, [systemConfig.language]);
+
+  return (
+    <div className='dropdown dropdown-end dropdown-bottom'>
+      <div tabIndex={0} className='btn m-1 btn-xs btn-ghost' style={{ textTransform: "none" }}>
+        <i className='i-mdi-translate'></i>
+        <i className='i-ep-arrow-down'></i>
+      </div>
+      <div
+        tabIndex={0}
+        className='dropdown-content grid grid-cols-1 gap-1 p-3 shadow bg-base-200 rounded-sm w-20 h-fit max-h-96'
+      >
+        {langList.map((item) => {
+          const text = item.label;
+          return (
+            <button
+              title={t("language.switchTo", { language: text })}
+              key={item.value}
+              className={clsx("btn btn-xs btn-icon-info", {
+                "!bg-base-100 !text-base-content": item.value === systemConfig.language,
+              })}
+              onClick={() => handleLanguageChange(item.value)}
+              type='button'
+              style={{ textTransform: "none" }}
+            >
+              {text}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function ThemeButton() {
   const [systemTheme, setSystemTheme] = useState("light");
   const { systemConfig, setSystemConfig } = useCacheContext();
+  const { t } = useTranslation();
 
   function handleThemeChange(_theme: string) {
     setSystemConfig({
@@ -92,6 +147,8 @@ function ThemeButton() {
       window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", changeSystemTheme);
     };
   }, []);
+
+  const localThemes = Object.entries(themes);
   return (
     <div className='dropdown dropdown-end dropdown-bottom'>
       <div tabIndex={0} className='btn m-1 btn-xs btn-ghost' style={{ textTransform: "none" }}>
@@ -105,49 +162,54 @@ function ThemeButton() {
       </div>
       <div
         tabIndex={0}
-        className='dropdown-content grid grid-cols-1 gap-3 p-3 z-[1]  p-2 shadow bg-base-200 rounded-box max-h-300px overflow-auto w-56 h-[70vh] max-h-96'
+        className='dropdown-content shadow bg-base-200 rounded-box overflow-hidden w-56 h-[70vh] max-h-96'
       >
-        <button
-          title='主题跟随系统'
-          data-theme={systemTheme}
-          className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
-          onClick={() => handleThemeChange("system")}
-          type='button'
-        >
-          <span className='w-10 h-full rounded-full inline-block'>
-            {systemConfig.theme === "system" && <i className='i-ep-select'></i>}
-          </span>
-          <span className='flex-1 h-full rounded-full'>system</span>
-          <span className='h-full w-10 rounded-full flex items-center justify-center *:h-full *:w-2 *:inline-block *:rounded gap-1px'>
-            <span className='bg-primary'></span>
-            <span className='bg-secondary'></span>
-            <span className='bg-accent'></span>
-            <span className='bg-neutral'></span>
-          </span>
-        </button>
-        {themes.map((item) => {
-          return (
-            <button
-              title={`切换到 ${item} 主题`}
-              data-theme={item}
-              key={item}
-              className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
-              onClick={() => handleThemeChange(item)}
-              type='button'
-            >
-              <span className='w-10 h-full rounded-full inline-block'>
-                {systemConfig.theme === item && <i className='i-ep-select'></i>}
-              </span>
-              <span className='flex-1 h-full rounded-full'>{item}</span>
-              <span className='h-full w-10 rounded-full flex items-center justify-center *:h-full *:w-2 *:inline-block *:rounded gap-1px'>
-                <span className='bg-primary'></span>
-                <span className='bg-secondary'></span>
-                <span className='bg-accent'></span>
-                <span className='bg-neutral'></span>
-              </span>
-            </button>
-          );
-        })}
+        <div className='h-full overflow-auto grid grid-cols-1 gap-3 p-3 z-[1] p-2'>
+          <button
+            title={t("theme.followSystem")}
+            data-theme={systemTheme}
+            className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
+            onClick={() => handleThemeChange("system")}
+            type='button'
+          >
+            <span className='w-10 h-full rounded-full inline-block'>
+              {systemConfig.theme === "system" && <i className='i-ep-select'></i>}
+            </span>
+            <span className='flex-1 h-full rounded-full text-ellipsis overflow-hidden whitespace-nowrap'>
+              {t("theme.followSystem")}
+            </span>
+            <span className='h-full w-10 rounded-full flex items-center justify-center *:h-full *:w-2 *:inline-block *:rounded gap-1px'>
+              <span className='bg-primary'></span>
+              <span className='bg-secondary'></span>
+              <span className='bg-accent'></span>
+              <span className='bg-neutral'></span>
+            </span>
+          </button>
+          {localThemes.map(([key, item]) => {
+            const text = item[systemConfig.language];
+            return (
+              <button
+                title={t("theme.switchTo", { theme: text })}
+                data-theme={key}
+                key={key}
+                className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
+                onClick={() => handleThemeChange(key)}
+                type='button'
+              >
+                <span className='w-10 h-full rounded-full inline-block'>
+                  {systemConfig.theme === key && <i className='i-ep-select'></i>}
+                </span>
+                <span className='flex-1 h-full rounded-full'>{text}</span>
+                <span className='h-full w-10 rounded-full flex items-center justify-center *:h-full *:w-2 *:inline-block *:rounded gap-1px'>
+                  <span className='bg-primary'></span>
+                  <span className='bg-secondary'></span>
+                  <span className='bg-accent'></span>
+                  <span className='bg-neutral'></span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

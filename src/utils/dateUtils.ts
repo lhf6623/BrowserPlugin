@@ -1,4 +1,6 @@
 import dayjs, { ManipulateType } from "dayjs";
+import { langList } from "@/assets/language";
+import "dayjs/locale/en";
 import "dayjs/locale/zh-cn";
 
 // 是否相同或之前
@@ -7,12 +9,14 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import relativeTime from "dayjs/plugin/relativeTime";
 // WeekDay 增加了 .weekday() API 来获取或设置当前语言的星期。
 import weekday from "dayjs/plugin/weekday";
+import localizedFormat from "dayjs/plugin/localizedFormat"; // ES 2015
 
 dayjs.locale("zh-cn");
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(relativeTime);
 dayjs.extend(weekday);
+dayjs.extend(localizedFormat);
 
 /**
  * 原始时间范围 根据 taskType 字段获取时间范围
@@ -56,7 +60,7 @@ export function getDateStyle(date: number) {
 
   // 相差小于一天
   if (diff < 24 * 60 * 60 * 1000) {
-    return dayjs(date).format("H时m分s秒");
+    return dayjs(date).format("HH:mm:ss");
   }
   // 如果于当前时间相隔一个星期，只显示星期
   if (diff < 7 * 24 * 60 * 60 * 1000) {
@@ -64,10 +68,15 @@ export function getDateStyle(date: number) {
   }
   // 如果小于一个月，只显示日期
   if (diff < 30 * 24 * 60 * 60 * 1000) {
-    return dayjs(date).format("M月D号");
+    return dayjs(date).format("MMMM D");
   }
   // 其余显示日期
-  return dayjs(date).format("YYYY年M月D号");
+  return dayjs(date).format("LL");
+}
+
+export function changeDateLocale(language: SystemConfigType["language"]) {
+  const dateLng = langList.find((item) => item.value === language);
+  dayjs.locale(dateLng?.dateLng);
 }
 
 export default dayjs;

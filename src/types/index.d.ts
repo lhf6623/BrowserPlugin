@@ -28,7 +28,7 @@ declare global {
 
   type SystemConfigType = {
     theme: string;
-    language: string;
+    language: "zh" | "en";
   };
   interface HolidayRequertData {
     code: 0 | -1;

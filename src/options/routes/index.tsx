@@ -16,32 +16,32 @@ export const routes = [
     children: [
       {
         path: "/",
-        name: "任务设置",
+        name: "routes.taskSettings",
         element: <GeneralSettings />,
       },
       {
         path: "/ImageProcessing",
-        name: "图片工具",
+        name: "routes.imageTool",
         element: <ImageProcessing />,
         children: [
           {
             path: "/ImageProcessing",
-            name: "压缩",
+            name: "routes.compress",
             element: <Compress />,
           },
           {
             path: "/ImageProcessing/CutOut",
-            name: "剪裁",
+            name: "routes.cutOut",
             element: <CutOut />,
           },
           {
             path: "/ImageProcessing/ImageToText",
-            name: "Tauri icon 生成",
+            name: "routes.tauriIcons",
             element: <TauriIcons />,
           },
           {
             path: "/ImageProcessing/Base64ToImg",
-            name: "Base64和图片互转",
+            name: "routes.base64ToImg",
             element: <Base64ToImg />,
           },
         ],
