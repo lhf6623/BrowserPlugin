@@ -21,11 +21,13 @@ export const defaultConfig: PopupConfigType = {
   showTotal: true,
 };
 
+const language = chrome.i18n.getUILanguage().includes("zh") ? "zh" : "en";
+
 // 系统配置
 export const SYSTEM_CONFIG_KEY = "SYSTEM_CONFIG_KEY";
 export const defaultSystemConfig: SystemConfigType = {
   theme: "system",
-  language: "zh",
+  language,
 };
 
 // 假期配置

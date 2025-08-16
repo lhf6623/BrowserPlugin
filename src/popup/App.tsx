@@ -1,10 +1,12 @@
 import packageJson from "../../package.json";
-import dateUtils, { getDateRange, getDateStyle, changeDateLocale } from "@/utils/dateUtils";
+import dateUtils, { getDateRange, getDateStyle } from "@/utils/dateUtils";
 import { hexToHsl, taskTypeColor } from "@/utils";
 import { useState, useEffect } from "react";
 import useTime from "@/hooks/useTime";
 import { CacheProvider, useCacheContext } from "@/hooks/CacheContext";
 import { useTranslation } from "react-i18next";
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
+import { useThemeSwitcher } from "@/hooks/useThemeSwitcher";
 
 export default function App() {
   return (
@@ -113,33 +115,10 @@ function Header() {
   );
 }
 function Footer() {
-  const { systemConfig } = useCacheContext();
-  const { t, i18n } = useTranslation();
-  useEffect(() => {
-    // 切换主题
-    document.startViewTransition(changeSystemTheme);
-    // 切换时间语言
-    changeDateLocale(systemConfig.language);
-    // 切换语言
-    i18n.changeLanguage(systemConfig.language);
-  }, [systemConfig]);
+  useLanguageSwitcher();
+  useThemeSwitcher();
 
-  function changeSystemTheme() {
-    let { theme } = systemConfig;
-    if (theme === "system") {
-      theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    document.documentElement.setAttribute("data-theme", theme);
-    document.documentElement.setAttribute("class", theme);
-  }
-  useEffect(() => {
-    // 监听系统主题变化
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", changeSystemTheme);
-
-    return () => {
-      window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", changeSystemTheme);
-    };
-  }, []);
+  const { t } = useTranslation();
 
   function goOptions() {
     if (chrome.runtime?.openOptionsPage) {

@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "工具箱 - 基于浏览器API制作",
+    "description": "工具箱 - 基于浏览器API制作"
+  },
+  "extDescription": {
+    "message": "任务提醒、图片工具",
+    "description": "小工具 基于浏览器API制作, 图片压缩, 图片剪裁, tauri icon 图片剪裁, base64与图片互转"
+  },
+  "extAction": {
+    "message": "工具箱",
+    "description": "工具箱"
+  }
+}

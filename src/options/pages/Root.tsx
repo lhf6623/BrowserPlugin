@@ -1,12 +1,13 @@
 import useCurrRouters from "@/hooks/useCurrRouters";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import themes from "../../assets/themes.json";
-import { CacheProvider, useCacheContext } from "@/hooks/CacheContext";
+import { CacheProvider } from "@/hooks/CacheContext";
 import { useTranslation } from "react-i18next";
-import { changeDateLocale } from "@/utils/dateUtils";
 import { langList } from "@/assets/language";
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
+import { useThemeSwitcher } from "@/hooks/useThemeSwitcher";
 
 export default function Layout() {
   const [isSm, setIsSm] = useState(false);
@@ -66,21 +67,8 @@ export default function Layout() {
 }
 
 function LanguageButton() {
-  const { systemConfig, setSystemConfig } = useCacheContext();
-  const { t, i18n } = useTranslation();
-
-  function handleLanguageChange(language: SystemConfigType["language"]) {
-    setSystemConfig({
-      ...systemConfig,
-      language,
-    });
-  }
-  useEffect(() => {
-    const { language } = systemConfig;
-    i18n.changeLanguage(language);
-    document.documentElement.setAttribute("lang", language);
-    changeDateLocale(language);
-  }, [systemConfig.language]);
+  const { systemConfig, applyLanguage } = useLanguageSwitcher();
+  const { t } = useTranslation();
 
   return (
     <div className='dropdown dropdown-end dropdown-bottom'>
@@ -101,7 +89,7 @@ function LanguageButton() {
               className={clsx("btn btn-xs btn-icon-info", {
                 "!bg-base-100 !text-base-content": item.value === systemConfig.language,
               })}
-              onClick={() => handleLanguageChange(item.value)}
+              onClick={() => applyLanguage(item.value)}
               type='button'
               style={{ textTransform: "none" }}
             >
@@ -115,40 +103,11 @@ function LanguageButton() {
 }
 
 function ThemeButton() {
-  const [systemTheme, setSystemTheme] = useState("light");
-  const { systemConfig, setSystemConfig } = useCacheContext();
+  const { systemConfig, systemAutoTheme, setTheme } = useThemeSwitcher();
   const { t } = useTranslation();
 
-  function handleThemeChange(_theme: string) {
-    setSystemConfig({
-      ...systemConfig,
-      theme: _theme,
-    });
-  }
-
-  useEffect(() => {
-    document.startViewTransition(changeSystemTheme);
-  }, [systemConfig]);
-
-  function changeSystemTheme() {
-    let { theme } = systemConfig;
-    if (theme === "system") {
-      theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      setSystemTheme(theme);
-    }
-    document.documentElement.setAttribute("data-theme", theme);
-    document.documentElement.setAttribute("class", theme);
-  }
-  useEffect(() => {
-    // 监听系统主题变化
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", changeSystemTheme);
-
-    return () => {
-      window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", changeSystemTheme);
-    };
-  }, []);
-
   const localThemes = Object.entries(themes);
+
   return (
     <div className='dropdown dropdown-end dropdown-bottom'>
       <div tabIndex={0} className='btn m-1 btn-xs btn-ghost' style={{ textTransform: "none" }}>
@@ -167,9 +126,9 @@ function ThemeButton() {
         <div className='h-full overflow-auto grid grid-cols-1 gap-3 p-3 z-[1] p-2'>
           <button
             title={t("theme.followSystem")}
-            data-theme={systemTheme}
+            data-theme={systemAutoTheme}
             className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
-            onClick={() => handleThemeChange("system")}
+            onClick={() => setTheme("system")}
             type='button'
           >
             <span className='w-10 h-full rounded-full inline-block'>
@@ -193,7 +152,7 @@ function ThemeButton() {
                 data-theme={key}
                 key={key}
                 className='flex items-center justify-center rounded-md p-2 gap-2 bg-base-100'
-                onClick={() => handleThemeChange(key)}
+                onClick={() => setTheme(key)}
                 type='button'
               >
                 <span className='w-10 h-full rounded-full inline-block'>

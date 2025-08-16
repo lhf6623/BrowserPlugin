@@ -4,9 +4,10 @@ import packageJson from "./package.json";
 export default defineManifest(async (_env) => {
   return {
     manifest_version: 3,
-    name: "工具箱 - 基于浏览器API制作",
-    description: "基于浏览器API制作，图片压缩，base64，图片剪裁，tauri 图片剪裁，base64与图片互转",
+    name: "__MSG_extName__",
+    description: "__MSG_extDescription__",
     version: packageJson.version,
+    default_locale: "zh_CN",
     icons: {
       "16": "image/icon16.png",
       "32": "image/icon32.png",
@@ -14,7 +15,7 @@ export default defineManifest(async (_env) => {
       "128": "image/icon128.png",
     },
     action: {
-      default_title: "工具箱",
+      default_title: "__MSG_extAction__",
       default_popup: "popup.html",
       default_icon: {
         "16": "image/icon16.png",

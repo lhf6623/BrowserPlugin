@@ -1,6 +1,9 @@
 {
   "en": {
     "translation": {
+      "html": {
+        "title": "Toolbox - Based on Browser API"
+      },
       "theme": {
         "followSystem": "Follow System",
         "switchTo": "Switch to {{theme}} theme"
@@ -122,6 +125,9 @@
   },
   "zh": {
     "translation": {
+      "html": {
+        "title": "工具箱 - 基于浏览器API制作"
+      },
       "theme": {
         "followSystem": "跟随系统",
         "switchTo": "切换到{{theme}}主题"

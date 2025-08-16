@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "Toolbox - Browser API",
+    "description": "Toolbox - Browser API"
+  },
+  "extDescription": {
+    "message": "Task Reminder、Image Tools",
+    "description": "Made with browser APIs, image compression, image cropping, Tauri icon image cropping, and Base64-image conversion"
+  },
+  "extAction": {
+    "message": "Tools",
+    "description": "Tools"
+  }
+}
