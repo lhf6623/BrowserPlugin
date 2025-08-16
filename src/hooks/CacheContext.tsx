@@ -41,6 +41,27 @@ const initialCache = {
   vacation: initialVacation,
 };
 
+// 这里会在组件初始化之前获取缓存数据
+cache.getAllLocal().then(async (data) => {
+  initialCache.taskList = data[TASK_LIST_KEY] || defaultList;
+  initialCache.taskConfig = data[TASK_CONFIG_KEY] || defaultConfig;
+  initialCache.systemConfig = data[SYSTEM_CONFIG_KEY] || defaultSystemConfig;
+  initialCache.vacation = data[VACATION_KEY] || initialVacation;
+
+  if (!data[TASK_LIST_KEY]) {
+    await cache.setItem(TASK_LIST_KEY, defaultList);
+  }
+  if (!data[TASK_CONFIG_KEY]) {
+    await cache.setItem(TASK_CONFIG_KEY, defaultConfig);
+  }
+  if (!data[SYSTEM_CONFIG_KEY]) {
+    await cache.setItem(SYSTEM_CONFIG_KEY, defaultSystemConfig);
+  }
+  if (!data[VACATION_KEY]) {
+    await cache.setItem(VACATION_KEY, initialVacation);
+  }
+});
+
 // Reducer 函数
 function tasksReducer(state: typeof initialCache, action: ActionType) {
   switch (action.type) {
@@ -91,18 +112,6 @@ export function CacheProvider({ children }: { children: ReactNode }) {
           vacation: data[VACATION_KEY] || initialVacation,
         },
       });
-      if (!data[TASK_LIST_KEY]) {
-        cache.setItem(TASK_LIST_KEY, defaultList);
-      }
-      if (!data[TASK_CONFIG_KEY]) {
-        cache.setItem(TASK_CONFIG_KEY, defaultConfig);
-      }
-      if (!data[SYSTEM_CONFIG_KEY]) {
-        cache.setItem(SYSTEM_CONFIG_KEY, defaultSystemConfig);
-      }
-      if (!data[VACATION_KEY]) {
-        cache.setItem(VACATION_KEY, initialVacation);
-      }
     }
 
     initializeCache();

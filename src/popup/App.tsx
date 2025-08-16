@@ -91,10 +91,8 @@ function Header() {
   }
 
   useEffect(() => {
-    const _date = `${dateUtils().format("MMMM D")} ${dateUtils().format("ddd")} ${
-      flash ? dateUtils().format("HH:mm:ss") : dateUtils().format("HH mm ss")
-    }`;
-    setDateStr(_date);
+    const dateStr = `${dateUtils().format(flash ? "MMMM D ddd HH:mm:ss" : "MMMM D ddd HH mm ss")}`;
+    setDateStr(dateStr);
     setFlash(!flash);
 
     if (systemConfig.language !== "zh") return setNextVacation("");
@@ -115,7 +113,6 @@ function Header() {
   );
 }
 function Footer() {
-  // 为了这个才有 Footer 组件
   const { systemConfig } = useCacheContext();
   const { t, i18n } = useTranslation();
   useEffect(() => {
